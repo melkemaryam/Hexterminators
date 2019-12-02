@@ -1,0 +1,2 @@
+class Insurance:
+    print("Hello")

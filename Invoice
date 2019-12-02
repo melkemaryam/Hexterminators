@@ -1,0 +1,2 @@
+class Invoice:
+    print("Hello")
