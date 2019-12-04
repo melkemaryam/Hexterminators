@@ -22,3 +22,8 @@ class Invoice:
 
 ##eliminate multiple entries of same ID
 ##if monies==0 generate email "we realised you didn't rent any tools this month, are all your project now done?"
+=======
+    print("Hello")
+    print("Hi test")
+    print("Hi again")
+>>>>>>> 63b84d8bab353861d0dd5f7d8615361e6ed76d92
