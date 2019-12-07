@@ -38,7 +38,7 @@ class Invoice:
         cursor = database_connection.cursor()
         #cursor creation for talking to db
 
-        cursor.execute('SELECT tool_ID, tool_name, price, duration, customer_id FROM tool WHERE customer_id= ?'), (customer_id,))
+        cursor.execute('SELECT tool_ID, tool_name, price, duration, customer_id FROM tool WHERE customer_id= ?'), (theCustomer.customer_id,))
         tool_row=cursor.fetchall()
         for tool in tool_rows:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
