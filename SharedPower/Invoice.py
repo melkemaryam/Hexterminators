@@ -13,8 +13,7 @@ class Invoice:
         self.price = price
         self.duration = duration
 
-    def getData(database_filename):
-        theCustomer = None
+    def getData(self, database_filename):
         database_connection = sqlite3.connect(database_filename)
         #estabilishing a db connection
 
@@ -38,7 +37,7 @@ class Invoice:
         return customer_id, customer_forename, customer_surname, customer_email
         #presenting the Customer back to us
 
-    def getTool(database_filename):
+    def getTool(self, database_filename):
         rental_list = ['Tool Name', 'Day Price', 'Rental Duration', 'Total Price']
         database_connection = sqlite3.connect(database_filename)
         #estabilishing a db connection
@@ -46,7 +45,7 @@ class Invoice:
         cursor = database_connection.cursor()
         #cursor creation for talking to db
 
-        cursor.execute('SELECT tool_name, price, duration, customer_id FROM tool WHERE customer_id= ?'), (theCustomer.customer_id,))
+        cursor.execute('SELECT tool_name, price, duration, customer_id FROM tool WHERE customer_id= ?'), (customer_id,)
         tool_row=cursor.fetchall()
         for tool in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
