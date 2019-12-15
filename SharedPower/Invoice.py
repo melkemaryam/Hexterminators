@@ -115,7 +115,7 @@ class Invoice:
 
         msg = MIMEMultipart()       #create a message
 
-        message = Invoice.generate_invoice(invoice_table, customer_forename, customer_surname)
+        message = generate_invoice(invoice_table, customer_forename, customer_surname)
 
         msg['From']=MY_ADDRESS
         msg['To']= customer_email
