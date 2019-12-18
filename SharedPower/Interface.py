@@ -1,32 +1,32 @@
 class Interface:
 
-	def checkAccount():
+	def checkAccount(self):
 
-		haveAccount = input("Welcome to SharedPower. \nDo you already haven an account? 1: Yes or 0: No \n")
+		haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 0: No \n")
 
 		if haveAccount == 1:
 			# check wether username already exists in the database
-			usernameInputSI = raw_input("Please enter your username:\n")
+			usernameInputSI = input("Please enter your username:\n")
 
 			while usernameInputSI == "":
-				usernameInputSI = raw_input("Please try again and enter your username:\n")
+				usernameInputSI = input("Please try again and enter your username:\n")
 				
-			passwordInputSI = raw_input("Please enter the password:\n")	
+			passwordInputSI = input("Please enter the password:\n")	
 			# check wether password is correct in the database
 				
 			while passwordInputSI == "":
-				passwordInputSI = raw_input("Please try again:\n")
+				passwordInputSI = input("Please try again:\n")
 
 			#if passwordInputSI != passwordInputSU:
 			#	forgotPassword = input("Did you forget your password? 1:Yes or 0:No\n")
 			#
 			#	if forgotPassword == 1:
 					#-> reset password in DB
-			#		usernameInputSU = raw_input("Please enter a new password\n")
+			#		usernameInputSU = input("Please enter a new password\n")
 					#save new passord in the DB
 
 			#	else:
-			#	 	passwordInputSI = raw_input("Please enter the password\n")
+			#	 	passwordInputSI = input("Please enter the password\n")
 
 
 
@@ -34,58 +34,76 @@ class Interface:
 			# check availability of the username
 
 			#while usernameInputSU is already in Database:
-			usernameInputSU = raw_input("Please sign up here.\nPlease come up with an unique username:\n")
+			usernameInputSU = input("Please sign up here.\nPlease come up with an unique username:\n")
 
 			while usernameInputSU == "":
-				usernameInputSU = raw_input("Please try again:\n")
+				usernameInputSU = input("Please try again:\n")
 				
 			#if usernameInputSU == already in Database:
+			#	usernameInputSU = input("Please try again:\n")
 
-			passwordInputSU = raw_input("Please enter a safe password:\n")
+			passwordInputSU = input("Please enter a safe password:\n")
 
 			while passwordInputSU == "":
-				passwordInputSU = raw_input("Please try again:\n")
+				passwordInputSU = input("Please try again:\n")
 				
 			#save password in Database with username
 
-			firstNameInputSU = raw_input("Please enter your first name:\n")
+			firstNameInputSU = input("Please enter your first name:\n")
 
 			while firstNameInputSU == "":
-				firstNameInputSU = raw_input("Please try again:\n")
+				firstNameInputSU = input("Please try again:\n")
 
 			#save in DB
 
-			lastNameInputSU = raw_input("Please enter your last name:\n")
+			lastNameInputSU = input("Please enter your last name:\n")
 
 			while lastNameInputSU == "":
-				lastNameInputSU = raw_input("Please try again:\n")
+				lastNameInputSU = input("Please try again:\n")
 
 			#save in DB
 
-			bankDetailsInputSU = raw_input("Please enter your bank details:\n")
+			print("Please enter your bank details:\n")
+			StreetInputSU = input("Street name:\n")
+			while StreetInputSU == "":
+    				StreetInputSU = input("Please try again:\n")
 
-			while bankDetailsInputSU == "":
-				bankDetailsInputSU = raw_input("Please try again:\n")
+			StreetNumberInputSU = input("Street number:\n")
+			while StreetNumberInputSU == "":
+    				StreetNumberInputSU	= input("Please try again:\n")
+
+			ZipCodeInputSU = input("Zip Code:\n")
+			while ZipCodeInputSU == "":
+    				ZipCodeInputSU = input("Please try again:\n")
+
+			SortCodeInputSU = input("Sort Code:\n")
+			while SortCodeInputSU == "":
+    				SortCodeInputSU = input("Please try again:\n")
+
+			AccountNumberInputSU = input("Account Number:\n")
+			while AccountNumberInputSU == "":
+    				AccountNumberInputSU = input("Please try again:\n")
 
 			#add several different bank details and add to the DB
+			#bank details: Street, number, Zipcode, Sort code, account number
 
-			emailInputSU = raw_input("Last but not least, we need your email address for verification:\n")
+			emailInputSU = input("Last but not least, we need your email address for verification:\n")
 
 			while emailInputSU == "":
-				emailInputSU = raw_input("Please try again:\n")
+				emailInputSU = input("Please try again:\n")
 
 			#create complete account in DB and send a verification email
 
-	#if haveAccount != 1 or 0:
-		#account()
+		#if haveAccount != 1 or 0:
+			#checkAccount()
 
 
 
 	#load DB
 
-	def action():
+	def action(self):
 		
-		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3: Inquire an item\n")
+		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3: Inquire an item\n 4: Mark availability of one of your items\n")
 
 		if chooseAction == 1:
 
@@ -99,41 +117,43 @@ class Interface:
 			chooseCategoryAdd = input("Please choose the category of the item that you want to add:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
 
 			#save all the data in the DB with assigned toolId
-			toolName = raw_input("Please enter the full name of your tool:")
-			typeName = raw_input("Please enter the type of the item:")
-			descriptionTool = raw_input("Please enter a short description that also displays the condition and size of your tool:")
-			dayPriceTool = float(input("Please enter the price in Pounds for a day rent"))
-			halfDayPriceTool = float(input("Please enter the price in Pounds for half a day"))
-			#availabilityTool = date
+			toolName = input("Please enter the full name of your tool:\n")
+			typeName = input("Please enter the type of the item:\n")
+			descriptionTool = input("Please enter a short description that also displays the condition and size of your tool:\n")
+			dayPriceTool = float(input("Please enter the price in Pounds for a day rent\n"))
+			halfDayPriceTool = float(input("Please enter the price in Pounds for half a day\n"))
+			availabilityTool = input("Please enter the start and the end date of the availability of this particular tool: dd.mm.yyyy - dd.mm.yyyy\n")
 
 			#after setting all up -> mark availibilty
 
-			photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 2: No") 
+			photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
 			if photoUploadTool == 1: 
-				#upload photo aus desktop folder
-
-			#print("Thank you verry much. Your new tool has been added to our Database.")
+				#upload photo from desktop folder
+				print("Thank you very much. Your new tool with the photo has been added to our Database.")
+			else:
+				print("Thank you very much. Your new tool has been added to our Database.")
 
 		if chooseAction == 2:
-    		chooseCategoryRent = input("Please choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
-			if chooseCategory == 1:
+    			
+			chooseCategoryRent = input("Please choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
+			if chooseCategoryRent == 1:
 				#list of all the measuring tools in the DB plus amount of pieces of each tool
-				chooseTool = raw_input("Please enter the name of the tool you want to rent\n")
+				chooseTool = input("Please enter the name of the tool you want to rent\n")
 
 
-			if chooseCategory == 2:
+			if chooseCategoryRent == 2:
 				#list of all the shaping tools in the DB plus amount of pieces of each tool
-				chooseTool = raw_input("Please enter the name of the tool you want to rent\n")
+				chooseTool = input("Please enter the name of the tool you want to rent\n")
 
-			if chooseCategory == 3:
+			if chooseCategoryRent == 3:
 				#list of all the fastening tools in the DB plus amount of pieces of each tool
-				chooseTool = raw_input("Please enter the name of the tool you want to rent\n")
+				chooseTool = input("Please enter the name of the tool you want to rent\n")
 
-			if chooseCategory == 4:
+			if chooseCategoryRent == 4:
 				#list of all the mechanical tools in the DB plus amount of pieces of each tool
-				chooseTool = raw_input("Please enter the name of the tool you want to rent\n")
+				chooseTool = input("Please enter the name of the tool you want to rent\n")
 
-			if chooseCategory != 1 or 2 or 3 or 4:
+			if chooseCategoryRent != 1 or 2 or 3 or 4:
 				chooseCategoryRent = input("Your Input was invalid. Please try to enter it again and choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
 
 
