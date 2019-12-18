@@ -18,6 +18,7 @@ class Invoice:
         self.customer_forename = customer_forename
         self.customer_surname = customer_surname
         self.customer_email = customer_email
+        self.tool_ID = tool_ID
         self.tool_name = tool_name
         self.price = price
         self.duration = duration
