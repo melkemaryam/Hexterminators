@@ -6,8 +6,8 @@
 
 #basic things to use:
 
-#raw_input is the same as input(), the only difference is: raw_input was for string inputs in Python, but  that was Python version 2.x
-#-> it is better to use only input(), I was just so used to raw_input
+#if you want to get something from the user, please use input() and convert it into the right data type, raw_input does not work here
 
-#AND: Please your variable names wisely, so everyone knows what they mean
+#AND: Please choose your variable names wisely, so everyone knows what they mean
 #AND: Please write comments describing what the function does: #comments
+#AND: if something does not work, you can just make a comment block out of it, so you do not have to delete it

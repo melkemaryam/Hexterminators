@@ -1,4 +1,20 @@
+import sqlite3
+
 class Interface:
+    	
+	def __init__(self,usernameInputSI, usernameInputSU, passwordInputSI, passwordInputSU, firstNameInputSU, lastNameInputSU, streetInputSU, streetNumberInputSU, zipCodeInputSU, sortCodeInputSU, accountNumberInputSU, emailInputSU):
+		self.usernameInputSI = usernameInputSI
+		self.usernameInputSU = usernameInputSU
+		self.passwordInputSI = passwordInputSI
+		self.passwordInputSU = passwordInputSU
+		self.firstNameInputSU = firstNameInputSU
+		self.lastNameInputSU = lastNameInputSU
+		self.streetInputSU = streetInputSU
+		self.streetNumberInputSU = streetNumberInputSU
+		self.zipCodeInputSU = zipCodeInputSU
+		self.sortCodeInputSU = sortCodeInputSU
+		self.accountNumberInputSU = accountNumberInputSU
+		self.emailInputSU = emailInputSU
 
 	def checkAccount(self):
 
@@ -64,25 +80,25 @@ class Interface:
 			#save in DB
 
 			print("Please enter your bank details:\n")
-			StreetInputSU = input("Street name:\n")
-			while StreetInputSU == "":
-    				StreetInputSU = input("Please try again:\n")
+			streetInputSU = input("Street name:\n")
+			while streetInputSU == "":
+    				streetInputSU = input("Please try again:\n")
 
-			StreetNumberInputSU = input("Street number:\n")
-			while StreetNumberInputSU == "":
-    				StreetNumberInputSU	= input("Please try again:\n")
+			streetNumberInputSU = input("Street number:\n")
+			while streetNumberInputSU == "":
+    				streetNumberInputSU	= input("Please try again:\n")
 
-			ZipCodeInputSU = input("Zip Code:\n")
-			while ZipCodeInputSU == "":
-    				ZipCodeInputSU = input("Please try again:\n")
+			zipCodeInputSU = input("Zip Code:\n")
+			while zipCodeInputSU == "":
+    				zipCodeInputSU = input("Please try again:\n")
 
-			SortCodeInputSU = input("Sort Code:\n")
-			while SortCodeInputSU == "":
-    				SortCodeInputSU = input("Please try again:\n")
+			sortCodeInputSU = input("Sort Code:\n")
+			while sortCodeInputSU == "":
+    				sortCodeInputSU = input("Please try again:\n")
 
-			AccountNumberInputSU = input("Account Number:\n")
-			while AccountNumberInputSU == "":
-    				AccountNumberInputSU = input("Please try again:\n")
+			accountNumberInputSU = input("Account Number:\n")
+			while accountNumberInputSU == "":
+    				accountNumberInputSU = input("Please try again:\n")
 
 			#add several different bank details and add to the DB
 			#bank details: Street, number, Zipcode, Sort code, account number
@@ -173,3 +189,4 @@ class Interface:
 
 
 		#if chooseAction != 1 or 2 or 3:
+
