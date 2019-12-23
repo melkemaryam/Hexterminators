@@ -16,6 +16,7 @@ class Interface:
 		self.accountNumberInputSU = accountNumberInputSU
 		self.emailInputSU = emailInputSU
 
+	
 	def checkAccount(self):
 
 		haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 0: No \n")
@@ -114,6 +115,21 @@ class Interface:
 			#checkAccount()
 
 
+	def __init__(self, chooseAction, chooseCategoryAdd, toolName, typeName, descriptionTool, dayPriceTool, halfDayPriceTool, availabilityTool, photoUploadTool, chooseCategoryRent, chooseTool, lengthOfBookingInput, inquireItem):
+    	self.chooseAction = chooseAction
+		self.chooseCategoryAdd = chooseCategoryAdd
+		self.toolName = toolName
+		self.typeName = typeName
+		self.descriptionTool = descriptionTool
+		self.dayPriceTool = dayPriceTool
+		self.halfDayPriceTool = halfDayPriceTool
+		self.availabilityTool = availabilityTool
+		self.photoUploadTool = photoUploadTool
+		self.chooseCategoryRent = chooseCategoryRent
+		self.chooseTool = chooseTool
+		self.lengthOfBookingInput = lengthOfBookingInput
+		self.inquireItem = inquireItem
+
 
 	#load DB
 
@@ -183,7 +199,7 @@ class Interface:
 				lengthOfBookingInput = input("This was an invalid entry. Please try again.")
 
 		if chooseAction == 3:
-			inquireItem = input("Please choose between three different action")
+			inquireItem = input("Please choose between three different actions")
 
 
 
