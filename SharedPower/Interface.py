@@ -19,7 +19,10 @@ class Interface:
 	
 	def checkAccount(self):
 
-		haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 0: No \n")
+		haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 2: No \n")
+
+		while haveAccount.isdigit() == False:
+    		haveAccount = input("Please try again:\n")
 
 		if haveAccount == 1:
     			
@@ -49,7 +52,7 @@ class Interface:
 
 
 
-		if haveAccount == 0:
+		if haveAccount == 2:
 			
 			def signUp(self):
 				# check availability of the username
@@ -90,7 +93,7 @@ class Interface:
 						streetInputSU = input("Please try again:\n")
 
 				streetNumberInputSU = input("Street number:\n")
-				while streetNumberInputSU == "":
+				while streetNumberInputSU.isdigit() == False:
 						streetNumberInputSU	= input("Please try again:\n")
 
 				zipCodeInputSU = input("Zip Code:\n")
@@ -98,11 +101,11 @@ class Interface:
 						zipCodeInputSU = input("Please try again:\n")
 
 				sortCodeInputSU = input("Sort Code:\n")
-				while sortCodeInputSU == "":
+				while sortCodeInputSU.isdigit() == False:
 						sortCodeInputSU = input("Please try again:\n")
 
 				accountNumberInputSU = input("Account Number:\n")
-				while accountNumberInputSU == "":
+				while accountNumberInputSU.isdigit() == False:
 						accountNumberInputSU = input("Please try again:\n")
 
 				#add several different bank details and add to the DB
@@ -114,6 +117,3 @@ class Interface:
 					emailInputSU = input("Please try again:\n")
 
 				#create complete account in DB (and send a verification email)
-
-		if haveAccount != 1 or 0:
-			self.checkAccount()

@@ -105,7 +105,7 @@ class Tool:
                 toolNameInput = input("Please enter the full name of your tool:\n")
 
                 while toolNameInput == "":
-    					toolNameInput = input("Please try again:\n")
+        					toolNameInput = input("Please try again:\n")
 
                 typeNameInput = input("Please enter the type of the item:\n")
 
@@ -150,6 +150,10 @@ class Tool:
 
 
                 chooseCategoryRent = input("Please choose the category of the item you want to rent:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
+
+                while chooseCategoryRent.isdigit() == False:
+                    chooseCategoryRent = input("Please try again:\n")
+
                 if chooseCategoryRent == 1:
                     #list of all the measuring tools in the DB plus amount of pieces of each tool
                     chooseTool = input("Please enter the name of the tool you want to rent\n")
@@ -183,7 +187,7 @@ class Tool:
 		if chooseAction == 3:
 			inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")
 
-            while inquireItemInput == "":
+            while inquireItemInput.isdigit() == False:
     			inquireItemInput = input("Please try again:\n")
 
             if inquireItemInput == 1:
@@ -201,7 +205,7 @@ class Tool:
             if inquireItemInput == 4:
                 bookingIdReturnInput = input("Please enter the booking ID of the item that you want to return")
 
-                while bookingIdReturnInput == "":
+                while bookingIdReturnInput.isdigit() == False:
     				bookingIdReturnInput = input("Please try again:\n")
 
                 #check whether this ID is correct and is in the rented register of that person
