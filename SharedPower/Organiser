@@ -19,6 +19,8 @@ Tool:
 
 -searchTool()
 -action()
+    -addAnItem()
+    -rentAnItem()
 
 Owner:
 
