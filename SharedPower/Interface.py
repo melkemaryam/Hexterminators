@@ -113,7 +113,7 @@ class Interface:
 				while emailInputSU == "":
 					emailInputSU = input("Please try again:\n")
 
-				#create complete account in DB and send a verification email
+				#create complete account in DB (and send a verification email)
 
-		#if haveAccount != 1 or 0:
-			#checkAccount()
+		if haveAccount != 1 or 0:
+			self.checkAccount()
