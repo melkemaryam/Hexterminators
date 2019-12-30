@@ -211,6 +211,22 @@ class Tool:
                 #check whether this ID is correct and is in the rented register of that person
                 #check whether return is overdue
                 #if overdue -> calculate extra fee
+       
+        if chooseAction == 4:
+            
+            def markAvailability():
+
+                #show list of all tools that person owns
+                maToolInput = input("For which item do you want to change the availability state?\n")
+
+                #if state == unavailable:
+                    #state.available
+                #else:
+                    #state.unavailable
+
+
+
+
 
 
 
