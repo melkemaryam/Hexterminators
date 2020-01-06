@@ -12,15 +12,19 @@ from email.mime.text import MIMEText
 #more emailing from python stuff
 
 class Invoice:
-    def __init__(self, invoice_id, customer_id, customer_forename, customer_surname, customer_email, tool_ID, tool_name, price, duration):
+    def __init__(self, invoice_id, customer_id, customer_forename, customer_surname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table):
         self.invoice_id = invoice_id
         self.customer_id = customer_id
         self.customer_forename = customer_forename
         self.customer_surname = customer_surname
         self.customer_email = customer_email
+        self.tool_ID = tool_ID
         self.tool_name = tool_name
         self.price = price
         self.duration = duration
+        self.rental_list = rental_list
+        self.invoice_table = invoice_table
+        self.format_invoice = format_invoice
 
     def getData(self, customer_email, database_filename):
         #for finding customer in the base using email address
@@ -48,17 +52,24 @@ class Invoice:
         #presenting the Customer back to us
 
     def getTool(self, customer_id, database_filename):
-        #for getting all the tools used by customer
+        #for getting all the tools used by customer for last month
 
         rental_list = ['Tool Name', 'Day Price', 'Rental Duration', 'Total Price']
         grand_total = 0
+        date = ('01-' + str(datetime.now().month - 1) + '-' + str(datetime.now().year))
+        date_end = ('31-' + str(datetime.now().month - 1) + '-' + str(datetime.now().year))
         database_connection = sqlite3.connect(database_filename)
+        #deliveries_charge = 
+        #insurance_charge =
+        ####
+
+    
         #estabilishing a db connection
 
         cursor = database_connection.cursor()
         #cursor creation for talking to db
 
-        cursor.execute('SELECT tool_name, price, duration, customer_id FROM tool WHERE customer_id= ?'), (customer_id,)
+        cursor.execute('SELECT tool_name, price, duration, customer_id FROM tool WHERE customer_id= ? AND date=< ? AND date=<'), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
         for tool in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
@@ -68,7 +79,7 @@ class Invoice:
             price = tool[2]
             duration = tool[3]
             total_price = int(price) * int(duration)
-            grand_total = grand_total + total_price
+            grand_total = grand_total + total_price + deliveries_charge + insurance_charge
             rental_list.append(tool_name, price, duration, total_price)
             #rental lines creation based on retrieved data
 
@@ -101,7 +112,7 @@ class Invoice:
         return format_invoice
         #e voila!
     
-    def send_invoice(self, invoice_table, customer_forename, customer_surname, customer_email, format_invoice, customer_info):
+    def send_invoice(self, customer_email, format_invoice):
         #now for sending the bitch away >.<
 
         MY_ADDRESS = 'breo.Piotr.Hexterminators@study.beds.ac.uk'
@@ -115,7 +126,7 @@ class Invoice:
 
         msg = MIMEMultipart()       #create a message
 
-        message = generate_invoice(invoice_table, customer_forename, customer_surname)
+        message = format_invoice
 
         msg['From']=MY_ADDRESS
         msg['To']= customer_email
