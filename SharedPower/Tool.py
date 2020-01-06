@@ -149,7 +149,7 @@ class Tool:
                 #def rentAnItem(self):
 
 
-                chooseCategoryRent = input("Please choose the category of the item you want to rent:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
+                chooseCategoryRent = input("Please choose the category of the item you want to rent:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n 5: cutting\n")
 
                 while chooseCategoryRent.isdigit() == False:
                     chooseCategoryRent = input("Please try again:\n")
@@ -171,6 +171,10 @@ class Tool:
                     #list of all the mechanical tools in the DB plus amount of pieces of each tool
                     chooseTool = input("Please enter the name of the tool you want to rent\n")
 
+		if chooseCategoryRent == 5:
+			#list of all the cutting tools in the DB plus amount of peices of each tool
+			chooseTool = input("Please enter the name of the tool you want to rent\n")
+			
                 if chooseCategoryRent != 1 or 2 or 3 or 4:
                     chooseCategoryRent = input("Your Input was invalid. Please try to enter it again and choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n")
 
