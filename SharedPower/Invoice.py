@@ -162,14 +162,40 @@ class Invoice:
         return mailing_list
         #presenting the Customer list back to us
     
+    
+    
+    ###to be moved to a new class - monthly scheduled invoicing
+    import invoice
+    #for the invoicing
+    import pause
+    #for scheduling invoicing
+    import datetime
+    
     def run_month(self, database_filename):
-        getList(database_filename)
+        invoice.getList(database_filename)
+        #constructing library of email invoices should be sent to
         length = len(mailing_list)
         
         for i in range(length):
-            getData(mailing_list)
-            getTool(mailing_list)
-            cut_list(mailing_list)
-            generate_invoice(mailing_list)
-            send_invoice(mailing_list)
+            #for each email in the database
+            invoice.getData(mailing_list)
+            #get customer data
+            invoice.getTool(mailing_list)
+            #get their bookings data
+            invoice.cut_list(mailing_list)
+            invoice.generate_invoice(mailing_list)
+            invoice.send_invoice(mailing_list)
+    
+    def time_stuff(self,database_filename):
+        start = 0
+        start_date = (datetime.now().year, (datetime.now().month + 1), 1)
+        if start == 0:
+            pause.until(start_date)
+            start +=1
+            #zeroing in in case the code is not started on the first of the month
+        else:
+            pause.months(1)
+            #triggering the invoice sending on the first of subsequent months (pause module manual states even if the machine goes into standby over the event time it should re-run the moment it wakes up)
+       
+            
             
