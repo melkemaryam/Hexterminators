@@ -1,0 +1,28 @@
+Orgniser:
+
+# please write down all the methods within these classes so we know what we have
+
+Delivery:
+
+Insurance:
+
+Invoice:
+
+Interface:
+
+-haveAccount(): checks whether a user/owner has an account, also sign in and sign up
+    -signIn()
+    -signUp()
+
+
+Tool:
+
+-searchTool()
+-action()
+    -addAnItem()
+    -rentAnItem()
+
+Owner:
+
+User:
+
