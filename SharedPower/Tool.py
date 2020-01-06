@@ -175,7 +175,7 @@ class Tool:
 			#list of all the cutting tools in the DB plus amount of peices of each tool
 			chooseTool = input("Please enter the name of the tool you want to rent\n")
 			
-                if chooseCategoryRent != 1 or 2 or 3 or 4:
+                if chooseCategoryRent != 1 or 2 or 3 or 4 or 5:
                     chooseCategoryRent = input("Your Input was invalid. Please try to enter it again and choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n")
 
 
