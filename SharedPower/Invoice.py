@@ -143,3 +143,33 @@ class Invoice:
 
         s.quit()
         #clean up done
+        
+    def getList(self, customer_email, database_filename):
+        #for finding customer in the base using email address
+
+        database_connection = sqlite3.connect(database_filename)
+        #estabilishing a db connection
+
+        cursor = database_connection.cursor()
+        #cursor creation for talking to db
+
+        cursor.execute('SELECT customer_email FROM customer;' )
+        mailing_list=cursor.fetchall()
+
+        database_connection.close()
+        #close db conection to free resources
+
+        return mailing_list
+        #presenting the Customer list back to us
+    
+    def run_month():
+        getList()
+        length = len(mailing_list)
+        
+        for i in range(length):
+            getData(mailing_list)
+            getTool(mailing_list)
+            cut_list(mailing_list)
+            generate_invoice(mailing_list)
+            send_invoice(mailing_list)
+            
