@@ -8,6 +8,13 @@ Insurance:
 
 Invoice:
 
+-create_invoice
+    -getData()
+    -getTool()
+    -cut_list()
+    -generate_invoice()
+-send_invoice()
+
 Interface:
 
 -haveAccount(): checks whether a user/owner has an account, also sign in and sign up
