@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+from DatabaseConnection import DatabaseConnection
 
 class Tool:
 
@@ -98,7 +99,8 @@ class Tool:
                 #Shaping tools, such as molds, jigs, trowels.
                 #Fastening tools, such as welders, rivet guns, nail guns, or glue guns.
                 #Wikipedia: https://en.wikipedia.org/wiki/Tool#Tool_substitution 1.12.2019 3:08 am
-
+		
+		
                 chooseCategoryAdd = input("Please choose the category of the item that you want to add:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
 
                 #save all the data in the DB with assigned toolId
@@ -127,13 +129,16 @@ class Tool:
                 while halfDayPriceToolInput == "":
     					halfDayPriceToolInput = input("Please try again:\n")
 
-                availabilityToolInput = input("Please enter the start and the end date of the availability of this particular tool: dd.mm.yyyy - dd.mm.yyyy\n")
+                #availabilityToolInput = input("Please enter the start and the end date of the availability of this particular tool: dd.mm.yyyy - dd.mm.yyyy\n")
 
-                while availabilityToolInput == "":
-    					availabilityToolInput = input("Please try again:\n")
-
-
-                #after setting all up -> mark availibilty
+                #while availabilityToolInput == "":
+    		#			availabilityToolInput = input("Please try again:\n")
+		
+		DatabaseConnection.CreateDBConnection()
+                cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
+		DatabaseConnection.CloseConnection()
+		
+		#after setting all up -> mark availibilty - Piotr "it will be always available from the moment it's added - as there is menu on taking it off"
 
                 photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
                 if photoUploadTool == 1: 
@@ -172,7 +177,7 @@ class Tool:
                     chooseTool = input("Please enter the name of the tool you want to rent\n")
 
 		if chooseCategoryRent == 5:
-			#list of all the cutting tools in the DB plus amount of peices of each tool
+			#list of all the cutting tools in the DB plus amount of pieces of each tool
 			chooseTool = input("Please enter the name of the tool you want to rent\n")
 			
                 if chooseCategoryRent != 1 or 2 or 3 or 4 or 5:
@@ -187,6 +192,26 @@ class Tool:
 
                 if lengthOfBookingInput != 0.5 or 1.0 or 1.5 or 2.0 or 2.5 or 3.0 or 1 or 2 or 3:
                     lengthOfBookingInput = input("This was an invalid entry. Please try again.")
+		
+		Delivery = input("We do offer delivery services should you not be able to collect the tool yourself. Would you be interested in ordering delivery for your tool (y/n)?.\n")
+
+		while Delivery == "":
+                    Delivery = input("Please try again.")
+
+                if Delivery != 'y' or 'n':
+                    Delivery = input("This was an invalid entry. Please try again.")
+		
+		if Delivery = 'y':
+			Delivery = 1
+		else Delivery = 0
+		
+		DatabaseConnection.CreateDBConnection()
+		cursor.execute('SELECT tool_id FROM Tools WHERE tool_cat= ? AND available = 1 LIMIT 1', chooseTool)
+		firstAvailableTool = cursor.fetchone()
+		cursor.execute('UPDATE Tools SET available= 0 WHERE tool_cat= ? AND available = 1 LIMIT 1', chooseTool)
+		today = datetime.datetime().now
+		cursor.execute('INSERT INTO Booking (cust_id, tool_id, date, duration, delivery) VALUES(Customer_id, firstAvailableTool, today, lengthOfBookingInput, Delivery)')
+		DatabaseConnection.CloseConnection()
 
 		if chooseAction == 3:
 			inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")
@@ -204,7 +229,7 @@ class Tool:
 
             if inquireItemInput == 3:
                 #connection to insurance
-                print("Youu will be connected to the insurance")
+                print("You will be connected to the insurance")
 
             if inquireItemInput == 4:
                 bookingIdReturnInput = input("Please enter the booking ID of the item that you want to return")
