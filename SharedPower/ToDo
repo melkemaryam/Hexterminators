@@ -1,0 +1,12 @@
+- generating unique id for tool
+
+- adding a tool in Tool.py
+- renting a tool in Tool.py
+- return tool in Tool.py
+- scenario: booking 4 weeks in advance, but person who got the tool before me, damaged it, so the Owner marks it unavailable, so i can not use it. What happens? 
+ - Does it go to next best tool?
+ 
+
+
+
+
