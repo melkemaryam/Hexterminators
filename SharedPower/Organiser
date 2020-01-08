@@ -1,7 +1,18 @@
 Orgniser:
 
 
-This is a test
+
+libraries to install: 
+-panda
+-numpy
+-pause
+-smtplib
+
+
+Links:
+-https://www.pythonforbeginners.com/code-snippets-source-code/script-password-generator/
+
+
 
 # please write down all the methods within these classes so we know what we have
 
