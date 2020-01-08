@@ -59,7 +59,7 @@ class Invoice:
         date = ('01-' + str(datetime.now().month - 1) + '-' + str(datetime.now().year))
         date_end = ('31-' + str(datetime.now().month - 1) + '-' + str(datetime.now().year))
         database_connection = sqlite3.connect(database_filename)
-        #deliveries_charge = 
+        delivery_charge = 5
         #insurance_charge =
         ####
 
@@ -69,7 +69,7 @@ class Invoice:
         cursor = database_connection.cursor()
         #cursor creation for talking to db
 
-        cursor.execute('SELECT tool_name, price, duration, customer_id FROM tool WHERE customer_id= ? AND date=< ? AND date=<'), (customer_id, date, date_end)
+        cursor.execute('SELECT tool_name, price, duration, customer_id, delivery FROM tool WHERE customer_id= ? AND date=< ? AND date=<'), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
         for tool in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
@@ -78,6 +78,7 @@ class Invoice:
             tool_name = tool[1]
             price = tool[2]
             duration = tool[3]
+            deliveries_charge = tool[4] * delivery_charge
             total_price = int(price) * int(duration)
             grand_total = grand_total + total_price + deliveries_charge + insurance_charge
             rental_list.append(tool_name, price, duration, total_price)
@@ -92,7 +93,7 @@ class Invoice:
         #rearranging single list from getTool function into a table for the invoice to be generated
     
         tool_droppings = numpy.asarray(rental_list)
-        invoice_table = numpy.reshape(tool_droppings, (-1,4))
+        invoice_table = numpy.reshape(tool_droppings, (-1,5))
         return invoice_table
         
     def generate_invoice(self, rental_list, grand_total, invoice_table, customer_forename, customer_surname):
