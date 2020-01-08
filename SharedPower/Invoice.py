@@ -4,7 +4,10 @@ import numpy
 import pandas
 #for tables and making them fancy
 from datetime import datetime
+import calendar
 #for checking the time
+import pause
+#for scheduling invoicing
 import smtplib
 #import the smtplib module for setting up mail connection. It should be included in Python by default
 from email.mime.multipart import MIMEMultipart
@@ -35,20 +38,21 @@ class Invoice:
         cursor = database_connection.cursor()
         #cursor creation for talking to db
 
-        cursor.execute('SELECT customer_ID, customer_forename, customer_surname, customer_email FROM customer WHERE customer_email = ?', customer_email )
+        cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email )
         customer_row=cursor.fetchone()
         if (customer_row != None):
             #checking if customer with given email exists (if doesn't will return 'None')
 
-            customer_forename = customer_row[1]
-            customer_surname = customer_row[2]
-            customer_email = customer_row[3]
+            cust_id = customer_row[0]
+            F_name = customer_row[1]
+            L_name = customer_row[2]
+            email = customer_row[3]
             #customer creation based on retrieved data
 
         database_connection.close()
         #close db conection to free resources
 
-        return customer_forename, customer_surname, customer_email
+        return customer_id, customer_forename, customer_surname, customer_email
         #presenting the Customer back to us
 
     def getTool(self, customer_id, database_filename):
@@ -67,19 +71,19 @@ class Invoice:
         cursor = database_connection.cursor()
         #cursor creation for talking to db
 
-        cursor.execute('SELECT tool_name, price, duration, customer_id, delivery FROM tool WHERE customer_id= ? AND date=< ? AND date=<'), (customer_id, date, date_end)
+        cursor.execute('SELECT tool_id, price, duration, cust_id, delivery FROM booking WHERE cust_id= ? AND start_date=< ? AND start_date=<'), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
-        for tool in tool_row:
+        for booking in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
 
-            customer_id = tool[0]
-            tool_name = tool[1]
-            price = tool[2]
-            duration = tool[3]
-            deliveries_charge = tool[4] * delivery_charge
+            cust_id = booking[0]
+            tool_id = booking[1]
+            price = booking[2]
+            duration = booking[3]
+            deliveries_charge = booking[4] * delivery_charge
             total_price = int(price) * int(duration)
             grand_total = grand_total + total_price + deliveries_charge + insurance_charge
-            rental_list.append(tool_name, price, duration, total_price)
+            rental_list.append(tool_id, price, duration, total_price)
             #rental lines creation based on retrieved data
 
         database_connection.close()
@@ -162,14 +166,7 @@ class Invoice:
         #presenting the Customer list back to us
     
     
-    
-    ###to be moved to a new class - monthly scheduled invoicing
-    import invoice
-    #for the invoicing
-    import pause
-    #for scheduling invoicing
-    import datetime
-    
+        
     def run_month(self, database_filename):
         invoice.getList(database_filename)
         #constructing library of email invoices should be sent to
@@ -193,7 +190,7 @@ class Invoice:
             start +=1
             #zeroing in in case the code is not started on the first of the month
         else:
-            pause.months(1)
+            pause.days(calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month))
             #triggering the invoice sending on the first of subsequent months (pause module manual states even if the machine goes into standby over the event time it should re-run the moment it wakes up)
        
             
