@@ -135,7 +135,9 @@ class Tool:
     		#			availabilityToolInput = input("Please try again:\n")
 		
 		DatabaseConnection.CreateDBConnection()
-                cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
+		cursor.execute('SELECT count(*) FROM tools')
+		newToolID = int(cursor.fetchone()) + 1
+                cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
 		DatabaseConnection.CloseConnection()
 		
 		#after setting all up -> mark availibilty - Piotr "it will be always available from the moment it's added - as there is menu on taking it off"
@@ -159,29 +161,32 @@ class Tool:
                 while chooseCategoryRent.isdigit() == False:
                     chooseCategoryRent = input("Please try again:\n")
 
-                if chooseCategoryRent == 1:
-                    #list of all the measuring tools in the DB plus amount of pieces of each tool
-                    chooseTool = input("Please enter the name of the tool you want to rent\n")
-
-
-                if chooseCategoryRent == 2:
-                    #list of all the shaping tools in the DB plus amount of pieces of each tool
-                    chooseTool = input("Please enter the name of the tool you want to rent\n")
-
-                if chooseCategoryRent == 3:
-                    #list of all the fastening tools in the DB plus amount of pieces of each tool
-                    chooseTool = input("Please enter the name of the tool you want to rent\n")
-
-                if chooseCategoryRent == 4:
-                    #list of all the mechanical tools in the DB plus amount of pieces of each tool
-                    chooseTool = input("Please enter the name of the tool you want to rent\n")
-
-		if chooseCategoryRent == 5:
-			#list of all the cutting tools in the DB plus amount of pieces of each tool
-			chooseTool = input("Please enter the name of the tool you want to rent\n")
+                if chooseCategoryRent == 1 or 2 or 3 or 4 or 5:
+                    	DatabaseConnection.CreateDBConnection()
+			cursor.execute('SELECT tool_name FROM Tools WHERE tool_cat= ?', chooseCategoryRent)
+			toolsListbyCategory = cursor.fetchall()
+			DatabaseConnection.CloseConnection()
+			print ("Please find the list of available items from selected category below:\n", toolsListbyCategory)
+                    	chooseTool = input("Please enter the name of the tool you want to rent\n")
 			
-                if chooseCategoryRent != 1 or 2 or 3 or 4 or 5:
-                    chooseCategoryRent = input("Your Input was invalid. Please try to enter it again and choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n")
+                #if chooseCategoryRent == 2:
+                    #list of all the shaping tools in the DB plus amount of pieces of each tool
+                    #chooseTool = input("Please enter the name of the tool you want to rent\n")
+
+                #if chooseCategoryRent == 3:
+                    #list of all the fastening tools in the DB plus amount of pieces of each tool
+                    #chooseTool = input("Please enter the name of the tool you want to rent\n")
+
+                #if chooseCategoryRent == 4:
+                    #list of all the mechanical tools in the DB plus amount of pieces of each tool
+                    #chooseTool = input("Please enter the name of the tool you want to rent\n")
+
+		#if chooseCategoryRent == 5:
+			#list of all the cutting tools in the DB plus amount of pieces of each tool
+			#chooseTool = input("Please enter the name of the tool you want to rent\n")
+			
+                else chooseCategoryRent != 1 or 2 or 3 or 4 or 5:
+                    	chooseCategoryRent = input("Your Input was invalid. Please try to enter it again and choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n")
 
 
 
@@ -206,9 +211,7 @@ class Tool:
 		else Delivery = 0
 		
 		DatabaseConnection.CreateDBConnection()
-		cursor.execute('SELECT tool_id FROM Tools WHERE tool_cat= ? AND available = 1 LIMIT 1', chooseTool)
-		firstAvailableTool = cursor.fetchone()
-		cursor.execute('UPDATE Tools SET available= 0 WHERE tool_cat= ? AND available = 1 LIMIT 1', chooseTool)
+		cursor.execute('UPDATE Tools SET available= 0 WHERE tool_name= ? AND available = 1 LIMIT 1', chooseTool)
 		today = datetime.datetime().now
 		cursor.execute('INSERT INTO Booking (cust_id, tool_id, date, duration, delivery) VALUES(Customer_id, firstAvailableTool, today, lengthOfBookingInput, Delivery)')
 		DatabaseConnection.CloseConnection()
