@@ -60,10 +60,8 @@ class Invoice:
         date_end = ('31-' + str(datetime.now().month - 1) + '-' + str(datetime.now().year))
         database_connection = sqlite3.connect(database_filename)
         delivery_charge = 5
-        #insurance_charge =
-        ####
-
-    
+        insurance_charge = 5
+           
         #estabilishing a db connection
 
         cursor = database_connection.cursor()
