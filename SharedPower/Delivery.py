@@ -11,7 +11,7 @@ class Delivery:
         cursor = database_connection.cursor()
         #cursor creation for talking to db
 
-        cursor.execute('UPDATE Tool SET delivery = delivery + 1 WHERE booking_id = ?', booking_id )
+        cursor.execute('UPDATE booking SET delivery = delivery + 1 WHERE book_id = ?', booking_id )
         
         DatabaseConnection.CloseConnection(database_filename)
         
