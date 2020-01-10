@@ -1,4 +1,4 @@
-import sqlite3
+from DatabaseConnection import DatabaseConnection
 #for talking to the database
 import numpy
 import pandas
@@ -29,54 +29,50 @@ class Invoice:
         self.invoice_table = invoice_table
         self.format_invoice = format_invoice
 
-    def getData(self, customer_email, database_filename):
+    def getData(self, customer_email):
         #for finding customer in the base using email address
 
-        database_connection = sqlite3.connect(database_filename)
+        DatabaseConnection.CreateDBConnection()
         #estabilishing a db connection
-
-        cursor = database_connection.cursor()
-        #cursor creation for talking to db
+        cursor = DatabaseConnection.cursor()
 
         cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email )
         customer_row=cursor.fetchone()
         if (customer_row != None):
             #checking if customer with given email exists (if doesn't will return 'None')
 
-            cust_id = customer_row[0]
-            F_name = customer_row[1]
-            L_name = customer_row[2]
-            email = customer_row[3]
+            customer_id = customer_row[0]
+            customer_forename = customer_row[1]
+            customer_surname = customer_row[2]
+            customer_email = customer_row[3]
             #customer creation based on retrieved data
 
-        database_connection.close()
+        DatabaseConnection.CloseConnection(database_filename)
         #close db conection to free resources
 
         return customer_id, customer_forename, customer_surname, customer_email
         #presenting the Customer back to us
 
-    def getTool(self, customer_id, database_filename):
+    def getTool(self, customer_id):
         #for getting all the tools used by customer for last month
 
         rental_list = ['Tool Name', 'Day Price', 'Rental Duration', 'Total Price']
         grand_total = 0
-        date = ('01-' + str(datetime.now().month - 1) + '-' + str(datetime.now().year))
-        date_end = ('31-' + str(datetime.now().month - 1) + '-' + str(datetime.now().year))
-        database_connection = sqlite3.connect(database_filename)
+        date = (datetime.date.today().replace(day=1) - datetime.timedelta(days=1)).strftime("%Y-%m")+"-01"
+        date_end = datetime.date.today().replace(day=1) - datetime.timedelta(days=1)
         delivery_charge = 5
         insurance_charge = 5
            
         #estabilishing a db connection
-
-        cursor = database_connection.cursor()
-        #cursor creation for talking to db
+        DatabaseConnection.CreateDBConnection()
+        cursor = DatabaseConnection.cursor()
 
         cursor.execute('SELECT tool_id, price, duration, cust_id, delivery FROM booking WHERE cust_id= ? AND start_date=< ? AND start_date=<'), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
         for booking in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
 
-            cust_id = booking[0]
+            customer_id = booking[0]
             tool_id = booking[1]
             price = booking[2]
             duration = booking[3]
@@ -86,7 +82,7 @@ class Invoice:
             rental_list.append(tool_id, price, duration, total_price)
             #rental lines creation based on retrieved data
 
-        database_connection.close()
+        DatabaseConnection.CloseConnection()
         #close db conection to free resources
         return rental_list, grand_total
         #presenting the Rental lines back to us
@@ -147,19 +143,19 @@ class Invoice:
         s.quit()
         #clean up done
         
-    def getList(self, database_filename):
+    def getList(self):
         #for finding customer in the base using email address
 
-        database_connection = sqlite3.connect(database_filename)
+        DatabaseConnection.CreateDBConnection()
         #estabilishing a db connection
 
-        cursor = database_connection.cursor()
+        cursor = DatabaseConnection.cursor()
         #cursor creation for talking to db
 
         cursor.execute('SELECT customer_email FROM customer;' )
         mailing_list=cursor.fetchall()
 
-        database_connection.close()
+        DatabaseConnection.CloseConnection()
         #close db conection to free resources
 
         return mailing_list
@@ -167,22 +163,23 @@ class Invoice:
     
     
         
-    def run_month(self, database_filename):
-        invoice.getList(database_filename)
+    def run_month(self, invoice_id, customer_id, customer_forename, customer_surname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total):
+        
+        self.getList()
         #constructing library of email invoices should be sent to
         length = len(mailing_list)
         
-        for i in range(length):
+        for mailing_list in range(length):
             #for each email in the database
-            invoice.getData(mailing_list)
+            self.getData(customer_email)
             #get customer data
-            invoice.getTool(mailing_list)
+            self.getTool(customer_id)
             #get their bookings data
-            invoice.cut_list(mailing_list)
-            invoice.generate_invoice(mailing_list)
-            invoice.send_invoice(mailing_list)
+            self.cut_list(rental_list)
+            self.generate_invoice(rental_list, grand_total, invoice_table, customer_forename, customer_surname)
+            self.send_invoice(customer_email, format_invoice)
     
-    def time_stuff(self,database_filename):
+    def time_stuff(self):
         start = 0
         start_date = (datetime.now().year, (datetime.now().month + 1), 1)
         if start == 0:
@@ -193,5 +190,3 @@ class Invoice:
             pause.days(calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month))
             #triggering the invoice sending on the first of subsequent months (pause module manual states even if the machine goes into standby over the event time it should re-run the moment it wakes up)
        
-            
-            

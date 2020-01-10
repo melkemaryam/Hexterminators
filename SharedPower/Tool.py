@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
 from DatabaseConnection import DatabaseConnection
+from AvailabilityChecker import date_generator
 
 class Tool:
 
@@ -137,11 +138,12 @@ class Tool:
 		DatabaseConnection.CreateDBConnection()
 		cursor.execute('SELECT count(*) FROM tools')
 		newToolID = int(cursor.fetchone()) + 1
-                cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
-		DatabaseConnection.CloseConnection()
-		
-		#after setting all up -> mark availibilty - Piotr "it will be always available from the moment it's added - as there is menu on taking it off"
-
+        cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
+        
+        AvailabilityChecker.get_availability(tool_id)
+       #marking availability for 6 weeks ahead 
+        DatabaseConnection.CloseConnection()
+				
                 photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
                 if photoUploadTool == 1: 
                     #upload photo from desktop folder
@@ -213,7 +215,7 @@ class Tool:
 		DatabaseConnection.CreateDBConnection()
 		cursor.execute('UPDATE Tools SET available= 0 WHERE tool_name= ? AND available = 1 LIMIT 1', chooseTool)
 		today = datetime.datetime().now
-		cursor.execute('INSERT INTO Booking (cust_id, tool_id, date, duration, delivery) VALUES(Customer_id, firstAvailableTool, today, lengthOfBookingInput, Delivery)')
+		cursor.execute('UPDATE Booking availabile = 0 WHERE tool_id = ? AND date = ?',)
 		DatabaseConnection.CloseConnection()
 
 		if chooseAction == 3:
