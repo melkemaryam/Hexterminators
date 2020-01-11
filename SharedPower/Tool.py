@@ -135,14 +135,14 @@ class Tool:
                 #while availabilityToolInput == "":
     		#			availabilityToolInput = input("Please try again:\n")
 		
-		DatabaseConnection.CreateDBConnection()
-		cursor.execute('SELECT count(*) FROM tools')
-		newToolID = int(cursor.fetchone()) + 1
-        cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
-        
-        AvailabilityChecker.get_availability(tool_id)
-       #marking availability for 6 weeks ahead 
-        DatabaseConnection.CloseConnection()
+                DatabaseConnection.CreateDBConnection()
+                cursor.execute('SELECT count(*) FROM tools')
+                newToolID = int(cursor.fetchone()) + 1
+                cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
+                
+                AvailabilityChecker.get_availability(tool_id)
+                #marking availability for 6 weeks ahead 
+                DatabaseConnection.CloseConnection()
 				
                 photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
                 if photoUploadTool == 1: 
@@ -165,11 +165,12 @@ class Tool:
 
                 if chooseCategoryRent == 1 or 2 or 3 or 4 or 5:
                     	DatabaseConnection.CreateDBConnection()
-			cursor.execute('SELECT tool_name FROM Tools WHERE tool_cat= ?', chooseCategoryRent)
-			toolsListbyCategory = cursor.fetchall()
-			DatabaseConnection.CloseConnection()
-			print ("Please find the list of available items from selected category below:\n", toolsListbyCategory)
-                    	chooseTool = input("Please enter the name of the tool you want to rent\n")
+
+                cursor.execute('SELECT tool_name FROM Tools WHERE tool_cat= ?', chooseCategoryRent)
+                toolsListbyCategory = cursor.fetchall()
+                DatabaseConnection.CloseConnection()
+                print ("Please find the list of available items from selected category below:\n", toolsListbyCategory)
+                            chooseTool = input("Please enter the name of the tool you want to rent\n")
 			
                 #if chooseCategoryRent == 2:
                     #list of all the shaping tools in the DB plus amount of pieces of each tool
@@ -183,9 +184,9 @@ class Tool:
                     #list of all the mechanical tools in the DB plus amount of pieces of each tool
                     #chooseTool = input("Please enter the name of the tool you want to rent\n")
 
-		#if chooseCategoryRent == 5:
-			#list of all the cutting tools in the DB plus amount of pieces of each tool
-			#chooseTool = input("Please enter the name of the tool you want to rent\n")
+                #if chooseCategoryRent == 5:
+                    #list of all the cutting tools in the DB plus amount of pieces of each tool
+                    #chooseTool = input("Please enter the name of the tool you want to rent\n")
 			
                 else chooseCategoryRent != 1 or 2 or 3 or 4 or 5:
                     	chooseCategoryRent = input("Your Input was invalid. Please try to enter it again and choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n")
