@@ -28,11 +28,11 @@ from email.mime.text import MIMEText
 #more emailing from python stuff
 
 class Invoice:
-    def __init__(self, invoice_id, customer_id, customer_forename, customer_surname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table):
+    def __init__(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table):
         self.invoice_id = invoice_id
         self.customer_id = customer_id
-        self.customer_forename = customer_forename
-        self.customer_surname = customer_surname
+        self.customer_firstname = customer_firstname
+        self.customer_lastname = customer_lastname
         self.customer_email = customer_email
         self.tool_ID = tool_ID
         self.tool_name = tool_name
@@ -55,15 +55,15 @@ class Invoice:
             #checking if customer with given email exists (if doesn't will return 'None')
 
             customer_id = customer_row[0]
-            customer_forename = customer_row[1]
-            customer_surname = customer_row[2]
+            customer_firstname = customer_row[1]
+            customer_lastname = customer_row[2]
             customer_email = customer_row[3]
             #customer creation based on retrieved data
 
-        DatabaseConnection.CloseConnection(database_filename)
+        DatabaseConnection.CloseDBConnection(databaseFilename)
         #close db conection to free resources
 
-        return customer_id, customer_forename, customer_surname, customer_email
+        return customer_id, customer_firstname, customer_lastname, customer_email
         #presenting the Customer back to us
 
     def getTool(self, customer_id):
@@ -95,7 +95,7 @@ class Invoice:
             rental_list.append(tool_id, price, duration, total_price)
             #rental lines creation based on retrieved data
 
-        DatabaseConnection.CloseConnection()
+        DatabaseConnection.CloseDBConnection()
         #close db conection to free resources
         return rental_list, grand_total
         #presenting the Rental lines back to us
@@ -107,12 +107,12 @@ class Invoice:
         invoice_table = numpy.reshape(tool_droppings, (-1,5))
         return invoice_table
         
-    def generate_invoice(self, rental_list, grand_total, invoice_table, customer_forename, customer_surname):
+    def generate_invoice(self, rental_list, grand_total, invoice_table, customer_firstname, customer_lastname):
         #building the actual invoice - message and numbers together
 
         invoice_main_body = pandas.DataFrame(invoice_table, columns=['Tool Name', 'Day Price', 'Rental Duration', 'Total Price'])
         #adding headers to numpy array to make it more table-like (should be neat)
-        name = customer_forename + ' ' + customer_surname
+        name = customer_firstname + ' ' + customer_lastname
         period = str(datetime.now().month) + ' ' + str(datetime.now().year)
         customer_info = (name, period, invoice_main_body, grand_total)
         format_invoice = ("""Hello %s,
@@ -168,7 +168,7 @@ class Invoice:
         cursor.execute('SELECT customer_email FROM customer;' )
         mailing_list=cursor.fetchall()
 
-        DatabaseConnection.CloseConnection()
+        DatabaseConnection.CloseDBConnection()
         #close db conection to free resources
 
         return mailing_list
@@ -176,7 +176,7 @@ class Invoice:
     
     
         
-    def run_month(self, invoice_id, customer_id, customer_forename, customer_surname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total):
+    def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total):
         
         self.getList()
         #constructing library of email invoices should be sent to
@@ -189,7 +189,7 @@ class Invoice:
             self.getTool(customer_id)
             #get their bookings data
             self.cut_list(rental_list)
-            self.generate_invoice(rental_list, grand_total, invoice_table, customer_forename, customer_surname)
+            self.generate_invoice(rental_list, grand_total, invoice_table, customer_firstname, customer_lastname)
             self.send_invoice(customer_email, format_invoice)
     
     def time_stuff(self):

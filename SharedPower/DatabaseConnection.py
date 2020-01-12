@@ -16,37 +16,39 @@ from sqlite3 import Error
 
 class DatabaseConnection:
     
-    # -------------------------------------------------
-    # Connect to an existing sqlite database
-    # -------------------------------------------------
+    '''
+    Function name: createDBConnection
+    Task: create a connection with the database (DB) SharedPower.db
+    '''
+
     @staticmethod
-    def CreateDBConnection(database_filename):
+    def CreateDBConnection(databaseFilename):
     
-        database_connection = None
-        function_name = 'Create_DB_Connection'
+        databaseConnection = None
+        functionName = 'CreateDBConnection'
         
         try:
-            database_connection = sqlite3.connect(database_filename)
+            databaseConnection = sqlite3.connect(databaseFilename)
                 
         except Error as e:
-            print(__name__, ':', function_name, ":", e)
+            print(__name__, ':', functionName, ":", e)
             raise
 
-        return database_connection
+        return databaseConnection
 
     # -------------------------------------------------
     # Close a sqlite database connection
     # -------------------------------------------------
     @staticmethod
-    def CloseConnection(database_connection):
+    def CloseDBConnection(databaseConnection):
 
-        function_name = 'Close_DB_Connection'
+        functionName = 'CloseDBConnection'
         
         try:
-            database_connection.close()        
+            databaseConnection.close()        
                 
         except Error as e:
-            print(__name__, ':', function_name, ":", e)
+            print(__name__, ':', functionName, ":", e)
             raise
             
 

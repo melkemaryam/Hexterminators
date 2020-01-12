@@ -24,11 +24,10 @@ from DatabaseConnection import DatabaseConnection
 class BookingManager:
 
     #Constructor
-
-    def __init__(self, database_filename):
+    def __init__(self, databaseFilename):
 
         
-        self.__database_filename = database_filename
+        self.databaseFilename = databaseFilename
 
     '''
     Function name: createBooking
@@ -37,13 +36,13 @@ class BookingManager:
 
     def createBooking(self, tool, user):
 
-        function_name = 'createBooking'
+        functionName = 'createBooking'
 
         try:
             
             # Connecting to the DB
-            database_connection = DatabaseConnection.CreateDBConnection(self.__database_filename)
-            cursor = database_connection.cursor()
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            cursor = databaseConnection.cursor()
 
             # get IDs
             tool_id = tool.getId()
@@ -51,20 +50,20 @@ class BookingManager:
 
             cursor.execute('INSERT INTO Bookings (tool_id, cust_id) VALUES (?, ?)', (tool_id, cust_id)) 
 
-            database_connection.commit()
+            databaseConnection.commit()
 
             book_id = cursor.lastrowid
 
-            returnedBooking = Booking(book_id, tool, user)
+            returnedBooking = Bookings(book_id, tool, user)
             
             # Diconnecting from the DB
-            DatabaseConnection.CloseConnection(database_connection)
+            DatabaseConnection.CloseDBConnection(databaseConnection)
 
             return returnedBooking
 
         except Error as e:
 
-            print(__name__, ':', function_name, ':', e)
+            print(__name__, ':', functionName, ':', e)
             raise
 
     '''
@@ -74,22 +73,22 @@ class BookingManager:
 
     def searchFutureBookings(self, user):
 
-        function_name = 'SearchFutureBookings'
+        functionName = 'SearchFutureBookings'
 
         # empty list
         RetBookingList = []
         
         try:
 
-            tool_manager = ToolManager(self.__database_filename)
+            tool_manager = ToolManager(self.databaseFilename)
             start_date = datetime.now()
 
             # get ID
             cust_id = user.getId()
 
             # Connecting to the DB
-            database_connection = DatabaseConnection.CreateDBConnection(self.__database_filename)
-            cursor = database_connection.cursor()
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            cursor = databaseConnection.cursor()
 
             cursor.execute("SELECT Bookings.book_id, Bookings.tool_id FROM Bookings INNER JOIN Tools ON Bookings.tool_id = Tools.tool_id WHERE Tools.tool_start > ? AND Bookings.cust_id = ?", (start_date, cust_id))
 
@@ -110,12 +109,12 @@ class BookingManager:
                 RetBookingList.append(single_booking)
             
             # Disconnect from the DB
-            DatabaseConnection.CloseConnection(database_connection)
+            DatabaseConnection.CloseDBConnection(databaseConnection)
 
             return RetBookingList
 
         except Error as e:
 
             # Catch and display any errors that occur
-            print(__name__, ':', function_name, ':', e)
+            print(__name__, ':', functionName, ':', e)
             raise

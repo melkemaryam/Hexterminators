@@ -23,7 +23,7 @@ class Main:
             print('\nSharedPower\n')
             print('---------\n')
             print('1. Search for tools by name.\n')
-            print('2. Search for tools by type.\n')
+            print('2. Search for tools by category.\n')
             print('3. Book a tool.\n')
             print('4. List my future bookings.\n')
             print('5. List my own tools.\n')
@@ -43,7 +43,7 @@ class Main:
                 self.searchToolByName()
 
             elif (chooseAction == 2):
-                self.searchToolByType()
+                self.searchToolBycategory()
 
             elif (chooseAction == 3):
                 self.bookATool()
@@ -63,7 +63,7 @@ class Main:
 '''
     def searchToolByName():
     
-    def searchToolByType():
+    def searchToolBycategory():
 
     def bookATool():
 

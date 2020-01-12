@@ -22,7 +22,7 @@ class Tool:
 
         def load_data(path):
             # loads dataframe and returns it 
-            # change 'csv' with whatever type the data frame is stored as    
+            # change 'csv' with whatever category the data frame is stored as    
             
             dataframe = pd.read_csv(path)
             return dataframe
@@ -31,9 +31,9 @@ class Tool:
 
         def choose_filters():
             # returns a list of the input variables
-            # in_x means: user input of x (x = type, duration etc)
+            # in_x means: user input of x (x = category, duration etc)
             
-            print('''Select the type of tool: \n
+            print('''Select the category of tool: \n
             (M) Manual \n
             (E) Electric \n
             Leave blank for no filter''')
@@ -41,7 +41,7 @@ class Tool:
             # the above print statement can be replaced with a drop down list
             # like on more conventional filter tools
             
-            in_type = input()
+            in_category = input()
             
             # the variable stores the input which will be used later
             # to filter through the database
@@ -56,7 +56,7 @@ class Tool:
             
             # this function can be extended to include as many filters as needed
             
-            return [in_type,in_duration] 
+            return [in_category,in_duration] 
 
         # storing the filters in the variable
         filters = choose_filters() 
@@ -67,7 +67,7 @@ class Tool:
             # argument will contain the list of inputs
             # returns filtered dataframe
             
-            cols_to_filter = ["Type","Duration"] 
+            cols_to_filter = ["category","Duration"] 
             # list of the filtrable columns - this can be implemented earlier in the code and it can be extended
             # this list has to match the 'filters' list
             
@@ -81,11 +81,11 @@ class Tool:
             return dataframe.where(filter_list)
 
 
-    def __init2__(self, chooseAction, chooseCategoryAdd, toolNameInput, typeNameInput, descriptionTool, dayPriceToolInput, halfDayPriceToolInput, availabilityToolInput, photoUploadTool, chooseCategoryRent, chooseTool, lengthOfBookingInput, inquireItemInput, bookingIdReturnInput):
+    def __init2__(self, chooseAction, chooseCategoryAdd, toolNameInput, categoryNameInput, descriptionTool, dayPriceToolInput, halfDayPriceToolInput, availabilityToolInput, photoUploadTool, chooseCategoryRent, chooseTool, lengthOfBookingInput, inquireItemInput, bookingIdReturnInput):
     	self.chooseAction = chooseAction
         self.chooseCategoryAdd = chooseCategoryAdd
         self.toolNameInput = toolNameInput
-		self.typeNameInput = typeNameInput
+		self.categoryNameInput = categoryNameInput
 		self.descriptionToolInput = descriptionToolInput
 		self.dayPriceToolInput = dayPriceToolInput
 		self.halfDayPriceToolInput = halfDayPriceToolInput
@@ -123,10 +123,10 @@ class Tool:
                 while toolNameInput == "":
         					toolNameInput = input("Please try again:\n")
 
-                typeNameInput = input("Please enter the type of the item:\n")
+                categoryNameInput = input("Please enter the category of the item:\n")
 
-                while typeNameInput == "":
-    					typeNameInput = input("Please try again:\n")
+                while categoryNameInput == "":
+    					categoryNameInput = input("Please try again:\n")
 
                 descriptionToolInput = input("Please enter a short description that also displays the condition and size of your tool:\n")
 
@@ -151,11 +151,11 @@ class Tool:
                 DatabaseConnection.CreateDBConnection()
                 cursor.execute('SELECT count(*) FROM tools')
                 newToolID = int(cursor.fetchone()) + 1
-                cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, typeNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
+                cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, categoryNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
                 
                 AvailabilityChecker.get_availability(tool_id)
                 #marking availability for 6 weeks ahead 
-                DatabaseConnection.CloseConnection()
+                DatabaseConnection.CloseDBConnection()
 				
                 photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
                 if photoUploadTool == 1: 
@@ -181,7 +181,7 @@ class Tool:
 
                 cursor.execute('SELECT tool_name FROM Tools WHERE tool_cat= ?', chooseCategoryRent)
                 toolsListbyCategory = cursor.fetchall()
-                DatabaseConnection.CloseConnection()
+                DatabaseConnection.CloseDBConnection()
                 print ("Please find the list of available items from selected category below:\n", toolsListbyCategory)
                             chooseTool = input("Please enter the name of the tool you want to rent\n")
 			
@@ -230,7 +230,7 @@ class Tool:
 		cursor.execute('UPDATE Tools SET available= 0 WHERE tool_name= ? AND available = 1 LIMIT 1', chooseTool)
 		today = datetime.datetime().now
 		cursor.execute('UPDATE Booking availabile = 0 WHERE tool_id = ? AND date = ?',)
-		DatabaseConnection.CloseConnection()
+		DatabaseConnection.CloseDBConnection()
 
 		if chooseAction == 3:
 			inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")

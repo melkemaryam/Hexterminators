@@ -18,119 +18,124 @@ from Classes.Helpers.StringHelpers import StringHelpers
 
 class Tools:
 
-    # --------------------------------------------------------------------
-    # Constructor
-    # --------------------------------------------------------------------
+    #Constructor
     def __init__(self, tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price):
 
-        # Transfer our incoming parameters to the member variables for this class
-        self.__tool_id       = tool_id
-        self.__tool_user     = user
-        self.__tool_name     = tool_name
-        self.__tool_start    = tool_start
-        self.__tool_duration = tool_duration
-        self.__tool_end      = self.__tool_start + timedelta(days = self.__tool_duration)
-        self.__tool_cat      = tool_cat
-        self.__price         = price
+        self.tool_id = tool_id
+        self.tool_user = user
+        self.tool_name = tool_name
+        self.tool_start = tool_start
+        self.tool_duration = tool_duration
+        self.tool_end = self.tool_start + timedelta(days = self.tool_duration)
+        self.tool_cat = tool_cat
+        self.price = price
         
-    # --------------------------------------------------------------------
-    # Returns the tool id
-    # --------------------------------------------------------------------
+    '''
+    Function name: getId()
+    Task: returns the value for the ID
+    '''
     def getId(self):
-        return self.__tool_id
+        return self.tool_id
 
-    # --------------------------------------------------------------------
-    # Returns the tool user
-    # --------------------------------------------------------------------
+    '''
+    Function name: getUser()
+    Task: returns the value for the user of the tool
+    '''
     def getUser(self):
-        return self.__tool_user
+        return self.tool_user
 
-    # --------------------------------------------------------------------
-    # Sets the tool name
-    # --------------------------------------------------------------------
+    '''
+    Function name: setName()
+    Task: sets the name of the tool
+    '''
     def setName(self, new_name):
-        self.__tool_name = new_name
+        self.tool_name = new_name
 
-    # --------------------------------------------------------------------
-    # Returns the tool name
-    # --------------------------------------------------------------------
+    '''
+    Function name: getName()
+    Task: returns the value of the name of the tool
+    '''
     def getName(self):
-        return self.__tool_name
+        return self.tool_name
 
-    # --------------------------------------------------------------------
-    # Sets the tool start date and time
-    # --------------------------------------------------------------------
-    def setStart(self, new_start):
-        self.__tool_start = new_start
+    '''
+    Function name: setStartDate()
+    Task: sets the start date of the booking of the tool
+    '''
+    def setStartDate(self, new_start):
+        self.tool_start = new_start
 
-    # --------------------------------------------------------------------
-    # Returns the tool start date and time
-    # --------------------------------------------------------------------
+   '''
+    Function name: getStartDate()
+    Task: returns the vaule of the start date of the booking of the tool
+    '''
     def getStart(self):
-        return self.__tool_start
+        return self.tool_start
 
-    # --------------------------------------------------------------------
-    # Sets the tool duration
-    # --------------------------------------------------------------------
+    '''
+    Function name: setDuration()
+    Task: sets the duration of a booking of a tool
+    '''
     def setDuration(self, new_duration):
-        self.__tool_duration = new_duration
+        self.tool_duration = new_duration
 
-    # --------------------------------------------------------------------
-    # Returns the tool duration
-    # --------------------------------------------------------------------
+    '''
+    Function name: getDuration()
+    Task: returns the value of the duration of the booking of a tool
+    '''
     def getDuration(self):
-        return self.__tool_duration
+        return self.tool_duration
 
-    # --------------------------------------------------------------------
-    # Returns the tool end date and time
-    # --------------------------------------------------------------------
-    def getEnd(self):        
-        return self.__tool_end
+    '''
+    Function name: getEndDate()
+    Task: returns the value of the end date of the booking of the tool
+    '''
+    def getEndDate(self):        
+        return self.tool_end
 
-    # --------------------------------------------------------------------
-    # Sets the tool price
-    # --------------------------------------------------------------------
+    '''
+    Function name: setPrice()
+    Task: sets the day price for the tool
+    '''
     def setPrice(self, new_price):
-        self.__tool_price = new_price
+        self.tool_price = new_price
 
-    # --------------------------------------------------------------------
-    # Returns the tool price
-    # --------------------------------------------------------------------
+    '''
+    Function name: getPrice()
+    Task: returns the value of the day price
+    '''
     def getPrice(self):
-        return self.__tool_price
+        return self.tool_price
 
-    # --------------------------------------------------------------------
-    # Returns the tool type
-    # --------------------------------------------------------------------
+    '''
+    Function name: getCategory()
+    Task: returns the value for the category of the tool
+    '''
     def getCategory(self):
-        return self.__tool_cat
+        return self.tool_cat
 
-    # --------------------------------------------------------------------
     # __str__ function
-    # --------------------------------------------------------------------
     def __str__(self):
 
-        return_value = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {type}'.format(id = self.__tool_id, 
-                                                                                                           name = StringHelpers.PadString(self.__tool_name, 30),
-                                                                                                           user = self.__tool_user.getForename() + ' ' + self.__tool_user.getSurname(),
-                                                                                                           start = self.__tool_start,
-                                                                                                           end = self.__tool_end,
-                                                                                                           duration = self.__tool_duration,
-                                                                                                           type = self.__tool_cat)
+        returnValue = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {category}'.format(id = self.tool_id, 
+                                                                                                           name = StringHelpers.PadString(self.tool_name, 30),
+                                                                                                           user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
+                                                                                                           start = self.tool_start,
+                                                                                                           end = self.tool_end,
+                                                                                                           duration = self.tool_duration,
+                                                                                                           category = self.tool_cat)
 
-        return return_value
+        return returnValue
 
-    # --------------------------------------------------------------------
     # __repr__ function
-    # --------------------------------------------------------------------
     def __repr__(self):
 
-        return_value = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {type}'.format(id = self.__tool_id, 
-                                                                                                           name = StringHelpers.PadString(self.__tool_name, 30),
-                                                                                                           user = self.__tool_user.getForename() + ' ' + self.__tool_user.getSurname(),
-                                                                                                           start = self.__tool_start,
-                                                                                                           end = self.__tool_end,
-                                                                                                           duration = self.__tool_duration,
-                                                                                                           type = self.__tool_cat)
+        returnValue = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {category}'.format(id = self.tool_id, 
+                                                                                                           name = StringHelpers.PadString(self.tool_name, 30),
+                                                                                                           user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
+                                                                                                           start = self.tool_start,
+                                                                                                           end = self.tool_end,
+                                                                                                           duration = self.tool_duration,
+                                                                                                           category = self.tool_cat)
 
-        return return_value
+        return returnValue

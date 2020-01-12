@@ -71,7 +71,7 @@ class Availability:
             dates_available.append(quick_dates)
         
         return days_available
-        DatabaseConnection.CloseConnection()
+        DatabaseConnection.CloseDBConnection()
     
 
     

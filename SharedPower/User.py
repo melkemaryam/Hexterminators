@@ -13,79 +13,73 @@ Created: 10th January 2020
 
 class User:
 
-    # --------------------------------------------------------------------
-    # Constructor
-    # --------------------------------------------------------------------
+    #Constructor
     def __init__(self, cust_id, F_name, L_name, email):
         
-        # Transfer our incoming parameters to the member variables for this class
-        self.__id          = cust_id
-        self.__forename    = F_name
-        self.__surname     = L_name
-        self.__email       = email
+        self.id = cust_id
+        self.firstname = F_name
+        self.lastname = L_name
+        self.email = email
         
-    # --------------------------------------------------------------------
-    # Returns the user id
-    # --------------------------------------------------------------------
+    '''
+    Function name: getId()
+    Task: returns the value for the ID
+    '''
     def getId(self):
-        return self.__id
+        return self.id
 
-    # --------------------------------------------------------------------
-    # Sets the user forename
-    # --------------------------------------------------------------------
-    def setForename(self, new_forename):
-        self.__forename = new_forename
+    '''
+    Function name: setFirstName()
+    Task: sets the first name of the user
+    '''
+    def setFirstName(self, new_firstname):
+        self.firstname = new_firstname
 
-    # --------------------------------------------------------------------
-    # Returns the user forename
-    # --------------------------------------------------------------------
-    def getForename(self):
-        return self.__forename
+    '''
+    Function name: getFirstName()
+    Task: returns the value of the first name of the user
+    '''
+    def getFirstName(self):
+        return self.firstname
 
-    # --------------------------------------------------------------------
-    # Sets the user surname
-    # --------------------------------------------------------------------
-    def setSurname(self, new_surname):
-        self.__surname = new_surname
+    '''
+    Function name: setLastName()
+    Task: sets the last name of the user
+    '''
+    def setLastName(self, new_lastname):
+        self.lastname = new_lastname
 
-    # --------------------------------------------------------------------
-    # Returns the user surname
-    # --------------------------------------------------------------------
-    def getSurname(self):
-        return self.__surname
+    '''
+    Function name: getLastName()
+    Task: returns the last name of the user
+    '''
+    def getLastName(self):
+        return self.lastname
 
-    # --------------------------------------------------------------------
-    # Sets the user email
-    # --------------------------------------------------------------------
+    '''
+    Function name: setEmail()
+    Task: sets the email address of the user
+    '''
     def setEmail(self, new_email):
-        self.__email = new_email
+        self.email = new_email
 
-    # --------------------------------------------------------------------
-    # Returns the user email
-    # --------------------------------------------------------------------
+    '''
+    Function name: getEmail()
+    Task: returns the value of the email of the user
+    '''
     def getEmail(self):
-        return self.__email
+        return self.email
 
-    # --------------------------------------------------------------------
     # __str__ function
-    # --------------------------------------------------------------------
     def __str__(self):
 
-        returnValue = ('%i \t %s \t \t %s \t \t %s' % (self.__id,
-                                                                self.__forename,
-                                                                self.__surname,
-                                                                self.__email))
+        returnValue = ('%i \t %s \t \t %s \t \t %s' % (self.id, self.firstname, self.lastname, self.email))
 
         return returnValue
 
-    # --------------------------------------------------------------------
     # __repr__ function
-    # --------------------------------------------------------------------
     def __repr__(self):
 
-        returnValue = ('%i \t %s \t \t %s \t \t %s' % (self.__id,
-                                                                self.__forename,
-                                                                self.__surname,
-                                                                self.__email))
+        returnValue = ('%i \t %s \t \t %s \t \t %s' % (self.id, self.firstname, self.lastname, self.email))
 
         return returnValue

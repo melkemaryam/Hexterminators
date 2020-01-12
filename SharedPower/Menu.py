@@ -25,9 +25,9 @@ class Menu:
     # -----------------------------------------------------------
     # Constructor
     # -----------------------------------------------------------
-    def __init__(self, database_filename, registered_user):
+    def __init__(self, databaseFilename, registered_user):
 
-        self.__database_filename = database_filename
+        self.__databaseFilename = databaseFilename
         self.__registered_user = registered_user
 
     # --------------------------------------------------------------------
@@ -68,7 +68,7 @@ class Menu:
                 self.__search_tools_by_name()
 
             elif (user_input == 2):
-                self.__search_tools_by_type()
+                self.__search_tools_by_category()
 
             elif (user_input == 3):
                 self.__show_future_tools()
@@ -80,7 +80,7 @@ class Menu:
                 self.__show_future_bookings()
 
             else:
-                # The user has typed a number that is not on the menu so let's just exit the while loop
+                # The user has categoryd a number that is not on the menu so let's just exit the while loop
                 break
 
     # --------------------------------------------------------------------
@@ -94,7 +94,7 @@ class Menu:
     def __search_tools_by_name(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = ToolManager(self.__database_filename)
+        tool_manager = ToolManager(self.__databaseFilename)
 
         # Ask the user for the search criteria
         user_input = input('Please enter the name (or part of it) for the tool you are searching for: ')
@@ -106,19 +106,19 @@ class Menu:
         self.__display_tool_list(future_tools)
 
     # --------------------------------------------------------------------
-    # __search_tools_by_type
-    # Search for future tools by type
+    # __search_tools_by_category
+    # Search for future tools by category
     # --------------------------------------------------------------------
-    def __search_tools_by_type(self):
+    def __search_tools_by_category(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = ToolManager(self.__database_filename)
+        tool_manager = ToolManager(self.__databaseFilename)
 
-        # Ask the user for the type of tool they want to search for
-        search_criteria = toolTypeHelpers.GettoolTypeFromUser()
+        # Ask the user for the category of tool they want to search for
+        search_criteria = toolcategoryHelpers.GettoolcategoryFromUser()
 
         # Perform the search
-        future_tools = tool_manager.search_tools_by_type(search_criteria)
+        future_tools = tool_manager.search_tools_by_category(search_criteria)
 
         # Display the tools that have been returned
         self.__display_tool_list(future_tools)
@@ -130,7 +130,7 @@ class Menu:
     def __show_future_tools(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = toolManager(self.__database_filename)
+        tool_manager = toolManager(self.__databaseFilename)
 
         # We only want to see tools that are in the future
         range_start = datetime.now()
@@ -158,7 +158,7 @@ class Menu:
     def __show_future_bookings(self):
 
         # Create a BookingManager and pass in the filename for the database
-        booking_manager = BookingManager(self.__database_filename)
+        booking_manager = BookingManager(self.__databaseFilename)
 
         # Get a list of all the future bookings from the booking manager
         future_bookings = booking_manager.SearchFutureBookings(self.__registered_user)
@@ -177,16 +177,16 @@ class Menu:
     def __book_tool(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = toolManager(self.__database_filename)
+        tool_manager = toolManager(self.__databaseFilename)
 
         # Create a BookingManager as pass in the filename for the database
-        booking_manager = BookingManager(self.__database_filename)
+        booking_manager = BookingManager(self.__databaseFilename)
 
-        # Ask the user to specify the type of tool they want to book
-        type_of_tool = toolTypeHelpers.GettoolTypeFromUser()
+        # Ask the user to specify the category of tool they want to book
+        category_of_tool = toolcategoryHelpers.GettoolcategoryFromUser()
 
-        # Ask the tool manager for any upcoming tools of this type
-        available_tools = tool_manager.search_tools_by_type(type_of_tool)
+        # Ask the tool manager for any upcoming tools of this category
+        available_tools = tool_manager.search_tools_by_category(category_of_tool)
 
         # Display the tools that have been returned
         self.__display_tool_list(available_tools)
@@ -247,5 +247,5 @@ class Menu:
     def __display_tool_headers(self):
 
         # Iterate through the list printing out each tool as we go
-        print('id \t name \t \t \t \t trainer \t \t start \t \t \t end \t \t \t duration \t type')
+        print('id \t name \t \t \t \t trainer \t \t start \t \t \t end \t \t \t duration \t category')
         print('-- \t ---- \t \t \t \t ------- \t \t ----- \t \t \t --- \t \t \t -------- \t ----')
