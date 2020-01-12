@@ -15,7 +15,7 @@ from datetime import datetime
 from datetime import timedelta
 from sqlite3 import Error
 
-from Classes.Managers.UserManager import UserManager
+from UserManager import UserManager
 
 from Tools import Tools
 from Classes.toolcategory import toolcategory
@@ -25,129 +25,110 @@ from DatabaseConnection import DatabaseConnection
 
 class ToolManager:
 
-    # -----------------------------------------------------------
     # Constructor
-    # -----------------------------------------------------------
     def __init__(self, databaseFilename):
+        self.databaseFilename = databaseFilename
 
-        # Store the filename of the database so that we can use it when we are connecting.
-        self.__databaseFilename = databaseFilename
+    '''
+    Function name: loadToolId()
+    Task: load a tool from the DB with the use of the tool ID
+    '''
+    def loadToolId(self, tool_id):
 
-    # -----------------------------------------------------------
-    # load_tool_from_id
-    # Load an individual tool from it's ut
-    # -----------------------------------------------------------
-    def load_tool_from_id(self, tool_id):
-
-        functionName = 'load_tool_from_id'
-
-        # Create an empty list so that we can add tools to it later
+        functionName = 'loadToolId'
+        
+        # empty list
         returned_tool = None
         
         try:
             
-            # We are going to be using the user manager soon so let's create it now
-            user_manager = UserManager(self.__databaseFilename)
+            user_manager = UserManager(self.databaseFilename)
 
-            # Connect to our database
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.__databaseFilename)
-
-            # Create a cursor so that we can run queries
+            # Connecting to the DB
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_id = ?", (tool_id,))
+            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_id = ?", (tool_id))
 
             tool_row = cursor.fetchone()
 
-            # Check that we have actually got something back from the database. If our query returned no results then tool_row will equal None.
             if (tool_row != None):
            
-                # Read our values from the record
-                tool_id          = tool_row[0]
-                cust_id          = tool_row[1]
-                tool_name        = tool_row[2]
-                tool_start       = datetime.strptime(tool_row[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration    = tool_row[4]
-                tool_cat         = tool_row[5]
-                price            = tool_row[6]
+                tool_id = tool_row[0]
+                cust_id = tool_row[1]
+                tool_name = tool_row[2]
+                tool_start = datetime.strptime(tool_row[3], '%Y-%m-%d %H:%M:%S')
+                tool_duration = tool_row[4]
+                tool_cat = tool_row[5]
+                price = tool_row[6]
 
-                # Now we can ask the user manager to give us the user with the id we just got from the database
+                # get user ID
                 user = user_manager.LoadUserId(cust_id)
 
-                # We should now have a record with some data in it so let's create our tool
-                returned_tool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+                # create tool
+                returned_tool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
             
-            # Close our database connection
+            # Disconnection from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
-            # Return the tool we just created
             return returned_tool
 
         except Error as e:
 
-            # Catch and display any errors that occur
             print(__name__, ':', functionName, ':', e)
             raise
 
-    # -----------------------------------------------------------
-    # search_tools_by_name
-    # Search for tools by their name
-    # -----------------------------------------------------------
-    def search_tool_by_name(self, search_criteria):
+    '''
+    Function name: loadAllUsers()
+    Task: load all users from the DB
+    '''
+    def searchToolByName(self, search_criteria):
 
-        functionName = 'search_tool_by_name'
+        functionName = 'searchToolByName'
 
-        # Create an empty list so that we can add tools to it later
-        returned_tool_list = []
+        # empty list
+        returnedToolList = []
         
         try:
             
-            # We need to prepare our search criteria so that it can be used in SQL
             start_date = datetime.now()
             search_criteria = '%' + search_criteria + '%'
 
-            # We are going to be using the user manager soon so let's create it now
-            user_manager = UserManager(self.__databaseFilename)
+            user_manager = UserManager(self.databaseFilename)
 
-            # Connect to our database
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.__databaseFilename)
-
-            # Create a cursor so that we can run queries
+            # Connecting to the DB
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
             cursor.execute("SELECT tool_id, cust_id, tool_name, tool_start, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_name LIKE ?", (start_date, search_criteria))
 
             tool_rows = cursor.fetchall()
 
-            # Iterate through the database records, creating a tool object and adding it to our list as we go
             for tool in tool_rows:
                 
-                # Read our values from the record
-                tool_id          = tool[0]
-                cust_id          = tool[1]
-                tool_name        = tool[2]
-                tool_start       = datetime.strptime(tool[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration    = tool[4]
-                tool_cat         = tool[5]
-                price            = tool[6]
+                tool_id = tool[0]
+                cust_id = tool[1]
+                tool_name = tool[2]
+                tool_start = datetime.strptime(tool[3], '%Y-%m-%d %H:%M:%S')
+                tool_duration = tool[4]
+                tool_cat = tool[5]
+                price = tool[6]
 
-                # Now we can ask the user manager to give us the user with the id we just got from the database
+                # get user ID
                 user = user_manager.LoadUserId(cust_id)
 
-                # We should now have a record with some data in it so let's create our tool
+                # create tool
                 single_tool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
 
-                returned_tool_list.append(single_tool)
+                returnedToolList.append(single_tool)
             
-            # Close our database connection
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
-            # Return the tool list we just created
-            return returned_tool_list
+            return returnedToolList
 
         except Error as e:
 
-            # Catch and display any errors that occur
             print(__name__, ':', functionName, ':', e)
             raise
 
@@ -160,7 +141,7 @@ class ToolManager:
         functionName = 'search_tools_by_category'
 
         # Create an empty list so that we can add tools to it later
-        returned_tool_list = []
+        returnedToolList = []
         
         try:
 
@@ -168,10 +149,10 @@ class ToolManager:
             start_date = datetime.now()
 
             # We are going to be using the user manager soon so let's create it now
-            user_manager = UserManager(self.__databaseFilename)
+            user_manager = UserManager(self.databaseFilename)
 
             # Connect to our database
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.__databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
 
             # Create a cursor so that we can run queries
             cursor = databaseConnection.cursor()
@@ -198,13 +179,13 @@ class ToolManager:
                 # We should now have a record with some data in it so let's create our tool
                 single_tool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
 
-                returned_tool_list.append(single_tool)
+                returnedToolList.append(single_tool)
             
             # Close our database connection
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
             # Return the tool list we just created
-            return returned_tool_list
+            return returnedToolList
 
         except Error as e:
 
@@ -229,10 +210,10 @@ class ToolManager:
             range_end = range_start + timedelta(days = range_end_days)  
 
             # We are going to be using the user manager soon so let's create it now
-            user_manager = UserManager(self.__databaseFilename)
+            user_manager = UserManager(self.databaseFilename)
 
             # Connect to our database
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.__databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
 
             # Create a cursor so that we can run queries
             cursor = databaseConnection.cursor()
@@ -287,7 +268,7 @@ class ToolManager:
             cust_id = user.getId()
 
             # Connect to our database
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.__databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
 
             # Create a cursor so that we can run queries
             cursor = databaseConnection.cursor()

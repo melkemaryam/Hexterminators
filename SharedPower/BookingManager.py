@@ -101,7 +101,7 @@ class BookingManager:
                 tool_id = booking_rows[1]
 
                 # load the correct tool
-                tool = tool_manager.load_tool_from_id(tool_id)
+                tool = tool_manager.loadToolId(tool_id)
 
                 # create booking
                 single_booking = Booking(book_id, tool, user)
