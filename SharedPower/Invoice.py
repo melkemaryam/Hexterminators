@@ -13,6 +13,7 @@ Created: 17th November 2019
 
 from DatabaseConnection import DatabaseConnection
 #for talking to the database
+import sqlite3
 import numpy
 import pandas
 #for tables and making them fancy
@@ -28,7 +29,8 @@ from email.mime.text import MIMEText
 #more emailing from python stuff
 
 class Invoice:
-    def __init__(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table):
+    
+    def __init__(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, databaseFilename):
         self.invoice_id = invoice_id
         self.customer_id = customer_id
         self.customer_firstname = customer_firstname
@@ -41,14 +43,13 @@ class Invoice:
         self.rental_list = rental_list
         self.invoice_table = invoice_table
         self.format_invoice = format_invoice
+        self.databaseFilename = databaseFilename
 
     def getData(self, customer_email):
         #for finding customer in the base using email address
 
-        databaseConnection = DatabaseConnection.CreateDBConnection(databaseFilename)
+        DatabaseConnection.CreateDBConnection()
         #estabilishing a db connection
-        cursor = databaseConnection.cursor()
-
         cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email )
         customer_row=cursor.fetchone()
         if (customer_row != None):
@@ -60,7 +61,7 @@ class Invoice:
             customer_email = customer_row[3]
             #customer creation based on retrieved data
 
-        databaseConnection.CloseDBConnection(databaseFilename)
+        DatabaseConnection.CloseDBConnection()
         #close db conection to free resources
 
         return customer_id, customer_firstname, customer_lastname, customer_email
@@ -77,9 +78,7 @@ class Invoice:
         insurance_charge = 5
            
         #estabilishing a db connection
-        databaseConnection = DatabaseConnection.CreateDBConnection(databaseFilename)
-        cursor = databaseConnection.cursor()
-
+        DatabaseConnection.CreateDBConnection()
         cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery FROM booking WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
         for booking in tool_row:
@@ -95,7 +94,7 @@ class Invoice:
             rental_list.append(tool_id, price, duration, total_price)
             #rental lines creation based on retrieved data
 
-        databaseConnection.CloseDBConnection(databaseFilename)
+        DatabaseConnection.CloseDBConnection()
         #close db conection to free resources
         return rental_list, grand_total
         #presenting the Rental lines back to us
@@ -159,16 +158,11 @@ class Invoice:
     def getList(self):
         #for finding customer in the base using email address
 
-        databaseConnection = DatabaseConnection.CreateDBConnection(databaseFilename)
-        #estabilishing a db connection
-
-        cursor = databaseConnection.cursor()
-        #cursor creation for talking to db
-
+        DatabaseConnection.CreateDBConnection()
         cursor.execute('SELECT customer_email FROM customer;' )
         mailing_list=cursor.fetchall()
 
-        DatabaseConnection.CloseDBConnection(databaseFilename)
+        DatabaseConnection.CloseDBConnection()
         #close db conection to free resources
 
         return mailing_list

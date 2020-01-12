@@ -216,7 +216,7 @@ class Tool:
                 
                 AvailabilityChecker.get_availability(tool_id)
 
-                dateOfBooking = input("Please find the availability below and type the start date of your choice. (YY-MM-DD)\n")
+                dateOfBooking = input("Please find the availability below and type the start date of your choice. (YY-MM-DD)\n", days_available)
 
                 while dateOfBooking == "":
                     dateOfBooking = input("Please try again.")
@@ -267,17 +267,20 @@ class Tool:
                 #check whether return is overdue
                 #if overdue -> calculate extra fee
        
-        if chooseAction == 4:
+        #if chooseAction == 4:
             
-            def markAvailability():
+            #def markAvailability():
 
                 #show list of all tools that person owns
-                maToolInput = input("For which item do you want to change the availability state?\n")
+                #maToolInput = input("For which item do you want to change the availability state?\n")
 
                 #if state == unavailable:
                     #state.available
                 #else:
                     #state.unavailable
+
+        #  fuck this shit <3
+        #  it is not one of the basic requirements
 
 
 
