@@ -1,3 +1,16 @@
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: AvailabilityChecker.py
+
+Created: 6th January 2020
+
+-------------------------------------------------
+'''
+
 import datetime
 import sqlite3
 import pandas

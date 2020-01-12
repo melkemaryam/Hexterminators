@@ -1,3 +1,16 @@
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: Tool.py
+
+Created: 17th November 2019
+
+-------------------------------------------------
+'''
+
 import sqlite3
 import pandas as pd
 from DatabaseConnection import DatabaseConnection

@@ -1,3 +1,16 @@
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: ToDo
+
+Created: 3th January 2020
+
+-------------------------------------------------
+'''
+
 - generating unique id for tool
 
 - adding a tool in Tool.py

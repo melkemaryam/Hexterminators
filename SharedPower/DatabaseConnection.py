@@ -1,3 +1,16 @@
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: DatabaseConnection.py
+
+Created: 27th December 2019
+
+-------------------------------------------------
+'''
+
 import sqlite3
 from sqlite3 import Error
 

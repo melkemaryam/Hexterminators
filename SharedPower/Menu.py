@@ -1,8 +1,15 @@
-# --------------------------------------------------------------------
-# Filename:     Menu.py
-#
-# Date Created: 29th November 2019
-# --------------------------------------------------------------------
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: BookingManager.py
+
+Created: 27th December 2019
+
+-------------------------------------------------
+'''
 
 from datetime import datetime
 
@@ -154,7 +161,7 @@ class Menu:
         booking_manager = BookingManager(self.__database_filename)
 
         # Get a list of all the future bookings from the booking manager
-        future_bookings = booking_manager.search_future_bookings_for_user(self.__registered_user)
+        future_bookings = booking_manager.SearchFutureBookings(self.__registered_user)
 
         # Print the tools associated with the booking
         self.__display_tool_headers()
@@ -205,7 +212,7 @@ class Menu:
         self.__display_tool(selected_tool)
 
         # Create the booking now
-        new_booking = booking_manager.create_booking(selected_tool, self.__registered_user)
+        new_booking = booking_manager.createBooking(selected_tool, self.__registered_user)
 
         # We should now have our booking back - let's display it to the user
         print('\nBooking Confirmed!')

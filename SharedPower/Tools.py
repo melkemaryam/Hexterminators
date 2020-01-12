@@ -1,8 +1,15 @@
-# --------------------------------------------------------------------
-# Filename:     Tools.py
-#
-# Date Created: 28th November 2019
-# --------------------------------------------------------------------
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: Tools.py
+
+Created: 10th January 2020
+
+-------------------------------------------------
+'''
 
 from datetime import datetime
 from datetime import timedelta

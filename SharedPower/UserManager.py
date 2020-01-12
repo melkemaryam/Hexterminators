@@ -1,8 +1,15 @@
-# --------------------------------------------------------------------
-# Filename:     UserManager.py
-#
-# Date Created: 28th November 2019
-# --------------------------------------------------------------------
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: UserManager.py
+
+Created: 10th January 2020
+
+-------------------------------------------------
+'''
 
 from DatabaseConnection import DatabaseConnection
 from Classes.Helpers.PasswordHelpers import PasswordHelpers

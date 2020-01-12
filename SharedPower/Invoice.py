@@ -1,3 +1,16 @@
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: Invoice.py
+
+Created: 17th November 2019
+
+-------------------------------------------------
+'''
+
 from DatabaseConnection import DatabaseConnection
 #for talking to the database
 import numpy

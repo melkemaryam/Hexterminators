@@ -1,3 +1,16 @@
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: Delivery.py
+
+Created: 17th November 2020
+
+-------------------------------------------------
+'''
+
 import sqlite3
 from DatabaseConnection import DatabaseConnection
 

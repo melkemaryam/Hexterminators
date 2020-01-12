@@ -1,8 +1,15 @@
-# --------------------------------------------------------------------
-# Filename:     ToolManager.py
-#
-# Date Created: 29th November 2019
-# --------------------------------------------------------------------
+''' 
+-------------------------------------------------
+
+Project: SharedPower
+Group: Hexterminators
+
+File name: ToolManager.py
+
+Created: 10th January 2020
+
+-------------------------------------------------
+'''
 
 from datetime import datetime
 from datetime import timedelta
