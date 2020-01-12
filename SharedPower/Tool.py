@@ -213,25 +213,32 @@ class Tool:
 
                 if lengthOfBookingInput != 0.5 or 1.0 or 1.5 or 2.0 or 2.5 or 3.0 or 1 or 2 or 3:
                     lengthOfBookingInput = input("This was an invalid entry. Please try again.")
-		
-		Delivery = input("We do offer delivery services should you not be able to collect the tool yourself. Would you be interested in ordering delivery for your tool (y/n)?.\n")
+                
+                AvailabilityChecker.get_availability(tool_id)
 
-		while Delivery == "":
-                    Delivery = input("Please try again.")
+                dateOfBooking = input("Please find the availability below and type the start date of your choice. (YY-MM-DD)\n")
 
-                if Delivery != 'y' or 'n':
-                    Delivery = input("This was an invalid entry. Please try again.")
-		
-		if Delivery = 'y':
-			Delivery = 1
-		else Delivery = 0
-		
-		DatabaseConnection.CreateDBConnection()
-		cursor.execute('UPDATE Tools SET available= 0 WHERE tool_name= ? AND available = 1 LIMIT 1', chooseTool)
-		today = datetime.datetime().now
-		cursor.execute('UPDATE Booking availabile = 0 WHERE tool_id = ? AND date = ?',)
-		DatabaseConnection.CloseDBConnection()
+                while dateOfBooking == "":
+                    dateOfBooking = input("Please try again.")
 
+                if dateOfBooking != ??-??-??:
+                    dateOfBooking = input("This was an invalid entry. Please try again.")
+
+                
+		        Delivery = input("We do offer delivery services should you not be able to collect the tool yourself. Would you be interested in ordering delivery for your tool (y/n)?.\n")
+
+		        while Delivery == "":
+                        Delivery = input("Please try again.")
+
+                    if Delivery != 'y' or 'n':
+                        Delivery = input("This was an invalid entry. Please try again.")
+            
+                if Delivery = 'y':
+                    Delivery = 1
+                else Delivery = 0
+            
+                AvailabilityChecker.book_out(tool_id, dateOfBooking, lengthOfBookingInput, Delivery)
+		
 		if chooseAction == 3:
 			inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")
 

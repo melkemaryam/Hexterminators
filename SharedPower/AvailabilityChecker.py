@@ -58,11 +58,12 @@ class Availability:
             i+=1
 
         for missing_availability in new_dates:
-            cursor.execute('INSERT INTO Booking (tool_id, price, date, cust_id, delivery, available) VALUES(newToolID, dayPriceToolInput, missing_availability, 0, 0, 1)')
+            cursor.execute('INSERT INTO Booking (tool_id, price, date, cust_id, delivery, available) VALUES(?, ?, ?, ?, ?, ?)', newToolID, dayPriceToolInput, missing_availability, 0, 0, 1)
         
         self.date_generator()
         for from_date in dates:
-		    cursor.execute('SELECT date FROM bookings WHERE tool_id = ? AND date = ? AND available = 1', tool_id, from_date )
+		    cursor.execute('SELECT date FROM bookings WHERE tool_id = ? AND date = ? AND available = 1', tool_id, from_date)
+        
         quick_dates = cursor.fetchall()
 
         dates_available = []
@@ -72,6 +73,26 @@ class Availability:
         
         return days_available
         DatabaseConnection.CloseDBConnection()
+
+    def book_out(self, tool_id, dateOfBooking, lengthOfBookingInput, Delivery):
+        
+        DatabaseConnection.CreateDBConnection()
+        booking_dates = [dateOfBooking]
+        i = 1
+        while i>= lengthOfBookingInput:
+            booking_dates.append(dateOfBooking + timedelta(days = 1))
+            i+=1
+        
+        for dateOfBooking in booking_dates:
+            cursor.execute('UPDATE Booking SET available = 0 WHERE tool_id = ? AND date = ?', tool_id, dateOfBooking)
+
+        if Delivery = 1:
+            for dateOfBooking in booking_dates:
+                cursor.execute('UPDATE Booking SET Delivery = 1 WHERE tool_id = ? AND date = ?', tool_id, dateOfBooking)
+
+        
+        DatabaseConnection.CloseDBConnection()
+
     
 
     

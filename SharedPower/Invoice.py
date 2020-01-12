@@ -45,9 +45,9 @@ class Invoice:
     def getData(self, customer_email):
         #for finding customer in the base using email address
 
-        DatabaseConnection.CreateDBConnection()
+        databaseConnection = DatabaseConnection.CreateDBConnection(databaseFilename)
         #estabilishing a db connection
-        cursor = DatabaseConnection.cursor()
+        cursor = databaseConnection.cursor()
 
         cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email )
         customer_row=cursor.fetchone()
@@ -60,7 +60,7 @@ class Invoice:
             customer_email = customer_row[3]
             #customer creation based on retrieved data
 
-        DatabaseConnection.CloseDBConnection(databaseFilename)
+        databaseConnection.CloseDBConnection(databaseFilename)
         #close db conection to free resources
 
         return customer_id, customer_firstname, customer_lastname, customer_email
@@ -77,10 +77,10 @@ class Invoice:
         insurance_charge = 5
            
         #estabilishing a db connection
-        DatabaseConnection.CreateDBConnection()
-        cursor = DatabaseConnection.cursor()
+        databaseConnection = DatabaseConnection.CreateDBConnection(databaseFilename)
+        cursor = databaseConnection.cursor()
 
-        cursor.execute('SELECT tool_id, price, duration, cust_id, delivery FROM booking WHERE cust_id= ? AND start_date=< ? AND start_date=<'), (customer_id, date, date_end)
+        cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery FROM booking WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
         for booking in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
@@ -95,7 +95,7 @@ class Invoice:
             rental_list.append(tool_id, price, duration, total_price)
             #rental lines creation based on retrieved data
 
-        DatabaseConnection.CloseDBConnection()
+        databaseConnection.CloseDBConnection(databaseFilename)
         #close db conection to free resources
         return rental_list, grand_total
         #presenting the Rental lines back to us
@@ -159,16 +159,16 @@ class Invoice:
     def getList(self):
         #for finding customer in the base using email address
 
-        DatabaseConnection.CreateDBConnection()
+        databaseConnection = DatabaseConnection.CreateDBConnection(databaseFilename)
         #estabilishing a db connection
 
-        cursor = DatabaseConnection.cursor()
+        cursor = databaseConnection.cursor()
         #cursor creation for talking to db
 
         cursor.execute('SELECT customer_email FROM customer;' )
         mailing_list=cursor.fetchall()
 
-        DatabaseConnection.CloseDBConnection()
+        DatabaseConnection.CloseDBConnection(databaseFilename)
         #close db conection to free resources
 
         return mailing_list
