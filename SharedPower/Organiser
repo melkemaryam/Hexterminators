@@ -16,10 +16,13 @@ Orgniser:
 
 
 libraries to install: 
--panda
+-pandas
 -numpy
 -pause
 -smtplib
+-sqlite3
+-datetime
+-calendar
 
 
 Links:
@@ -29,17 +32,19 @@ Links:
 
 # please write down all the methods within these classes so we know what we have
 
-Delivery:
+Availability Checker:
+-date_generator()
+-get_availability()
+-book_out()
 
 Insurance:
 
 Invoice:
 
--create_invoice
-    -getData()
-    -getTool()
-    -cut_list()
-    -generate_invoice()
+-getData()
+-getTool()
+-cut_list()
+-generate_invoice()
 -send_invoice()
 
 Interface:
