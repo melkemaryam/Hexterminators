@@ -30,6 +30,7 @@ from email.mime.text import MIMEText
 
 class Invoice:
     
+    #constructor
     def __init__(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, databaseFilename):
         self.invoice_id = invoice_id
         self.customer_id = customer_id
@@ -45,11 +46,13 @@ class Invoice:
         self.format_invoice = format_invoice
         self.databaseFilename = databaseFilename
 
+'''
+Function name: getData()
+Task: for finsing customer in the base using email address
+'''
     def getData(self, customer_email):
-        #for finding customer in the base using email address
-
+        # Connecting to the DB
         DatabaseConnection.CreateDBConnection()
-        #estabilishing a db connection
         cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email )
         customer_row=cursor.fetchone()
         if (customer_row != None):
@@ -61,12 +64,16 @@ class Invoice:
             customer_email = customer_row[3]
             #customer creation based on retrieved data
 
+        # Disconnecting from the DB
         DatabaseConnection.CloseDBConnection()
-        #close db conection to free resources
 
         return customer_id, customer_firstname, customer_lastname, customer_email
         #presenting the Customer back to us
 
+'''
+Function name: getTool()
+Task: for getting all the tools used by customer for last month
+'''
     def getTool(self, customer_id):
         #for getting all the tools used by customer for last month
 
@@ -77,7 +84,7 @@ class Invoice:
         delivery_charge = 5
         insurance_charge = 5
            
-        #estabilishing a db connection
+        # Connecting to the DB
         DatabaseConnection.CreateDBConnection()
         cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery FROM booking WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
@@ -93,9 +100,10 @@ class Invoice:
             grand_total = grand_total + total_price + deliveries_charge + insurance_charge
             rental_list.append(tool_id, price, duration, total_price)
             #rental lines creation based on retrieved data
-
+        
+        # Disconnecting from the DB
         DatabaseConnection.CloseDBConnection()
-        #close db conection to free resources
+        
         return rental_list, grand_total
         #presenting the Rental lines back to us
     
@@ -106,6 +114,10 @@ class Invoice:
         invoice_table = numpy.reshape(tool_droppings, (-1,5))
         return invoice_table
         
+'''
+Function name: generate_invoice
+Task: Building the actual invoice - message and numbers together
+'''
     def generate_invoice(self, rental_list, grand_total, invoice_table, customer_firstname, customer_lastname):
         #building the actual invoice - message and numbers together
 
@@ -123,8 +135,11 @@ class Invoice:
         return format_invoice
         #e voila!
     
+'''
+Function name: send_invoice()
+Task: Now for sending the bitch away >.<
+'''
     def send_invoice(self, customer_email, format_invoice):
-        #now for sending the bitch away >.<
 
         MY_ADDRESS = 'breo.Piotr.Hexterminators@study.beds.ac.uk'
         PASSWORD = 'need.to.hash.this.away'
@@ -154,22 +169,29 @@ class Invoice:
 
         s.quit()
         #clean up done
-        
-    def getList(self):
-        #for finding customer in the base using email address
 
+'''
+Function name: getList()
+Task: For finding customer in the base using email address
+'''
+    def getList(self):
+
+        # Connecting to the DB
         DatabaseConnection.CreateDBConnection()
         cursor.execute('SELECT customer_email FROM customer;' )
         mailing_list=cursor.fetchall()
 
+        # Disconnecting from the DB
         DatabaseConnection.CloseDBConnection()
-        #close db conection to free resources
 
         return mailing_list
         #presenting the Customer list back to us
     
     
-        
+'''
+Function name: run_month()
+Task:
+'''
     def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total):
         
         self.getList()
@@ -186,13 +208,17 @@ class Invoice:
             self.generate_invoice(rental_list, grand_total, invoice_table, customer_firstname, customer_lastname)
             self.send_invoice(customer_email, format_invoice)
     
+'''
+Function name: timr_stuff()
+Task: Setting the time to zero in case the code is not started at the start of the month 
+'''
     def time_stuff(self):
         start = 0
         start_date = (datetime.now().year, (datetime.now().month + 1), 1)
         if start == 0:
             pause.until(start_date)
             start +=1
-            #zeroing in in case the code is not started on the first of the month
+            
         else:
             pause.days(calendar.monthrange(datetime.datetime.now().year, datetime.datetime.now().month))
             #triggering the invoice sending on the first of subsequent months (pause module manual states even if the machine goes into standby over the event time it should re-run the moment it wakes up)
