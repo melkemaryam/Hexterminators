@@ -190,7 +190,7 @@ Task: For finding customer in the base using email address
     
 '''
 Function name: run_month()
-Task:
+Task: Assuming the code runs non-stop, it sends an invoice to every customer at the start of every month
 '''
     def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total):
         
