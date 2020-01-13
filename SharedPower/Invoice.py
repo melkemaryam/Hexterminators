@@ -83,10 +83,10 @@ Task: for getting all the tools used by customer for last month
         date_end = datetime.date.today().replace(day=1) - datetime.timedelta(days=1)
         delivery_charge = 5
         insurance_charge = 5
-           
+        
         # Connecting to the DB
         DatabaseConnection.CreateDBConnection()
-        cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery FROM booking WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
+        cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery, late_return FROM booking WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
         for booking in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list
@@ -96,14 +96,16 @@ Task: for getting all the tools used by customer for last month
             price = booking[2]
             duration = booking[3]
             deliveries_charge = booking[4] * delivery_charge
-            total_price = int(price) * int(duration)
-            grand_total = grand_total + total_price + deliveries_charge + insurance_charge
+            late_charge = booking [5]
+            total_price = int(price) * int(duration) + int(late_charge)
             rental_list.append(tool_id, price, duration, total_price)
             #rental lines creation based on retrieved data
         
         # Disconnecting from the DB
         DatabaseConnection.CloseDBConnection()
-        
+
+        grand_total = grand_total + total_price + deliveries_charge + insurance_charge
+
         return rental_list, grand_total
         #presenting the Rental lines back to us
     
