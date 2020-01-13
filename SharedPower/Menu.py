@@ -69,52 +69,52 @@ class Menu:
 
         username = input("Please sign up here.\nPlease come up with an unique username:\n")
         while username == "":
-			username = input("Please try again:\n")
+            username = input("Please try again:\n")
 
-		password = input("Please enter a safe password:\n")
+        password = input("Please enter a safe password:\n")
         while password == "":
-			passwordInputSU = input("Please try again:\n")
+            password = input("Please try again:\n")
 
-		F_name = input("Please enter your first name:\n")
+        F_name = input("Please enter your first name:\n")
         while F_name == "":
-			F_name = input("Please try again:\n")
+            F_name = input("Please try again:\n")
 
-		L_name = input("Please enter your last name:\n")
+        L_name = input("Please enter your last name:\n")
         while L_name == "":
-			L_name = input("Please try again:\n")
+            L_name = input("Please try again:\n")
 
         telephone = input("Last but not least, we need your email address for verification:\n")
         while telephone == "":
-		    telephone = input("Please try again:\n")
+            telephone = input("Please try again:\n")
 
         email = input("Last but not least, we need your email address for verification:\n")
         while email == "":
-		    email = input("Please try again:\n")
+            email = input("Please try again:\n")
 
-		print("Please enter your bank details:\n")
-		address1 = input("Address Line 1:\n")
+        print("Please enter your bank details:\n")
+        address1 = input("Address Line 1:\n")
         while address1 == "":
-			address1 = input("Please try again:\n")
+            address1 = input("Please try again:\n")
 
-		address2 = input("Address Line 2:\n")
+        address2 = input("Address Line 2:\n")
         while address2 == "":
-    		address2 = input("Please try again:\n")
+            address2 = input("Please try again:\n")
 
-		postcode = input("Post Code:\n")
-		while postcode == "":
-			postcode = input("Please try again:\n")
+        postcode = input("Post Code:\n")
+        while postcode == "":
+            postcode = input("Please try again:\n")
         
         acc_no = input("Account Number:\n")
-		while acc_no.isdigit() == False:
-			acc_no = input("Please try again:\n")
+        while acc_no.isdigit() == False:
+            acc_no = input("Please try again:\n")
 
-		sort_code = input("Sort Code:\n")
-		while sort_code.isdigit() == False:
-			sort_code = input("Please try again:\n")
+        sort_code = input("Sort Code:\n")
+        while sort_code.isdigit() == False:
+            sort_code = input("Please try again:\n")
 
         branch_name = input("Post Code:\n")
-		while postcode == "":
-			postcode = input("Please try again:\n")
+        while postcode == "":
+            postcode = input("Please try again:\n")
 
 
         # create new user in the DB
@@ -131,12 +131,12 @@ class Menu:
 
         confirmUser = None
         
-        user_manager = UserManager(self.database_filename)
+        userManager = UserManager(self.database_filename)
 
         email = input('Please enter the your email: ')
         password = input('Please enter the your password: ')
 
-        confirmUser = user_manager.confirmUser(email, password)
+        confirmUser = userManager.confirmUser(email, password)
 
         return confirmUser
 
