@@ -186,6 +186,8 @@ Task: Allows the user to ass an item
                 else:
                     print("Thank you very much. Your new tool has been added to our Database.")
 
+                Notes.Rent(tool_id, descriptionToolInput)
+
 		if chooseAction == 2:
 
 '''
