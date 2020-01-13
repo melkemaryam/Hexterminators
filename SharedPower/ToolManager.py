@@ -80,7 +80,7 @@ class ToolManager:
 
     '''
     Function name: loadAllUsers()
-    Task: load all users from the DB
+    Task: search a tool in a DB by name
     '''
     def searchToolByName(self, search_criteria):
 
@@ -132,71 +132,66 @@ class ToolManager:
             print(__name__, ':', functionName, ':', e)
             raise
 
-    # -----------------------------------------------------------
-    # search_tools_by_category
-    # Search for tools by their category
-    # -----------------------------------------------------------
-    def search_tools_by_category(self, search_criteria):
+    '''
+    Function name: searchToolByCategory()
+    Task: search for a tool in the DB by category
+    '''
 
-        functionName = 'search_tools_by_category'
+    def searchToolByCategory(self, search_criteria):
 
-        # Create an empty list so that we can add tools to it later
+        functionName = 'searchToolByCategory'
+
+        # empty list
         returnedToolList = []
         
         try:
 
-            # We only want tools from now - so we specify the start date and include this in our SQL query
+            # specify start date
             start_date = datetime.now()
 
-            # We are going to be using the user manager soon so let's create it now
             user_manager = UserManager(self.databaseFilename)
 
-            # Connect to our database
+            # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
-
-            # Create a cursor so that we can run queries
             cursor = databaseConnection.cursor()
 
             cursor.execute("SELECT tool_id, cust_id, tool_name, tool_start, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_cat = ?", (start_date, search_criteria.value))
 
             tool_rows = cursor.fetchall()
 
-            # Iterate through the database records, creating a tool object and adding it to our list as we go
             for tool in tool_rows:
-                
-                # Read our values from the record
-                tool_id          = tool[0]
-                cust_id          = tool[1]
-                tool_name        = tool[2]
-                tool_start       = datetime.strptime(tool[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration    = tool[4]
-                tool_cat         = tool[5]
-                price            = tool[6]
 
-                # Now we can ask the user manager to give us the user with the id we just got from the database
+                tool_id = tool[0]
+                cust_id = tool[1]
+                tool_name = tool[2]
+                tool_start = datetime.strptime(tool[3], '%Y-%m-%d %H:%M:%S')
+                tool_duration = tool[4]
+                tool_cat = tool[5]
+                price = tool[6]
+
+                # get user
                 user = user_manager.LoadUserId(cust_id)
 
-                # We should now have a record with some data in it so let's create our tool
+                # create tool
                 single_tool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
 
                 returnedToolList.append(single_tool)
             
-            # Close our database connection
+            # Disconnection from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
-            # Return the tool list we just created
             return returnedToolList
 
         except Error as e:
 
-            # Catch and display any errors that occur
             print(__name__, ':', functionName, ':', e)
             raise
 
-    # -----------------------------------------------------------
-    # load_future_tools
-    # Load future tools from the database based upon a start date and range
-    # -----------------------------------------------------------
+    '''
+    Function name: loadAllUsers()
+    Task: load all users from the DB
+    '''
+
     def load_future_tools(self, range_start, range_end_days = 30):
 
         functionName = 'load_future_tools'
@@ -264,18 +259,15 @@ class ToolManager:
 
         try:
             
-            # Grab the user_id from the incoming user object so that we can store it in the database
+            # get ID
             cust_id = user.getId()
 
             # Connect to our database
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
-
-            # Create a cursor so that we can run queries
             cursor = databaseConnection.cursor()
 
             # Execute our INSERT query against the database
-            cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_start, tool_duration, tool_cat, price) VALUES (?, ?, ?, ?, ?, ?)', (cust_id,
-                                                                                                                                                                tool_name,
+            cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_start, tool_duration, tool_cat, price) VALUES (?, ?, ?, ?, ?, ?)', (cust_id, tool_name,
                                                                                                                                                                 tool_start,
                                                                                                                                                                 tool_duration,
                                                                                                                                                                 tool_cat.value,
@@ -288,7 +280,7 @@ class ToolManager:
             tool_id = cursor.lastrowid
 
             # Create a tool object based on the information we now have
-            returned_tool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+            returned_tool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
             
             # Close our database connection
             DatabaseConnection.CloseDBConnection(databaseConnection)
