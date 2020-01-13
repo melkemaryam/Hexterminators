@@ -17,14 +17,13 @@ from DatabaseConnection import DatabaseConnection
 class Delivery:
     def __init__(self, book_id):
         self.book_id = book_id
-    
+
     def add_delivery_charge(self, booking_id):
         DatabaseConnection.CreateDBConnection(databaseFilename)
         
-        cursor = databaseConnection.cursor()
         #cursor creation for talking to db
+        cursor = databaseConnection.cursor()
 
         cursor.execute('UPDATE booking SET delivery = delivery + 1 WHERE book_id = ?', book_id)
         
         DatabaseConnection.CloseDBConnection(databaseFilename)
-        
