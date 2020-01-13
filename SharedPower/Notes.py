@@ -11,6 +11,10 @@ Created: 13th January 2020
 -------------------------------------------------
 '''
 
+from datetime import datetime
+import sqlite3
+from DatabaseConnection import DatabaseConnection
+
 class Notes:
 
     def __init__(self, note_in, note_out):
@@ -52,7 +56,7 @@ class Notes:
         cursor.execute('SELECT tool_id FROM booking WHERE book_id = ?', maToolInput)
         tool_id = cursor.fetchone()
 
-        cursor.execute('UPDATE booking SET note_out = ? AND available = 0 WHERE tool_id = ? AND date < ?', brokenNoteInput, tool_id, today)
+        cursor.execute('UPDATE booking SET note_out = ? AND available = 0 WHERE tool_id = ? AND date >= ?', brokenNoteInput, tool_id, today)
 
         DatabaseConnection.CloseDBConnection()
 

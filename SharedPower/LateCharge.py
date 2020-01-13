@@ -27,7 +27,7 @@ class LateCharge:
         actual_booking = []
         DatabaseConnection.CreateDBConnection()
         
-        cursor.execute('SELECT date FROM booking WHERE booking_id = ?', bookingIdReturnInput)
+        cursor.execute('SELECT date FROM booking WHERE book_id = ?', bookingIdReturnInput)
         booking_dates = cursor.fetchall()
         for date in booking_dates:
             actual_booking.append(booking_dates)
@@ -38,6 +38,6 @@ class LateCharge:
         late_charge = charge_ratio * late_days
         #adds the ratio for later calculation
 
-        cursor.execute('UPDATE booking SET late_return = ? WHERE booking_id = ?', late_charge, bookingIdReturnInput)
+        cursor.execute('UPDATE booking SET late_return = ? WHERE book_id = ?', late_charge, bookingIdReturnInput)
 
         DatabaseConnection.CloseDBConnection()
