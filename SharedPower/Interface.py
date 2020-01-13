@@ -73,37 +73,26 @@ class Interface:
 		if haveAccount == 2:
 			
 			def signUp(self):
-				# check availability of the username
 
-				#while usernameInputSU is already in Database:
 				usernameInputSU = input("Please sign up here.\nPlease come up with an unique username:\n")
 
 				while usernameInputSU == "":
 					usernameInputSU = input("Please try again:\n")
-					
-				#if usernameInputSU == already in Database:
-				#	usernameInputSU = input("Please try again:\n")
 
 				passwordInputSU = input("Please enter a safe password:\n")
 
 				while passwordInputSU == "":
 					passwordInputSU = input("Please try again:\n")
-					
-				#save password in Database with username
 
 				firstNameInputSU = input("Please enter your first name:\n")
 
 				while firstNameInputSU == "":
 					firstNameInputSU = input("Please try again:\n")
 
-				#save in DB
-
 				lastNameInputSU = input("Please enter your last name:\n")
 
 				while lastNameInputSU == "":
 					lastNameInputSU = input("Please try again:\n")
-
-				#save in DB
 
 				print("Please enter your bank details:\n")
 				streetInputSU = input("Street name:\n")
@@ -126,12 +115,7 @@ class Interface:
 				while accountNumberInputSU.isdigit() == False:
 						accountNumberInputSU = input("Please try again:\n")
 
-				#add several different bank details and add to the DB
-				#bank details: Street, number, Zipcode, Sort code, account number
-
 				emailInputSU = input("Last but not least, we need your email address for verification:\n")
 
 				while emailInputSU == "":
 					emailInputSU = input("Please try again:\n")
-
-				#create complete account in DB (and send a verification email)

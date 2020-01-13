@@ -15,6 +15,7 @@ from datetime import datetime
 
 from ToolManager import ToolManager
 from BookingManager import BookingManager
+from UserManager import UserManager
 
 from Tools import Tools
 from Bookings import Bookings
@@ -23,16 +24,136 @@ from Bookings import Bookings
 class Menu:
        
     #Constructor
-    def __init__(self, databaseFilename, registered_user):
+    def __init__(self, databaseFilename, registeredUser):
 
         self.databaseFilename = databaseFilename
-        self.registered_user = registered_user
+        self.registeredUser = registeredUser
+
+    def checkAccount(self):
+    
+        registeredUser = None
+
+        while (registeredUser == None):
+            haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 2: No. Press 3 for Exit.\n")
+            
+        while (haveAccount.isdigit() == False):
+            haveAccount = input("Please try again:\n")
+
+        haveAccount = int(haveAccount)
+    
+        if(haveAccount == 1):
+            # Call the method to register the new user - this will return us a user object
+            registeredUser = self.signIn()
+        
+        elif(haveAccount == 2):
+            # Call the method to validate an existing user - this will return us a user object
+            registeredUser = self.signUp()
+
+        else:
+            # The user has typed a number that is not on the menu so let's just exit the while loop
+            break
+            
+        return registeredUser
 
     # --------------------------------------------------------------------
-    # show
+    # Private Functions
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+    # __register_new_user
+    # Register a new customer user and save the details into the database.
+    # --------------------------------------------------------------------
+    def signUp(self):
+
+        newUser = None
+        
+        userManager = UserManager(self.databaseFilename)
+
+        usernameInputSU = input("Please sign up here.\nPlease come up with an unique username:\n")
+
+		while usernameInputSU == "":
+			usernameInputSU = input("Please try again:\n")
+
+		passwordInputSU = input("Please enter a safe password:\n")
+
+		while passwordInputSU == "":
+			passwordInputSU = input("Please try again:\n")
+
+		firstNameInputSU = input("Please enter your first name:\n")
+
+		while firstNameInputSU == "":
+			firstNameInputSU = input("Please try again:\n")
+
+		lastNameInputSU = input("Please enter your last name:\n")
+
+		while lastNameInputSU == "":
+			lastNameInputSU = input("Please try again:\n")
+
+        emailInputSU = input("Last but not least, we need your email address for verification:\n")
+
+		while emailInputSU == "":
+		    emailInputSU = input("Please try again:\n")
+
+        emailInputSU = input("Last but not least, we need your email address for verification:\n")
+
+		while emailInputSU == "":
+		    emailInputSU = input("Please try again:\n")
+
+		print("Please enter your bank details:\n")
+		streetInputSU = input("Address Line 1:\n")
+
+		while streetInputSU == "":
+			streetInputSU = input("Please try again:\n")
+
+		streetNumberInputSU = input("Address Line 2:\n")
+		while streetNumberInputSU.isdigit() == False:
+			streetNumberInputSU	= input("Please try again:\n")
+
+		zipCodeInputSU = input("Post Code:\n")
+		    while zipCodeInputSU == "":
+				zipCodeInputSU = input("Please try again:\n")
+        
+        accountNumberInputSU = input("Account Number:\n")
+		while accountNumberInputSU.isdigit() == False:
+			accountNumberInputSU = input("Please try again:\n")
+
+		sortCodeInputSU = input("Sort Code:\n")
+		while sortCodeInputSU.isdigit() == False:
+			sortCodeInputSU = input("Please try again:\n")
+
+
+        # create new user in teh DB
+        newUser = userManager.createUser(F_name, L_name, email, password)
+
+        return newUser
+
+    # --------------------------------------------------------------------
+    # __validate_existing_user
+    # Attempt to validate an existing user with their email and password
+    # --------------------------------------------------------------------
+    def __validate_existing_user(self):
+
+        validated_user = None
+        
+        # Create a UserManager and pass in the filename for the database
+        user_manager = UserManager(self.__database_filename)
+
+        # Get the new user details from the user
+        user_email      = input('Please enter the your email: ')
+        user_password   = input('Please enter the your password: ')
+
+        # Attempt to validate a user using their email address and password
+        validated_user = user_manager.validate_user(user_email, user_password)
+
+        # We can now return this user to the caller
+        return validated_user
+
+
+    # --------------------------------------------------------------------
+    # action
     # Display and handle requests from the main menu.
     # --------------------------------------------------------------------
-    def show(self):
+    def action(self):
 
         user_input = 0
 

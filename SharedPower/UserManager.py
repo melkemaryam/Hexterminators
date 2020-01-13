@@ -36,7 +36,7 @@ class UserManager:
         try:
             
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.__databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
             # Hash the users password
