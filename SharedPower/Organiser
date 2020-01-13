@@ -16,52 +16,65 @@ Orgniser:
 
 
 libraries to install: 
--pandas
--numpy
--pause
--smtplib
--sqlite3
--datetime
--calendar
+- pandas
+- numpy
+- pause
+- smtplib
+- sqlite3
+- datetime
+- calendar
 
 
 Links:
--https://www.pythonforbeginners.com/code-snippets-source-code/script-password-generator/
-
+- https://www.pythonforbeginners.com/code-snippets-source-code/script-password-generator/
 
 
 # please write down all the methods within these classes so we know what we have
 
+
 Availability Checker:
--date_generator()
--get_availability()
--book_out()
+- date_generator()
+- get_availability()
+- book_out()
+
 
 Insurance:
+- insurance_tool()
+
 
 Invoice:
+- getData()
+- getTool()
+- cut_list()
+- generate_invoice()
+- send_invoice()
+- getList()
+- run_month()
+- time_stuff()
 
--getData()
--getTool()
--cut_list()
--generate_invoice()
--send_invoice()
 
 Interface:
-
--haveAccount(): checks whether a user/owner has an account, also sign in and sign up
-    -signIn()
-    -signUp()
+- checkAccount(): checks whether a user/owner has an account, also sign in and sign up
+    - signIn()
+    - signUp()
 
 
 Tool:
-
 - searchTool()
+- load_data()
+- choose_filters()
+- filter_data()
 - action()
-    -addAnItem()
-    -rentAnItem()
+    - addAnItem()
+    - rentAnItem()
 
 User:
 - getID()
+- setFirstName()
+- getFirstName()
+- setEmail()
+- getEmail()
+
+
 
 
