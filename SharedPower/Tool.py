@@ -115,7 +115,7 @@ Task: applies the filters using the data input
 	#load DB
 '''
 Function name: action()
-Task: ???
+Task: Gives the user a choice on what they want to do
 '''
 	def action(self):
 		
