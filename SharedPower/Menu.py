@@ -55,104 +55,97 @@ class Menu:
             
         return registeredUser
 
-    # --------------------------------------------------------------------
-    # Private Functions
-    # --------------------------------------------------------------------
+    
 
-    # --------------------------------------------------------------------
-    # __register_new_user
-    # Register a new customer user and save the details into the database.
-    # --------------------------------------------------------------------
+    '''
+    Function name: signUp()
+    Task: lets a new user sign up for a new account
+    '''
     def signUp(self):
 
         newUser = None
         
         userManager = UserManager(self.databaseFilename)
 
-        usernameInputSU = input("Please sign up here.\nPlease come up with an unique username:\n")
+        username = input("Please sign up here.\nPlease come up with an unique username:\n")
+        while username == "":
+			username = input("Please try again:\n")
 
-		while usernameInputSU == "":
-			usernameInputSU = input("Please try again:\n")
-
-		passwordInputSU = input("Please enter a safe password:\n")
-
-		while passwordInputSU == "":
+		password = input("Please enter a safe password:\n")
+        while password == "":
 			passwordInputSU = input("Please try again:\n")
 
-		firstNameInputSU = input("Please enter your first name:\n")
+		F_name = input("Please enter your first name:\n")
+        while F_name == "":
+			F_name = input("Please try again:\n")
 
-		while firstNameInputSU == "":
-			firstNameInputSU = input("Please try again:\n")
+		L_name = input("Please enter your last name:\n")
+        while L_name == "":
+			L_name = input("Please try again:\n")
 
-		lastNameInputSU = input("Please enter your last name:\n")
+        telephone = input("Last but not least, we need your email address for verification:\n")
+        while telephone == "":
+		    telephone = input("Please try again:\n")
 
-		while lastNameInputSU == "":
-			lastNameInputSU = input("Please try again:\n")
-
-        emailInputSU = input("Last but not least, we need your email address for verification:\n")
-
-		while emailInputSU == "":
-		    emailInputSU = input("Please try again:\n")
-
-        emailInputSU = input("Last but not least, we need your email address for verification:\n")
-
-		while emailInputSU == "":
-		    emailInputSU = input("Please try again:\n")
+        email = input("Last but not least, we need your email address for verification:\n")
+        while email == "":
+		    email = input("Please try again:\n")
 
 		print("Please enter your bank details:\n")
-		streetInputSU = input("Address Line 1:\n")
+		address1 = input("Address Line 1:\n")
+        while address1 == "":
+			address1 = input("Please try again:\n")
 
-		while streetInputSU == "":
-			streetInputSU = input("Please try again:\n")
+		address2 = input("Address Line 2:\n")
+        while address2 == "":
+    		address2 = input("Please try again:\n")
 
-		streetNumberInputSU = input("Address Line 2:\n")
-		while streetNumberInputSU.isdigit() == False:
-			streetNumberInputSU	= input("Please try again:\n")
-
-		zipCodeInputSU = input("Post Code:\n")
-		    while zipCodeInputSU == "":
-				zipCodeInputSU = input("Please try again:\n")
+		postcode = input("Post Code:\n")
+		while postcode == "":
+			postcode = input("Please try again:\n")
         
-        accountNumberInputSU = input("Account Number:\n")
-		while accountNumberInputSU.isdigit() == False:
-			accountNumberInputSU = input("Please try again:\n")
+        acc_no = input("Account Number:\n")
+		while acc_no.isdigit() == False:
+			acc_no = input("Please try again:\n")
 
-		sortCodeInputSU = input("Sort Code:\n")
-		while sortCodeInputSU.isdigit() == False:
-			sortCodeInputSU = input("Please try again:\n")
+		sort_code = input("Sort Code:\n")
+		while sort_code.isdigit() == False:
+			sort_code = input("Please try again:\n")
+
+        branch_name = input("Post Code:\n")
+		while postcode == "":
+			postcode = input("Please try again:\n")
 
 
-        # create new user in teh DB
-        newUser = userManager.createUser(F_name, L_name, email, password)
+        # create new user in the DB
+        newUser = userManager.createUser(username, password, F_name, L_name, telephone, email, address1, address2, postcode, acc_no, sort_code, branch_name)
 
         return newUser
 
-    # --------------------------------------------------------------------
-    # __validate_existing_user
-    # Attempt to validate an existing user with their email and password
-    # --------------------------------------------------------------------
-    def __validate_existing_user(self):
+    '''
+    Function name: signIn()
+    Task: lets existing user sign in
+    '''
 
-        validated_user = None
+    def signIn(self):
+
+        confirmUser = None
         
-        # Create a UserManager and pass in the filename for the database
-        user_manager = UserManager(self.__database_filename)
+        user_manager = UserManager(self.database_filename)
 
-        # Get the new user details from the user
-        user_email      = input('Please enter the your email: ')
-        user_password   = input('Please enter the your password: ')
+        email = input('Please enter the your email: ')
+        password = input('Please enter the your password: ')
 
-        # Attempt to validate a user using their email address and password
-        validated_user = user_manager.validate_user(user_email, user_password)
+        confirmUser = user_manager.confirmUser(email, password)
 
-        # We can now return this user to the caller
-        return validated_user
+        return confirmUser
 
 
-    # --------------------------------------------------------------------
-    # action
-    # Display and handle requests from the main menu.
-    # --------------------------------------------------------------------
+    '''
+    Function name: action()
+    Task: interaction with the user
+    '''
+
     def action(self):
 
         user_input = 0
@@ -160,7 +153,7 @@ class Menu:
         while (user_input < 6):
 
             # Display the login and register menu
-            print('\nMain Menu')
+            print('\nSharedPower')
             print('---------')
             print('1. Search for tools by name.')
             print('2. Search for tools by category.')

@@ -249,10 +249,11 @@ class ToolManager:
             print(__name__, ':', functionName, ':', e)
             raise
 
-'''
-Function name: create_tool()
-Task: create a new tool in the database
-'''
+    '''
+    Function name: create_tool()
+    Task: create a new tool in the database
+    '''
+    
     def create_tool(self, user, tool_name, tool_start, tool_duration, price, tool_cat):
 
         functionName = 'create_tool'
