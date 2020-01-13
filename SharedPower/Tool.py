@@ -214,7 +214,7 @@ class Tool:
                 if lengthOfBookingInput != 0.5 or 1.0 or 1.5 or 2.0 or 2.5 or 3.0 or 1 or 2 or 3:
                     lengthOfBookingInput = input("This was an invalid entry. Please try again.")
                 
-                AvailabilityChecker.get_availability(tool_id)
+                AvailabilityChecker.get_availability(tool_id, lengthOfBookingInput)
 
                 dateOfBooking = input("Please find the availability below and type the start date of your choice. (YY-MM-DD)\n", days_available)
 
