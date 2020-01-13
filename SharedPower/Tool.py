@@ -102,7 +102,7 @@ class Tool:
 
 	def action(self):
 		
-		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3: Inquire an item\n 4: Mark availability of one of your items\n")
+		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3:Return an item\n") # 3: Inquire an item\n 4: Mark availability of one of your items\n")
 
 		if chooseAction == 1:
 
@@ -240,32 +240,37 @@ class Tool:
                 AvailabilityChecker.book_out(tool_id, dateOfBooking, lengthOfBookingInput, Delivery)
 		
 		if chooseAction == 3:
-			inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")
+			#inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")
 
-            while inquireItemInput.isdigit() == False:
-    			inquireItemInput = input("Please try again:\n")
+            #while inquireItemInput.isdigit() == False:
+    		#	inquireItemInput = input("Please try again:\n")
 
-            if inquireItemInput == 1:
-                #show list from DB of all the information of the details of the items that the person rented
-                print("These are the items that you are renting at the moment:\n")
+            #if inquireItemInput == 1:
+            #    #show list from DB of all the information of the details of the items that the person rented
+            #    print("These are the items that you are renting at the moment:\n")
 
-            if inquireItemInput == 2:
-                #show list of all the information of the details of the items that the person owns
-                print("These are all the items that you uploaded to SharedPower:\n")
+            #if inquireItemInput == 2:
+            #    #show list of all the information of the details of the items that the person owns
+            #    print("These are all the items that you uploaded to SharedPower:\n")
 
-            if inquireItemInput == 3:
-                #connection to insurance
-                print("You will be connected to the insurance")
+            #if inquireItemInput == 3:
+            #    #connection to insurance
+            #    print("You will be connected to the insurance")
 
-            if inquireItemInput == 4:
-                bookingIdReturnInput = input("Please enter the booking ID of the item that you want to return")
+            #if inquireItemInput == 4:
+            #    bookingIdReturnInput = input("Please enter the booking ID of the item that you want to return")
 
-                while bookingIdReturnInput.isdigit() == False:
-    				bookingIdReturnInput = input("Please try again:\n")
+            #    while bookingIdReturnInput.isdigit() == False:
+    		#		bookingIdReturnInput = input("Please try again:\n")
 
                 #check whether this ID is correct and is in the rented register of that person
                 #check whether return is overdue
                 #if overdue -> calculate extra fee
+            bookingIdReturnInput = input("Please enter the booking ID of the item that you want to return")
+            while bookingIdReturnInput.isdigit() == False:
+                bookingIdReturnInput = input("Please try again:\n")
+            
+            
        
         #if chooseAction == 4:
             
