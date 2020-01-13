@@ -14,7 +14,8 @@ Created: 17th November 2019
 import sqlite3
 import pandas as pd
 from DatabaseConnection import DatabaseConnection
-from AvailabilityChecker import date_generator
+from AvailabilityChecker import AvailabilityChecker
+from LateCharge import checkIfLate
 
 class Tool:
 
@@ -202,12 +203,11 @@ Task: Lets the user rent an item
                 if chooseCategoryRent == 1 or 2 or 3 or 4 or 5:
                     	DatabaseConnection.CreateDBConnection()
 
-                cursor.execute('SELECT tool_name FROM Tools WHERE tool_cat= ?', chooseCategoryRent)
-                toolsListbyCategory = cursor.fetchall()
-                DatabaseConnection.CloseDBConnection()
-                print ("Please find the list of available items from selected category below:\n", toolsListbyCategory)
-                            chooseTool = input("Please enter the name of the tool you want to rent\n")
-			
+                    cursor.execute('SELECT tool_name FROM Tools WHERE tool_cat= ?', chooseCategoryRent)
+                    toolsListbyCategory = cursor.fetchall()
+                    DatabaseConnection.CloseDBConnection()
+                    print ("Please find the list of available items from selected category below:\n", toolsListbyCategory)
+                        			
                 #if chooseCategoryRent == 2:
                     #list of all the shaping tools in the DB plus amount of pieces of each tool
                     #chooseTool = input("Please enter the name of the tool you want to rent\n")
@@ -227,7 +227,10 @@ Task: Lets the user rent an item
                 else chooseCategoryRent != 1 or 2 or 3 or 4 or 5:
                     	chooseCategoryRent = input("Your Input was invalid. Please try to enter it again and choose the category of your item:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n")
 
+                chooseTool = input("Please enter the name of the tool you want to rent\n")
 
+                Notes.Rent(tool_id)
+                print ("Please be aware the item you chose might not be in perfect shape, please see notes below:\n", printNoteStateOfItem)
 
                 lengthOfBookingInput = input("Please enter the length of your booking. You can book a tool for at least half a day (0.5) and not more than 3.0 days.\n")
 
@@ -292,6 +295,15 @@ Task: Lets the user rent an item
             bookingIdReturnInput = input("Please enter the booking ID of the item that you want to return")
             while bookingIdReturnInput.isdigit() == False:
                 bookingIdReturnInput = input("Please try again:\n")
+
+            LateCharge.checkIfLate(bookingIdReturnInput)
+
+            noteOnReturn = input("Please describe any damage and/or wear and tear on the item")
+            while noteOnReturn == "":
+                noteOnReturn = input("If no damage or wear and tear please state 'perfect condition':\n")
+
+            Notes.Return(noteOnReturn)
+
             
             
        
