@@ -30,7 +30,7 @@ class BookingManager:
         self.databaseFilename = databaseFilename
 
     '''
-    Function name: createBooking
+    Function name: createBooking()
     Task: create a booking for a tool in the DB
     '''
 

@@ -65,10 +65,10 @@ class Menu:
             user_input = int(user_input)
     
             if (user_input == 1):
-                self.__search_tools_by_name()
+                self.__searchToolByName()
 
             elif (user_input == 2):
-                self.__search_tools_by_category()
+                self.__searchToolByCategory()
 
             elif (user_input == 3):
                 self.__show_future_tools()
@@ -88,10 +88,10 @@ class Menu:
     # --------------------------------------------------------------------
 
     # --------------------------------------------------------------------
-    # __search_tools_by_name
+    # __searchToolByName
     # Search for future tools by name
     # --------------------------------------------------------------------
-    def __search_tools_by_name(self):
+    def __searchToolByName(self):
 
         # Create a toolManager and pass in the filename for the database
         tool_manager = ToolManager(self.__databaseFilename)
@@ -100,16 +100,16 @@ class Menu:
         user_input = input('Please enter the name (or part of it) for the tool you are searching for: ')
 
         # Perform the search
-        future_tools = tool_manager.search_tools_by_name(user_input)
+        future_tools = tool_manager.searchToolByName(user_input)
 
         # Display the tools that have been returned
         self.__display_tool_list(future_tools)
 
     # --------------------------------------------------------------------
-    # __search_tools_by_category
+    # __searchToolByCategory
     # Search for future tools by category
     # --------------------------------------------------------------------
-    def __search_tools_by_category(self):
+    def __searchToolByCategory(self):
 
         # Create a toolManager and pass in the filename for the database
         tool_manager = ToolManager(self.__databaseFilename)
@@ -118,7 +118,7 @@ class Menu:
         search_criteria = toolcategoryHelpers.GettoolcategoryFromUser()
 
         # Perform the search
-        future_tools = tool_manager.search_tools_by_category(search_criteria)
+        future_tools = tool_manager.searchToolByCategory(search_criteria)
 
         # Display the tools that have been returned
         self.__display_tool_list(future_tools)
@@ -186,7 +186,7 @@ class Menu:
         category_of_tool = toolcategoryHelpers.GettoolcategoryFromUser()
 
         # Ask the tool manager for any upcoming tools of this category
-        available_tools = tool_manager.search_tools_by_category(category_of_tool)
+        available_tools = tool_manager.searchToolByCategory(category_of_tool)
 
         # Display the tools that have been returned
         self.__display_tool_list(available_tools)

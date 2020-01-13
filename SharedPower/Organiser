@@ -56,12 +56,12 @@ Interface:
 
 Tool:
 
--searchTool()
--action()
+- searchTool()
+- action()
     -addAnItem()
     -rentAnItem()
 
-Owner:
-
 User:
+- getID()
+
 
