@@ -68,7 +68,7 @@ class ToolManager:
                 # create tool
                 returned_tool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
             
-            # Disconnection from the DB
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
             return returned_tool
@@ -177,7 +177,7 @@ class ToolManager:
 
                 returnedToolList.append(single_tool)
             
-            # Disconnection from the DB
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
             return returnedToolList
@@ -249,10 +249,10 @@ class ToolManager:
             print(__name__, ':', functionName, ':', e)
             raise
 
-    # -----------------------------------------------------------
-    # create_tool
-    # Create a new tool in the database
-    # -----------------------------------------------------------
+'''
+Function name: create_tool()
+Task: create a new tool in the database
+'''
     def create_tool(self, user, tool_name, tool_start, tool_duration, price, tool_cat):
 
         functionName = 'create_tool'
@@ -262,7 +262,7 @@ class ToolManager:
             # get ID
             cust_id = user.getId()
 
-            # Connect to our database
+            # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
@@ -282,7 +282,7 @@ class ToolManager:
             # Create a tool object based on the information we now have
             returned_tool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
             
-            # Close our database connection
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
             # Return the user we just created
