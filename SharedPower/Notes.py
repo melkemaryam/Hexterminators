@@ -28,18 +28,32 @@ class Notes:
             printNoteStateOfItem = ('This tool was recently added please see item description:\n' + descriptionToolInput)
 
         else:
-        cursor.execute('SELECT note_in FROM booking WHERE tool_id = ? AND book_id = ?', tool_id, previousBooking)
-        printNoteStateOfItem = cursor.fetchone()
+            cursor.execute('SELECT note_in FROM booking WHERE tool_id = ? AND book_id = ?', tool_id, previousBooking)
+            printNoteStateOfItem = cursor.fetchone()
                 
         DatabaseConnection.CloseDBConnection()
         return printNoteStateOfItem
        
 
     def Return(self, noteOnReturn, bookingIdReturnInput):
-        note_in = noteOnReturn
+        
         DatabaseConnection.CreateDBConnection()
         
         cursor.execute('UPDATE booking SET note_in = ? WHERE booking_id = ?', noteOnReturn, bookingIdReturnInput)
         
         DatabaseConnection.CloseDBConnection()
+
+    def Broken (self, maToolInput, brokenNoteInput):
+
+        today = datetime.date.today()
+
+        DatabaseConnection.CreateDBConnection()
+
+        cursor.execute('SELECT tool_id FROM booking WHERE book_id = ?', maToolInput)
+        tool_id = cursor.fetchone()
+
+        cursor.execute('UPDATE booking SET note_out = ? AND available = 0 WHERE tool_id = ? AND date < ?', brokenNoteInput, tool_id, today)
+
+        DatabaseConnection.CloseDBConnection()
+
 

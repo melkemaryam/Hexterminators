@@ -120,7 +120,7 @@ Task: Gives the user a choice on what they want to do
 '''
 	def action(self):
 		
-		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3:Return an item\n") # 3: Inquire an item\n 4: Mark availability of one of your items\n")
+		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3:Return an item\n 4:Report broken tool\n") # 3: Inquire an item\n 4: Mark availability of one of your items\n")
 
 		if chooseAction == 1:
 
@@ -295,12 +295,14 @@ Task: Lets the user rent an item
                 #check whether return is overdue
                 #if overdue -> calculate extra fee
             bookingIdReturnInput = input("Please enter the booking ID of the item that you want to return")
+
             while bookingIdReturnInput.isdigit() == False:
                 bookingIdReturnInput = input("Please try again:\n")
 
             LateCharge.checkIfLate(bookingIdReturnInput)
 
             noteOnReturn = input("Please describe any damage and/or wear and tear on the item")
+
             while noteOnReturn == "":
                 noteOnReturn = input("If no damage or wear and tear please state 'perfect condition':\n")
 
@@ -309,12 +311,21 @@ Task: Lets the user rent an item
             
             
        
-        #if chooseAction == 4:
+        if chooseAction == 4:
             
-            #def markAvailability():
+            def markAvailability():
 
-                #show list of all tools that person owns
-                #maToolInput = input("For which item do you want to change the availability state?\n")
+                maToolInput = input("Please enter booking number for the report\n")
+
+                while maToolInput.isdigit() == False:
+                    maToolInput = input("Please try again:\n")
+
+                Notes.Broken(maToolInput, brokenNoteInput)
+
+                print ("Thank you your note has been saved and will be passed onto insurance company to start the claim.\n")
+
+                
+
 
                 #if state == unavailable:
                     #state.available
