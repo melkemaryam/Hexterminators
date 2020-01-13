@@ -15,7 +15,6 @@ Created: 3th January 2020
 - scenario: booking 4 weeks in advance, but person who got the tool before me, damaged it, so the Owner marks it unavailable, so i can not use it. What happens? 
  - Does it go to next best tool?'''this is not in requirements can be added if we have time'''
  
-- note in, not out functionality
 - Class Diagram
 
 - update createUser
@@ -23,7 +22,7 @@ Created: 3th January 2020
 - put Interface and Tool together
 - check limit for input in DB 20 character
 - bank details: check for number
-- see which functions we actually need
+- see which functions we actually need '''check them also against requirements'''
 - init File
 - test File
 - check password
