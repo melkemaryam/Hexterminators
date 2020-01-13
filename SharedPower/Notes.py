@@ -17,15 +17,15 @@ class Notes:
         self.note_in = note_in
         self.note_out = note_out
 
-    def Rent(self, tool_id):
+    def Rent(self, tool_id, descriptionToolInput):
         
         DatabaseConnection.CreateDBConnection()
         
-        cursor.execute('SELECT count(*) FROM booking WHERE tool_id = ?', tool_id)
+        cursor.execute('SELECT book_id FROM booking WHERE tool_id = ?', tool_id)
         numberOfBookings = cursor.fetchone()
         previousBooking = int(numberOfBookings) - 1
-        if previousBooking == 0:
-            printNoteStateOfItem = 'This tool was recently added please see item description'
+        if previousBooking >= 0:
+            printNoteStateOfItem = ('This tool was recently added please see item description:\n' + descriptionToolInput)
 
         else:
         cursor.execute('SELECT note_in FROM booking WHERE tool_id = ? AND book_id = ?', tool_id, previousBooking)

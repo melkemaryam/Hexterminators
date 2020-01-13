@@ -23,14 +23,14 @@ class LateCharge:
         #basic late charge is double the rate
 
     def checkIfLate(self, return_date, bookingIdReturnInput):
-        return_date = date.today()
+        return_date = datetime.datetime.today()
         actual_booking = []
         DatabaseConnection.CreateDBConnection()
         
         cursor.execute('SELECT date FROM booking WHERE booking_id = ?', bookingIdReturnInput)
         booking_dates = cursor.fetchall()
-            for date in booking_dates:
-                actual_booking.append(booking_dates)
+        for date in booking_dates:
+            actual_booking.append(booking_dates)
         #checks which dates belong to the booking
 
         late_days = (return_date - max(actual_booking)).days
