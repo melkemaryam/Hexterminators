@@ -18,8 +18,16 @@ from AvailabilityChecker import date_generator
 
 class Tool:
 
+'''
+Function name: searchTool()
+Task: Search for a tool 
+'''
     def searchTool(self):
 
+'''
+Function name: load_data()
+Task: Loads the data from the DB/ servers
+'''
         def load_data(path):
             # loads dataframe and returns it 
             # change 'csv' with whatever category the data frame is stored as    
@@ -28,7 +36,10 @@ class Tool:
             return dataframe
 
 
-
+'''
+Function name: choose_filters()
+Task: Lets you apply the filters you want
+'''
         def choose_filters():
             # returns a list of the input variables
             # in_x means: user input of x (x = category, duration etc)
@@ -62,7 +73,10 @@ class Tool:
         filters = choose_filters() 
 
 
-
+'''
+Function name: filter_data
+Task: applies the filters using the data input
+'''
         def filter_data(lst):
             # argument will contain the list of inputs
             # returns filtered dataframe
@@ -80,7 +94,7 @@ class Tool:
             
             return dataframe.where(filter_list)
 
-
+#constructor
     def __init2__(self, chooseAction, chooseCategoryAdd, toolNameInput, categoryNameInput, descriptionTool, dayPriceToolInput, halfDayPriceToolInput, availabilityToolInput, photoUploadTool, chooseCategoryRent, chooseTool, lengthOfBookingInput, inquireItemInput, bookingIdReturnInput):
     	self.chooseAction = chooseAction
         self.chooseCategoryAdd = chooseCategoryAdd
@@ -99,13 +113,20 @@ class Tool:
 
 
 	#load DB
-
+'''
+Function name: action()
+Task: ???
+'''
 	def action(self):
 		
 		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3:Return an item\n") # 3: Inquire an item\n 4: Mark availability of one of your items\n")
 
 		if chooseAction == 1:
 
+'''
+Function name: addAnItem()
+Task: Allows the user to ass an item
+'''
             def addAnItem(self):
 
                 #tools that enact chemical changes, including temperature and ignition, such as lighters and blowtorches.
@@ -147,7 +168,7 @@ class Tool:
 
                 #while availabilityToolInput == "":
     		#			availabilityToolInput = input("Please try again:\n")
-		
+		# Connecting to the DB
                 DatabaseConnection.CreateDBConnection()
                 cursor.execute('SELECT count(*) FROM tools')
                 newToolID = int(cursor.fetchone()) + 1
@@ -156,7 +177,7 @@ class Tool:
                 AvailabilityChecker.get_availability(tool_id)
                 #marking availability for 6 weeks ahead 
                 DatabaseConnection.CloseDBConnection()
-				
+		# Disconnecting from the DB
                 photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
                 if photoUploadTool == 1: 
                     #upload photo from desktop folder
@@ -166,9 +187,11 @@ class Tool:
 
 		if chooseAction == 2:
 
+'''
+Function name: rentAnItem()
+Task: Lets the user rent an item
+'''
             def rentAnItem(self):
-
-                #def rentAnItem(self):
 
 
                 chooseCategoryRent = input("Please choose the category of the item you want to rent:\n 1: measuring\n 2: shaping\n 3: fastening\n 4: mechanical\n 5: cutting\n")
@@ -213,7 +236,7 @@ class Tool:
 
                 if lengthOfBookingInput != 0.5 or 1.0 or 1.5 or 2.0 or 2.5 or 3.0 or 1 or 2 or 3:
                     lengthOfBookingInput = input("This was an invalid entry. Please try again.")
-                
+                # Checks the availability of the tool 
                 AvailabilityChecker.get_availability(tool_id, lengthOfBookingInput)
 
                 dateOfBooking = input("Please find the availability below and type the start date of your choice. (YY-MM-DD)\n", days_available)
