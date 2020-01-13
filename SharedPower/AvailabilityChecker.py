@@ -34,7 +34,7 @@ class Availability:
         return dates
         #generates a list of days equal to 6 weeks from today
 
-    def get_availability(self, tool_id):
+    def get_availability(self, tool_id, lengthOfBookingInput):
         today = date.today()     
         #checks what date it is today       
         DatabaseConnection.CreateDBConnection()
@@ -68,7 +68,8 @@ class Availability:
         
         self.date_generator()
         for from_date in dates:
-		    cursor.execute('SELECT date FROM bookings WHERE tool_id = ? AND date = ? AND available = 1', tool_id, from_date)
+            end_date = from_date + timedelta(days = lengthOfBookingInput)
+		    cursor.execute('SELECT date FROM bookings WHERE tool_id = ? AND (date BETWEEN ? AND ?) AND available = 1', tool_id, from_date, end_date)
             #fetches days the tool is actually available
         
         quick_dates = cursor.fetchall()
