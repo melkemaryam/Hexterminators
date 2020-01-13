@@ -22,13 +22,11 @@ from Bookings import Bookings
 
 class Menu:
        
-    # -----------------------------------------------------------
-    # Constructor
-    # -----------------------------------------------------------
+    #Constructor
     def __init__(self, databaseFilename, registered_user):
 
-        self.__databaseFilename = databaseFilename
-        self.__registered_user = registered_user
+        self.databaseFilename = databaseFilename
+        self.registered_user = registered_user
 
     # --------------------------------------------------------------------
     # show
@@ -37,9 +35,6 @@ class Menu:
     def show(self):
 
         user_input = 0
-
-        large_text = BigLetters.create_big_letters('Main Menu')
-        print(large_text)
 
         while (user_input < 6):
 
@@ -94,7 +89,7 @@ class Menu:
     def __searchToolByName(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = ToolManager(self.__databaseFilename)
+        tool_manager = ToolManager(self.databaseFilename)
 
         # Ask the user for the search criteria
         user_input = input('Please enter the name (or part of it) for the tool you are searching for: ')
@@ -112,7 +107,7 @@ class Menu:
     def __searchToolByCategory(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = ToolManager(self.__databaseFilename)
+        tool_manager = ToolManager(self.databaseFilename)
 
         # Ask the user for the category of tool they want to search for
         search_criteria = toolcategoryHelpers.GettoolcategoryFromUser()
@@ -130,7 +125,7 @@ class Menu:
     def __show_future_tools(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = toolManager(self.__databaseFilename)
+        tool_manager = toolManager(self.databaseFilename)
 
         # We only want to see tools that are in the future
         range_start = datetime.now()
