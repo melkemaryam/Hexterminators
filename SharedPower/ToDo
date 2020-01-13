@@ -13,7 +13,7 @@ Created: 3th January 2020
 
 - return tool in Tool.py
 - scenario: booking 4 weeks in advance, but person who got the tool before me, damaged it, so the Owner marks it unavailable, so i can not use it. What happens? 
- - Does it go to next best tool?
+ - Does it go to next best tool?'''this is not in requirements can be added if we have time'''
  
 
 - LateReturn()
