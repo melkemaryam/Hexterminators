@@ -52,7 +52,7 @@ class UserManager:
             # create user
             returnedUser = User(cust_id, F_name, L_name, email)
 
-            # Disconnect from the DB
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
             return returnedUser
@@ -97,7 +97,7 @@ class UserManager:
                 if (password_valid == True):
                     returned_user = User(cust_id, F_name, L_name, email)
             
-            # Disconnect from the DB
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
             return returned_user
@@ -126,7 +126,7 @@ class UserManager:
 
             databaseConnection.commit()
            
-            # Disconnect from the DB
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
         except Error as e:
@@ -153,7 +153,7 @@ class UserManager:
 
             databaseConnection.commit()
            
-            # Disconnect from the DB
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
         except Error as e:
@@ -192,7 +192,7 @@ class UserManager:
                 # create user
                 returnedUser = User(cust_id, F_name, L_name, email)
             
-            # Disconnection from the DB
+            # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
             return returnedUser
