@@ -33,6 +33,10 @@ import pandas as pd
 
 # this database is all we need in terms of an input for our function
 
+'''
+Function name: insurance_tool()
+Task: Sorts out the insurance for the tool
+'''
 def insurance_tool(db):
     '''The argument is the database generated for that item'''
     
@@ -57,4 +61,3 @@ print(db)
 
 # And the guilty one is...
 print(insurance_tool(db), 'did it.')
-
