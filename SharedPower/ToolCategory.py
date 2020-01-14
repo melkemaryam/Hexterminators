@@ -1,9 +1,22 @@
-# --------------------------------------------------------------------
-# Filename:     SessionTypeHelpers.py
-#
-# Date Created: 30th November 2019
-# --------------------------------------------------------------------
+''' 
+-------------------------------------------------
 
+Project: SharedPower
+Group: Hexterminators
+
+File name: ToolCategory.py
+
+Created: 17th November 2019
+
+-------------------------------------------------
+'''
+
+#tools that enact chemical changes, including temperature and ignition, such as lighters and blowtorches.
+#Guiding, measuring and perception tools include the ruler, glasses, set square, sensors, straightedge, theodolite, microscope, monitor, clock, phone, printer
+#Shaping tools, such as molds, jigs, trowels.
+#Fastening tools, such as welders, rivet guns, nail guns, or glue guns.
+#Wikipedia: https://en.wikipedia.org/wiki/Tool#Tool_substitution 1.12.2019 3:08 am
+		
 import enum
 
 class ToolCategorySpecify(enum.Enum): 

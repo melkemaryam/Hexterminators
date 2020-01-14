@@ -21,8 +21,8 @@ class CheckInputs:
         return validateA
 
     def postCodeCheck (self, postcode):
-        validateC = bool(re.match('^[A-Z]{2}[0-9,A-Z]{2,3}[A-Z]{2}$', postcode))
-        return validateC
+        validateP = bool(re.match('^[A-Z]{2}[0-9,A-Z]{2,3}[A-Z]{2}$', postcode))
+        return validateP
 
     def emailCheck (self, email):
         validateE = bool(re.match('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$', email))

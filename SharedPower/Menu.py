@@ -75,7 +75,7 @@ class Menu:
             username = input("Please try again:\n")
 
         password = input("Please enter a safe password,\n password should contain at least one upper case letter, one lower case letter, one digit and one special character:\n")
-        validatePass = CheckInputs.passwordCheck(password)
+        validatePass = CheckInputs.passwordCheck(newUser, password)
         while password == "" or validatePass == False:
             password = input("Please try again:\n")
 
@@ -106,17 +106,17 @@ class Menu:
             address2 = input("Please try again:\n")
 
         postcode = input("Post Code:\n")
-        validationP = CheckInputs.postCodeCheck(postcode)
+        validationP = CheckInputs.postCodeCheck(newUser, postcode)
         while postcode == "" or validationP == False:
             postcode = input("Please try again:\n")
         
         acc_no = input("Account Number:\n")
-        validationA = CheckInputs.accNoCheck(acc_no)
+        validationA = CheckInputs.accNoCheck(newUser, acc_no)
         while acc_no == "" or validationA == False:
             acc_no = input("Please try again:\n")
 
         sort_code = input("Sort Code:\n")
-        validationS = CheckInputs.sortCodeCheck(sort_code)
+        validationS = CheckInputs.sortCodeCheck(newUser, sort_code)
         while sort_code == "" or validationS == False:
             sort_code = input("Please try again:\n")
 
@@ -332,6 +332,72 @@ class Menu:
         self.toolHeaders()
         print(newBooking.getTool())
     
+    '''
+    Function name: addATool()
+    Task: lets a user add a new tool
+    '''
+
+    def addATool(self):
+    
+        newTool = None
+    
+        toolManager = ToolManager(self.databaseFilename)
+
+        # Get new information
+        tool_name = input("Please enter the full name of your tool:\n")
+
+        while tool_name == "":
+        	tool_name = input("Please try again:\n")
+
+        tool_cat = ToolCategory.getToolCatFromUser()
+        while tool_cat == "":
+    	    tool_cat= input("Please try again:\n")
+
+        tool_desc = input("Please enter a short description that also displays the condition and size of your tool:\n")
+
+        while tool_desc == "":
+            tool_desc = input("Please try again:\n")
+
+        price = input("Please enter the price in Pounds for a day rent:\n")
+
+        while (price.isdigit() == False):
+            print('Please only enter whole numbers.\n')
+            price = input('Please enter the price in Pounds for a day rent:\n')
+
+        price = int(price)
+
+        halfDayPrice = input("Please enter the price in Pounds for a half day rent:\n")
+
+        while (halfDayPrice.isdigit() == False):
+            print('Please only enter whole numbers.\n')
+            halfDayPrice = input('Please enter the price in Pounds for a half day rent:\n')
+
+        halfDayPrice = int(halfDayPrice)
+
+		# Connecting to the DB
+        #DatabaseConnection.CreateDBConnection()
+        #cursor.execute('SELECT count(*) FROM tools')
+        #newToolID = int(cursor.fetchone()) + 1
+        #cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, categoryNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
+                
+        #AvailabilityChecker.get_availability(tool_id)
+        #marking availability for 6 weeks ahead 
+        #DatabaseConnection.CloseDBConnection()
+		# Disconnecting from the DB
+        #photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
+        #if photoUploadTool == 1: 
+            #upload photo from desktop folder
+            #print("Thank you very much. Your new tool with the photo has been added to our Database.")
+        #else:
+            #print("Thank you very much. Your new tool has been added to our Database.")
+
+        #Notes.Rent(tool_id, descriptionToolInput)
+
+        # create new tool
+        newTool = toolManager.createTool(self.registeredUser, tool_name, tool_cat, tool_desc, price, halfDayPrice)
+
+        # The new session should now be created so we can advise the user and then return
+        print('\nYou have successfully added a new tool')
 
     '''
     Function name: toolList()
@@ -361,5 +427,5 @@ class Menu:
     def toolHeaders(self):
 
         # Iterate through the list printing out each tool as we go
-        print('id \t name \t \t \t \t start \t \t \t end \t \t \t duration \t category')
+        print('id \t name \t \t \t \t category \t \t \t description \t \t \t price \t half day price')
         print('-- \t ---- \t \t \t \t ----- \t \t \t --- \t \t \t -------- \t ----')

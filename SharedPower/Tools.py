@@ -19,7 +19,7 @@ from datetime import timedelta
 class Tools:
 
     #Constructor
-    def __init__(self, tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price):
+    def __init__(self, tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price, halfDayPrice, tool_desc):
 
         self.tool_id = tool_id
         self.tool_user = user
@@ -29,6 +29,8 @@ class Tools:
         self.tool_end = self.tool_start + timedelta(days = self.tool_duration)
         self.tool_cat = tool_cat
         self.price = price
+        self.halfDayPrice = halfDayPrice
+        self.tool_desc = tool_desc
         
     '''
     Function name: getId()
@@ -48,8 +50,8 @@ class Tools:
     Function name: setName()
     Task: sets the name of the tool
     '''
-    def setName(self, new_name):
-        self.tool_name = new_name
+    def setName(self, newName):
+        self.tool_name = newName
 
     '''
     Function name: getName()
@@ -62,8 +64,8 @@ class Tools:
     Function name: setStartDate()
     Task: sets the start date of the booking of the tool
     '''
-    def setStartDate(self, new_start):
-        self.tool_start = new_start
+    def setStartDate(self, newStart):
+        self.tool_start = newStart
 
     '''
     Function name: getStartDate()
@@ -76,8 +78,8 @@ class Tools:
     Function name: setDuration()
     Task: sets the duration of a booking of a tool
     '''
-    def setDuration(self, new_duration):
-        self.tool_duration = new_duration
+    def setDuration(self, newDuration):
+        self.tool_duration = newDuration
 
     '''
     Function name: getDuration()
@@ -97,15 +99,43 @@ class Tools:
     Function name: setPrice()
     Task: sets the day price for the tool
     '''
-    def setPrice(self, new_price):
-        self.tool_price = new_price
+    def setPrice(self, newPrice):
+        self.price = newPrice
 
     '''
     Function name: getPrice()
     Task: returns the value of the day price
     '''
     def getPrice(self):
-        return self.tool_price
+        return self.price
+
+    '''
+    Function name: setHDPrice()
+    Task: sets the day price for the tool
+    '''
+    def setHDPrice(self, newHalfDayPrice):
+        self.halfDayPrice = newHalfDayPrice
+
+    '''
+    Function name: getHDPrice()
+    Task: returns the value of the day price
+    '''
+    def getHDPrice(self):
+        return self.halfDayPrice
+
+    '''
+    Function name: setDescription()
+    Task: sets the description of the tool
+    '''
+    def setDescription(self, newDescription):
+        self.tool_desc = newDescription
+
+    '''
+    Function name: getDescription()
+    Task: returns the description
+    '''
+    def getDescription(self):
+        return self.tool_desc
 
     '''
     Function name: getCategory()

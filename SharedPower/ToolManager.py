@@ -294,13 +294,13 @@ class ToolManager:
             raise
 
     '''
-    Function name: create_tool()
+    Function name: createTool()
     Task: create a new tool in the database
     '''
 
-    def create_tool(self, user, tool_name, tool_start, tool_duration, price, tool_cat):
+    def createTool(self, user, tool_name, tool_cat, tool_desc, price, halfDayPrice):
 
-        functionName = 'create_tool'
+        functionName = 'createTool'
 
         try:
             
@@ -311,8 +311,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            # Execute our INSERT query against the database
-            cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_start, tool_duration, tool_cat, price) VALUES (?, ?, ?, ?, ?, ?)', (cust_id, tool_name, tool_start, tool_duration, tool_cat.value, price))
+            cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_cat, tool_desc, price, half_price) VALUES (?, ?, ?, ?, ?, ?)', (cust_id, tool_name, tool_cat.value, tool_desc, price, halfDayPrice))
 
             databaseConnection.commit()
 
@@ -320,12 +319,12 @@ class ToolManager:
             tool_id = cursor.lastrowid
 
             # create tool object
-            returned_tool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+            returnedTool = Tools(tool_id, user, tool_name, tool_cat, tool_desc, self.price, self.halfDayPrice)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
-            return returned_tool
+            return returnedTool
 
         except Error as e:
 
