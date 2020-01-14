@@ -19,6 +19,7 @@ from UserManager import UserManager
 
 from Tools import Tools
 from Bookings import Bookings
+from CheckInputs import CheckInputs
 
 
 class Menu:
@@ -76,19 +77,20 @@ class Menu:
             password = input("Please try again:\n")
 
         F_name = input("Please enter your first name:\n")
-        while F_name == "":
+        while F_name == "" or F_name.isdigit() == True:
             F_name = input("Please try again:\n")
 
         L_name = input("Please enter your last name:\n")
-        while L_name == "":
+        while L_name == "" or L_name.isdigit() == True:
             L_name = input("Please try again:\n")
 
         telephone = input("Last but not least, we need your email address for verification:\n")
-        while telephone == "":
+        while telephone == "" or telephone.isdigit() == False:
             telephone = input("Please try again:\n")
 
         email = input("Last but not least, we need your email address for verification:\n")
-        while email == "":
+        validationE = CheckInputs.emailCheck(email)
+        while email == "" or validationE == False:
             email = input("Please try again:\n")
 
         print("Please enter your bank details:\n")
@@ -101,15 +103,18 @@ class Menu:
             address2 = input("Please try again:\n")
 
         postcode = input("Post Code:\n")
-        while postcode == "":
+        validationP = CheckInput.postCodeCheck(postcode)
+        while postcode == "" or validationP == False:
             postcode = input("Please try again:\n")
         
         acc_no = input("Account Number:\n")
-        while acc_no.isdigit() == False:
+        validationA = CheckInput.accNoCheck(acc_no)
+        while acc_no == "" or validationA == False:
             acc_no = input("Please try again:\n")
 
         sort_code = input("Sort Code:\n")
-        while sort_code.isdigit() == False:
+        validationS = CheckInput.sortCodeCheck(sort_code)
+        while sort_code == "" or validationS == False:
             sort_code = input("Please try again:\n")
 
         branch_name = input("Post Code:\n")
