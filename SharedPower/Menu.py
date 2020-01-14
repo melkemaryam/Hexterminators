@@ -21,6 +21,7 @@ from ToolCategory import ToolCategory
 from Tools import Tools
 from Bookings import Bookings
 from CheckInputs import CheckInputs
+from User import User
 
 
 class Menu:
@@ -210,7 +211,7 @@ class Menu:
         tools = toolManager.searchToolByName(userInput)
 
         # show results
-        self.ToolList(tools)
+        self.toolList(tools)
 
     '''
     Function name: searchToolByCat()
@@ -226,7 +227,7 @@ class Menu:
         tools = toolManager.searchToolByCategory(search_criteria)
 
         # show results
-        self.ToolList(tools)
+        self.toolList(tools)
 
     '''
     Function name: showFutureTools()
@@ -234,7 +235,7 @@ class Menu:
     '''
     def showFutureTools(self):
 
-        toolManager = toolManager(self.databaseFilename)
+        toolManager = ToolManager(self.databaseFilename)
 
         # specify future
         range_start = datetime.now()
@@ -252,7 +253,7 @@ class Menu:
         futureTools = toolManager.loadFutureTools(range_start, days_ahead)
 
         # show results
-        self.ToolList(futureTools)
+        self.toolList(futureTools)
 
     '''
     Function name: showFutureRentedTools()
@@ -266,7 +267,7 @@ class Menu:
         futureTools = bookingManager.searchFutureBookings(self.registeredUser)
 
         # shwo results
-        self.displayToolHeaders()
+        self.toolHeaders()
 
         for Bookings in futureTools:
             tool = Bookings.getTool()
@@ -278,18 +279,18 @@ class Menu:
     '''
     def rentATool(self):
 
-        toolManager = toolManager(self.databaseFilename)
+        toolManager = ToolManager(self.databaseFilename)
 
-        booking_manager = BookingManager(self.databaseFilename)
+        bookingManager = BookingManager(self.databaseFilename)
 
         # specify the category of the tool
-        catOfTool = ToolCategory.gettoolcategoryFromUser()
+        catOfTool = ToolCategory.getToolCatFromUser()
 
         # Ask the tool manager for any upcoming tools of this category
         availableTools = toolManager.searchToolByCategory(catOfTool)
 
-        # Display the tools that have been returned
-        self.ToolList(available_tools)
+        # show results
+        self.toolList(availableTools)
 
         selectedTool = None
 
@@ -305,15 +306,15 @@ class Menu:
             selectedTool = toolManager.loadToolName(userInput)
         
             # show results
-            self.tool(selectedTool)
+            self.showTool(selectedTool)
 
             # specify id of the tool
-            userInput = input('Please enter the id number of the tool you want to rent: ')
+            userInput = input('Please enter the ID number of the tool you want to rent: ')
 
             # check if number
             while (userInput.isdigit() == False):
                 print('Please only enter numbers.')
-                userInput = input('Please enter the id number of the tool you want to rent: ')
+                userInput = input('Please enter the ID number of the tool you want to rent: ')
 
             userInput = int(userInput)
 
@@ -321,46 +322,44 @@ class Menu:
             selectedTool = toolManager.loadToolId(userInput)
 
         # show results
-        self.displayTool(selectedTool)
+        self.showTool(selectedTool)
 
         # Create the booking now
         newBooking = bookingManager.createBooking(selectedTool, self.registeredUser)
 
         # show to user
         print('\nYou have successfully rented a tool:\n')
-        self.displayToolHeaders()
+        self.toolHeaders()
         print(newBooking.getTool())
-        
-
-
     
-    # --------------------------------------------------------------------
-    # __display_tool_list
-    # Display the tools in an organised list
-    # --------------------------------------------------------------------
-    def __display_tool_list(self, tool_list):
 
-        self.__display_tool_headers()
+    '''
+    Function name: toolList()
+    Task: shows all the tools in a list
+    '''
+    def toolList(self, tool_list):
+
+        self.toolHeaders()
 
         # Iterate through the list printing out each tool as we go
         for tool in tool_list:
             print(tool)
 
-    # --------------------------------------------------------------------
-    # __display_tool
-    # Display the tools
-    # --------------------------------------------------------------------
-    def __display_tool(self, tool):
+    '''
+    Function name: showTool()
+    Task: shows the tool
+    '''
+    def showTool(self, tool):
 
-        self.__display_tool_headers()
+        self.toolHeaders()
         print(tool)
 
-    # --------------------------------------------------------------------
-    # __display_tool_headers
-    # Display the tool headers
-    # --------------------------------------------------------------------
-    def __display_tool_headers(self):
+    '''
+    Function name: toolHeaders()
+    Task: shows the header for showing tools
+    '''
+    def toolHeaders(self):
 
         # Iterate through the list printing out each tool as we go
-        print('id \t name \t \t \t \t trainer \t \t start \t \t \t end \t \t \t duration \t category')
-        print('-- \t ---- \t \t \t \t ------- \t \t ----- \t \t \t --- \t \t \t -------- \t ----')
+        print('id \t name \t \t \t \t start \t \t \t end \t \t \t duration \t category')
+        print('-- \t ---- \t \t \t \t ----- \t \t \t --- \t \t \t -------- \t ----')
