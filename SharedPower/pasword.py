@@ -1,9 +1,9 @@
 # generating password 
- #import 
+#import 
 
- s = "abcdefgijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%^&*-+"
- passlen = 7 
- p = "" .join(random.sample(s,passlen))
+s = "abcdefgijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%^&*-+"
+passlen = 7 
+p = "" .join(random.sample(s,passlen))
 print p 
 
 #hash 
