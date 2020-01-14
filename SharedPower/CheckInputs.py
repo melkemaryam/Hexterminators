@@ -12,6 +12,7 @@ Created: 14th January 2020
 '''
 
 import re
+import User from User
 
 class CheckInputs:
 

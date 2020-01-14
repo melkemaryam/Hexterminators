@@ -73,7 +73,7 @@ class Menu:
         while username == "":
             username = input("Please try again:\n")
 
-        password = input("Please enter a safe password,\n password should contain at least one upper case letter one lower case letter one digit and one special character:\n")
+        password = input("Please enter a safe password,\n password should contain at least one upper case letter, one lower case letter, one digit and one special character:\n")
         validatePass = CheckInputs.passwordCheck(password)
         while password == "" or validatePass == False:
             password = input("Please try again:\n")
@@ -123,11 +123,11 @@ class Menu:
         while postcode == "":
             postcode = input("Please try again:\n")
 
-        return validatePass, validationA, validationE, validationP, validationS
+        #return validatePass, validationA, validationE, validationP, validationS
 
 
         # create new user in the DB
-        newUser = userManager.createUser(username, password, F_name, L_name, telephone, email, address1, address2, postcode, acc_no, sort_code, branch_name)
+        newUser = userManager.createUser(username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name)
 
         return newUser
 
@@ -157,9 +157,9 @@ class Menu:
 
     def action(self):
 
-        user_input = 0
+        userInput = 0
 
-        while (user_input < 6):
+        while (userInput < 6):
 
             # Display the login and register menu
             print('\nSharedPower')
@@ -167,58 +167,51 @@ class Menu:
             print('1. Search for tools by name.')
             print('2. Search for tools by category.')
             print('3. List future tool bookings.')
-            print('4. Book a tool.')
+            print('4. Rent a tool.')
             print('5. Add a tool.')
             #print("Mark Availablity.")
             print('6. Exit')
 
-            user_input = input('Please make a selection: ')
+            userInput = input('Please choose an action: ')
 
-            # Check we have got a number from the user
-            while (user_input.isdigit() == False):
-                print('Please only enter numbers.')
-                user_input = input('Please make a selection: ')
+            while (userInput.isdigit() == False):
+                print('Please enter a number between 1 and 6:')
+                userInput = input('Please choose an action: ')
 
-            # We are happy that the user has entered a number so we can safely convert it
-            user_input = int(user_input)
+            userInput = int(userInput)
     
-            if (user_input == 1):
-                self.__searchToolByName()
+            if (userInput == 1):
+                self.searchToolByName()
 
-            elif (user_input == 2):
-                self.__searchToolByCategory()
+            elif (userInput == 2):
+                self.searchToolByCategory()
 
-            elif (user_input == 3):
-                self.__show_future_tools()
+            elif (userInput == 3):
+                self.showFutureTools()
 
-            elif (user_input == 4):
-                self.__book_tool()
+            elif (userInput == 4):
+                self.rentATool()
 
-            elif (user_input == 5):
-                self.__show_future_bookings()
+            elif (userInput == 5):
+                self.addATool()
 
             else:
-                # The user has categoryd a number that is not on the menu so let's just exit the while loop
                 break
 
-    # --------------------------------------------------------------------
-    # Private Functions
-    # --------------------------------------------------------------------
-
-    # --------------------------------------------------------------------
-    # __searchToolByName
-    # Search for future tools by name
-    # --------------------------------------------------------------------
-    def __searchToolByName(self):
+    '''
+    Function name: searchToolByName()
+    Task: lets a user search for a tool by name
+    '''
+    def searchToolByName(self):
 
         # Create a toolManager and pass in the filename for the database
-        tool_manager = ToolManager(self.databaseFilename)
+        toolManager = ToolManager(self.databaseFilename)
 
         # Ask the user for the search criteria
-        user_input = input('Please enter the name (or part of it) for the tool you are searching for: ')
+        userInput = input('Please enter the name (or part of it) for the tool you are searching for: ')
 
         # Perform the search
-        future_tools = tool_manager.searchToolByName(user_input)
+        future_tools = toolManager.searchToolByName(userInput)
 
         # Display the tools that have been returned
         self.__display_tool_list(future_tools)
@@ -254,14 +247,14 @@ class Menu:
         range_start = datetime.now()
 
         # Ask the user how many days ahead they want to look
-        user_input = input('How many days ahead do you want to look: ')
+        userInput = input('How many days ahead do you want to look: ')
 
         # Check we have got a number from the user
-        while (user_input.isdigit() == False):
+        while (userInput.isdigit() == False):
             print('Please only enter numbers.')
-            user_input = input('How many days ahead do you want to look: ')
+            userInput = input('How many days ahead do you want to look: ')
 
-        days_ahead = int(user_input)
+        days_ahead = int(userInput)
 
         # Get a list of all the future tools from the tool manager
         future_tools = tool_manager.load_future_tools(range_start, days_ahead)
@@ -314,17 +307,17 @@ class Menu:
         while (selected_tool == None):
 
             # Ask the user to specify the tool they want to book
-            user_input = input('Please enter the id number of the tool you want to book: ')
+            userInput = input('Please enter the id number of the tool you want to book: ')
 
             # Check we have got a number from the user
-            while (user_input.isdigit() == False):
+            while (userInput.isdigit() == False):
                 print('Please only enter numbers.')
-                user_input = input('Please enter the id number of the tool you want to book: ')
+                userInput = input('Please enter the id number of the tool you want to book: ')
 
-            user_input = int(user_input)
+            userInput = int(userInput)
 
             # Load the tool to confirm it
-            selected_tool = tool_manager.load_tool_from_id(user_input)
+            selected_tool = tool_manager.load_tool_from_id(userInput)
 
         # Display the tool to the user
         self.__display_tool(selected_tool)
