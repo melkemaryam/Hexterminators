@@ -8,6 +8,7 @@ Created: 14th January 2020
 '''
 
 import re
+from User import User 
 
 class CheckInputs:
 

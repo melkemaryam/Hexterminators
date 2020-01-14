@@ -123,8 +123,6 @@ class Menu:
         while postcode == "":
             postcode = input("Please try again:\n")
 
-        #return validatePass, validationA, validationE, validationP, validationS
-
 
         # create new user in the DB
         newUser = userManager.createUser(username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name)
