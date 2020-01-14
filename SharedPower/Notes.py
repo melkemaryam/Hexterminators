@@ -17,9 +17,10 @@ from DatabaseConnection import DatabaseConnection
 
 class Notes:
 
-    def __init__(self, note_in, note_out):
+    def __init__(self, note_in, note_out, databaseFilename):
         self.note_in = note_in
         self.note_out = note_out
+        self.databaseFilename = databaseFilename
 
     def Rent(self, tool_id, descriptionToolInput):
         

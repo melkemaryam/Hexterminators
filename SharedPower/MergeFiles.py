@@ -95,100 +95,8 @@ Task: applies the filters using the data input
             
             return dataframe.where(filter_list)
 
-#constructor
-    def __init2__(self, chooseAction, chooseCategoryAdd, toolNameInput, categoryNameInput, descriptionTool, dayPriceToolInput, halfDayPriceToolInput, availabilityToolInput, photoUploadTool, chooseCategoryRent, chooseTool, lengthOfBookingInput, inquireItemInput, bookingIdReturnInput):
-    	self.chooseAction = chooseAction
-        self.chooseCategoryAdd = chooseCategoryAdd
-        self.toolNameInput = toolNameInput
-		self.categoryNameInput = categoryNameInput
-		self.descriptionToolInput = descriptionToolInput
-		self.dayPriceToolInput = dayPriceToolInput
-		self.halfDayPriceToolInput = halfDayPriceToolInput
-		self.availabilityToolInput = availabilityToolInput
-		self.photoUploadTool = photoUploadTool
-		self.chooseCategoryRent = chooseCategoryRent
-		self.chooseTool = chooseTool
-		self.lengthOfBookingInput = lengthOfBookingInput
-		self.inquireItemInput = inquireItemInput
-        self.bookingIdReturnInput = bookingIdReturnInput
 
-
-	#load DB
-'''
-Function name: action()
-Task: Gives the user a choice on what they want to do
-'''
-	def action(self):
-		
-		chooseAction = input("Please choose what you want to do next:\n 1: Add a new item\n 2: Rent an item\n 3:Return an item\n 4:Report broken tool\n") # 3: Inquire an item\n 4: Mark availability of one of your items\n")
-
-		if chooseAction == 1:
-
-'''
-Function name: addAnItem()
-Task: Allows the user to ass an item
-'''
-            def addAnItem(self):
-
-                #tools that enact chemical changes, including temperature and ignition, such as lighters and blowtorches.
-                #Guiding, measuring and perception tools include the ruler, glasses, set square, sensors, straightedge, theodolite, microscope, monitor, clock, phone, printer
-                #Shaping tools, such as molds, jigs, trowels.
-                #Fastening tools, such as welders, rivet guns, nail guns, or glue guns.
-                #Wikipedia: https://en.wikipedia.org/wiki/Tool#Tool_substitution 1.12.2019 3:08 am
-		
-		
-                chooseCategoryAdd = input("Please choose the category of the item that you want to add:\n 1: measuring\n 2: shaping\n 3: fastening\n 4:mechanical\n")
-
-                #save all the data in the DB with assigned toolId
-                toolNameInput = input("Please enter the full name of your tool:\n")
-
-                while toolNameInput == "":
-        					toolNameInput = input("Please try again:\n")
-
-                categoryNameInput = input("Please enter the category of the item:\n")
-
-                while categoryNameInput == "":
-    					categoryNameInput = input("Please try again:\n")
-
-                descriptionToolInput = input("Please enter a short description that also displays the condition and size of your tool:\n")
-
-                while descriptionToolInput == "":
-    					descriptionToolInput = input("Please try again:\n")
-
-                dayPriceToolInput = float(input("Please enter the price in Pounds for a day rent\n"))
-
-                while dayPriceToolInput == "":
-    					dayPriceToolInput = input("Please try again:\n")
-
-                halfDayPriceToolInput = float(input("Please enter the price in Pounds for half a day\n"))
-
-                while halfDayPriceToolInput == "":
-    					halfDayPriceToolInput = input("Please try again:\n")
-
-                #availabilityToolInput = input("Please enter the start and the end date of the availability of this particular tool: dd.mm.yyyy - dd.mm.yyyy\n")
-
-                #while availabilityToolInput == "":
-    		#			availabilityToolInput = input("Please try again:\n")
-		# Connecting to the DB
-                DatabaseConnection.CreateDBConnection()
-                cursor.execute('SELECT count(*) FROM tools')
-                newToolID = int(cursor.fetchone()) + 1
-                cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, categoryNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
-                
-                AvailabilityChecker.get_availability(tool_id)
-                #marking availability for 6 weeks ahead 
-                DatabaseConnection.CloseDBConnection()
-		# Disconnecting from the DB
-                photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
-                if photoUploadTool == 1: 
-                    #upload photo from desktop folder
-                    print("Thank you very much. Your new tool with the photo has been added to our Database.")
-                else:
-                    print("Thank you very much. Your new tool has been added to our Database.")
-
-                Notes.Rent(tool_id, descriptionToolInput)
-
-		if chooseAction == 2:
+#---------------------------------------------------------------------------------------------------
 
             '''
             Function name: rentAnItem()
@@ -266,9 +174,11 @@ Task: Allows the user to ass an item
                 else Delivery = 0
             
                 AvailabilityChecker.book_out(tool_id, dateOfBooking, lengthOfBookingInput, Delivery)
-		
-		if chooseAction == 3:
-			#inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")
+
+#--------------------------------------------------------------------------------------------------------
+
+if chooseAction == 3:
+    			#inquireItemInput = input("Please choose between three different actions: 1: Details of the items you are renting\n 2: Details of the items that you uploaded\n 3: Item lost\n 4: Return item\n")
 
             #while inquireItemInput.isdigit() == False:
     		#	inquireItemInput = input("Please try again:\n")
