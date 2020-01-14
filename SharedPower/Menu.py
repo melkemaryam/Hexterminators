@@ -16,6 +16,7 @@ from datetime import datetime
 from ToolManager import ToolManager
 from BookingManager import BookingManager
 from UserManager import UserManager
+from ToolCategory import ToolCategory
 
 from Tools import Tools
 from Bookings import Bookings
@@ -85,9 +86,9 @@ class Menu:
         while L_name == "" or L_name.isdigit() == True:
             L_name = input("Please try again:\n")
 
-        telephone = input("Last but not least, we need your email address for verification:\n")
-        while telephone == "" or telephone.isdigit() == False:
-            telephone = input("Please try again:\n")
+        tel_no = input("Last but not least, we need your email address for verification:\n")
+        while tel_no == "" or tel_no.isdigit() == False:
+            tel_no = input("Please try again:\n")
 
         email = input("Last but not least, we need your email address for verification:\n")
         CheckInputs.emailCheck(email)
@@ -121,6 +122,8 @@ class Menu:
         branch_name = input("Post Code:\n")
         while postcode == "":
             postcode = input("Please try again:\n")
+
+        return validatePass, validationA, validationE, validationP, validationS
 
 
         # create new user in the DB
@@ -230,7 +233,7 @@ class Menu:
         tool_manager = ToolManager(self.databaseFilename)
 
         # Ask the user for the category of tool they want to search for
-        search_criteria = toolcategoryHelpers.GettoolcategoryFromUser()
+        search_criteria = ToolCategory.GetToolCatFromUser()
 
         # Perform the search
         future_tools = tool_manager.searchToolByCategory(search_criteria)
