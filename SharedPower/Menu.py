@@ -73,8 +73,13 @@ class Menu:
         while username == "":
             username = input("Please try again:\n")
 
+<<<<<<< HEAD
         password = input("Please enter a safe password,\n password should contain at least one upper case letter, one lower case letter, one digit and one special character:\n")
         validatePass = CheckInputs.passwordCheck(password)
+=======
+        password = input("Please enter a safe password,\n password should contain at least one upper case letter one lower case letter one digit and one special character:\n")
+        CheckInputs.passwordCheck(password)
+>>>>>>> 43f873d40066ca4511fbb1daca494030a569fa3d
         while password == "" or validatePass == False:
             password = input("Please try again:\n")
 
@@ -91,7 +96,7 @@ class Menu:
             tel_no = input("Please try again:\n")
 
         email = input("Last but not least, we need your email address for verification:\n")
-        validationE = CheckInputs.emailCheck(email)
+        CheckInputs.emailCheck(email)
         while email == "" or validationE == False:
             email = input("Please try again:\n")
 

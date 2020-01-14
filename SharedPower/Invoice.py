@@ -46,10 +46,10 @@ class Invoice:
         self.format_invoice = format_invoice
         self.databaseFilename = databaseFilename
 
-'''
-Function name: getData()
-Task: for finsing customer in the base using email address
-'''
+    '''
+    Function name: getData()
+    Task: for finsing customer in the base using email address
+    '''
 
     def getData(self, customer_email):
         # Connecting to the DB
@@ -71,10 +71,10 @@ Task: for finsing customer in the base using email address
         return customer_id, customer_firstname, customer_lastname, customer_email
         #presenting the Customer back to us
 
-'''
-Function name: getTool()
-Task: for getting all the tools used by customer for last month
-'''
+    '''
+    Function name: getTool()
+    Task: for getting all the tools used by customer for last month
+    '''
     def getTool(self, customer_id):
         #for getting all the tools used by customer for last month
 
@@ -116,11 +116,11 @@ Task: for getting all the tools used by customer for last month
         tool_droppings = numpy.asarray(rental_list)
         invoice_table = numpy.reshape(tool_droppings, (-1,5))
         return invoice_table
-        
-'''
-Function name: generate_invoice
-Task: Building the actual invoice - message and numbers together
-'''
+            
+    '''
+    Function name: generate_invoice
+    Task: Building the actual invoice - message and numbers together
+    '''
     def generate_invoice(self, rental_list, grand_total, invoice_table, customer_firstname, customer_lastname):
         #building the actual invoice - message and numbers together
 
@@ -137,11 +137,11 @@ Task: Building the actual invoice - message and numbers together
         Thank you for using SharedPower.""" % customer_info)
         return format_invoice
         #e voila!
-    
-'''
-Function name: send_invoice()
-Task: Now for sending the bitch away >.<
-'''
+        
+    '''
+    Function name: send_invoice()
+    Task: Now for sending the bitch away >.<
+    '''
     def send_invoice(self, customer_email, format_invoice):
 
         MY_ADDRESS = 'breo.Piotr.Hexterminators@study.beds.ac.uk'
@@ -173,10 +173,10 @@ Task: Now for sending the bitch away >.<
         s.quit()
         #clean up done
 
-'''
-Function name: getList()
-Task: For finding customer in the base using email address
-'''
+    '''
+    Function name: getList()
+    Task: For finding customer in the base using email address
+    '''
     def getList(self):
 
         # Connecting to the DB
@@ -189,12 +189,12 @@ Task: For finding customer in the base using email address
 
         return mailing_list
         #presenting the Customer list back to us
-    
-    
-'''
-Function name: run_month()
-Task: Assuming the code runs non-stop, it sends an invoice to every customer at the start of every month
-'''
+        
+        
+    '''
+    Function name: run_month()
+    Task: Assuming the code runs non-stop, it sends an invoice to every customer at the start of every month
+    '''
     def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total):
         
         self.getList()
@@ -210,11 +210,11 @@ Task: Assuming the code runs non-stop, it sends an invoice to every customer at 
             self.cut_list(rental_list)
             self.generate_invoice(rental_list, grand_total, invoice_table, customer_firstname, customer_lastname)
             self.send_invoice(customer_email, format_invoice)
-    
-'''
-Function name: timr_stuff()
-Task: Setting the time to zero in case the code is not started at the start of the month 
-'''
+        
+    '''
+    Function name: timr_stuff()
+    Task: Setting the time to zero in case the code is not started at the start of the month 
+    '''
     def time_stuff(self):
         start = 0
         start_date = (datetime.now().year, (datetime.now().month + 1), 1)
