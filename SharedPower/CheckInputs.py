@@ -13,7 +13,7 @@ Created: 14th January 2020
 
 import re
 
-class CheckInput:
+class CheckInputs:
 
     def sortCodeCheck (self, sort_code):
         re.match('^[0-9]{2}-[0-9]{2}-[0-9]{2}$', sort_code)
