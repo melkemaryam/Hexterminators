@@ -92,7 +92,7 @@ class Menu:
             tel_no = input("Please try again:\n")
 
         email = input("Last but not least, we need your email address for verification:\n")
-        CheckInputs.emailCheck(email)
+        CheckInputs.emailCheck(newUser, email)
         while email == "" or validationE == False:
             email = input("Please try again:\n")
 
