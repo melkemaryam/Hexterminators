@@ -190,10 +190,10 @@ Task: Allows the user to ass an item
 
 		if chooseAction == 2:
 
-'''
-Function name: rentAnItem()
-Task: Lets the user rent an item
-'''
+            '''
+            Function name: rentAnItem()
+            Task: Lets the user rent an item
+            '''
             def rentAnItem(self):
 
 

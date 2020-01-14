@@ -38,7 +38,7 @@ class ToolManager:
         functionName = 'loadToolId'
         
         # empty list
-        returned_tool = None
+        returnedTool = None
         
         try:
             
@@ -66,17 +66,67 @@ class ToolManager:
                 user = userManager.LoadUserId(cust_id)
 
                 # create tool
-                returned_tool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+                returnedTool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
-            return returned_tool
+            return returnedTool
 
         except Error as e:
 
             print(__name__, ':', functionName, ':', e)
             raise
+
+    '''
+    Function name: loadToolName()
+    Task: load a tool from the DB with the use of the tool name
+    '''
+    def loadToolName(self, tool_name):
+
+        functionName = 'loadToolName'
+        
+        # empty list
+        returnedTool = None
+        
+        try:
+            
+            userManager = UserManager(self.databaseFilename)
+
+            # Connecting to the DB
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            cursor = databaseConnection.cursor()
+
+            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_name = ?", (tool_name))
+
+            tool_row = cursor.fetchone()
+
+            if (tool_row != None):
+           
+                tool_id = tool_row[0]
+                cust_id = tool_row[1]
+                tool_name = tool_row[2]
+                tool_start = datetime.strptime(tool_row[3], '%Y-%m-%d %H:%M:%S')
+                tool_duration = tool_row[4]
+                tool_cat = tool_row[5]
+                price = tool_row[6]
+
+                # get user ID
+                user = userManager.LoadUserId(cust_id)
+
+                # create tool
+                returnedTool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+            
+            # Disconnecting from the DB
+            DatabaseConnection.CloseDBConnection(databaseConnection)
+
+            return returnedTool
+
+        except Error as e:
+
+            print(__name__, ':', functionName, ':', e)
+            raise
+
 
     '''
     Function name: searchToolByName()

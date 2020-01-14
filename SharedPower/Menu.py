@@ -209,49 +209,43 @@ class Menu:
     '''
     def searchToolByName(self):
 
-        # Create a toolManager and pass in the filename for the database
         toolManager = ToolManager(self.databaseFilename)
 
-        # Ask the user for the search criteria
         userInput = input('Please enter the name (or part of it) for the tool you are searching for: ')
 
-        # Perform the search
-        future_tools = toolManager.searchToolByName(userInput)
+        # search
+        tools = toolManager.searchToolByName(userInput)
 
-        # Display the tools that have been returned
-        self.__display_tool_list(future_tools)
+        # show results
+        self.ToolList(tools)
 
-    # --------------------------------------------------------------------
-    # __searchToolByCategory
-    # Search for future tools by category
-    # --------------------------------------------------------------------
-    def __searchToolByCategory(self):
+    '''
+    Function name: searchToolByCat()
+    Task: lets a user search for a tool by category
+    '''
+    def searchToolByCategory(self):
 
-        # Create a toolManager and pass in the filename for the database
-        tool_manager = ToolManager(self.databaseFilename)
+        toolManager = ToolManager(self.databaseFilename)
 
-        # Ask the user for the category of tool they want to search for
-        search_criteria = ToolCategory.GetToolCatFromUser()
+        search_criteria = ToolCategory.getToolCatFromUser()
 
-        # Perform the search
-        future_tools = tool_manager.searchToolByCategory(search_criteria)
+        # search
+        tools = toolManager.searchToolByCategory(search_criteria)
 
-        # Display the tools that have been returned
-        self.__display_tool_list(future_tools)
+        # show results
+        self.ToolList(tools)
 
-    # --------------------------------------------------------------------
-    # __show_future_tools
-    # List all of the future tools
-    # --------------------------------------------------------------------
-    def __show_future_tools(self):
+    '''
+    Function name: showFutureTools()
+    Task: shows the user future tools
+    '''
+    def showFutureTools(self):
 
-        # Create a toolManager and pass in the filename for the database
-        tool_manager = toolManager(self.databaseFilename)
+        toolManager = toolManager(self.databaseFilename)
 
-        # We only want to see tools that are in the future
+        # specify future
         range_start = datetime.now()
 
-        # Ask the user how many days ahead they want to look
         userInput = input('How many days ahead do you want to look: ')
 
         # Check we have got a number from the user
@@ -261,80 +255,92 @@ class Menu:
 
         days_ahead = int(userInput)
 
-        # Get a list of all the future tools from the tool manager
-        future_tools = tool_manager.load_future_tools(range_start, days_ahead)
+        # list from all the future tools
+        futureTools = toolManager.loadFutureTools(range_start, days_ahead)
 
-        # Display the tools that have been returned
-        self.__display_tool_list(future_tools)
+        # show results
+        self.ToolList(futureTools)
 
-    # --------------------------------------------------------------------
-    # __show_future_bookinga
-    # List all of the future bookings
-    # --------------------------------------------------------------------
-    def __show_future_bookings(self):
+    '''
+    Function name: showFutureRentedTools()
+    Task: shows the user future tools that have already been rented
+    '''
+    def shwoFutureRentedTools(self):
 
-        # Create a BookingManager and pass in the filename for the database
-        booking_manager = BookingManager(self.__databaseFilename)
+        bookingManager = BookingManager(self.databaseFilename)
 
-        # Get a list of all the future bookings from the booking manager
-        future_bookings = booking_manager.SearchFutureBookings(self.__registered_user)
+        # get list
+        futureTools = bookingManager.searchFutureBookings(self.registeredUser)
 
-        # Print the tools associated with the booking
-        self.__display_tool_headers()
+        # shwo results
+        self.displayToolHeaders()
 
-        for booking in future_bookings:
-            tool = booking.gettool()
+        for Bookings in futureTools:
+            tool = Bookings.getTool()
             print(tool)
 
-    # --------------------------------------------------------------------
-    # __book_tool
-    # Book a tool
-    # --------------------------------------------------------------------
-    def __book_tool(self):
+    '''
+    Function name: rentATool()
+    Task: lets a user rent a new tool
+    '''
+    def rentATool(self):
 
-        # Create a toolManager and pass in the filename for the database
-        tool_manager = toolManager(self.__databaseFilename)
+        toolManager = toolManager(self.databaseFilename)
 
-        # Create a BookingManager as pass in the filename for the database
-        booking_manager = BookingManager(self.__databaseFilename)
+        booking_manager = BookingManager(self.databaseFilename)
 
-        # Ask the user to specify the category of tool they want to book
-        category_of_tool = toolcategoryHelpers.GettoolcategoryFromUser()
+        # specify the category of the tool
+        catOfTool = ToolCategory.gettoolcategoryFromUser()
 
         # Ask the tool manager for any upcoming tools of this category
-        available_tools = tool_manager.searchToolByCategory(category_of_tool)
+        availableTools = toolManager.searchToolByCategory(catOfTool)
 
         # Display the tools that have been returned
-        self.__display_tool_list(available_tools)
+        self.ToolList(available_tools)
 
-        selected_tool = None
+        selectedTool = None
 
-        while (selected_tool == None):
+        while (selectedTool == None):
 
-            # Ask the user to specify the tool they want to book
-            userInput = input('Please enter the id number of the tool you want to book: ')
+            # ask for name of the tool
+            userInput = input('Please enter the name of the tool you want to rent: ')
+            
+            while userInput == "":
+                userInput = input("Please try again:\n")
+ 
+            # load tool
+            selectedTool = toolManager.loadToolName(userInput)
+        
+            # show results
+            self.tool(selectedTool)
 
-            # Check we have got a number from the user
+            # specify id of the tool
+            userInput = input('Please enter the id number of the tool you want to rent: ')
+
+            # check if number
             while (userInput.isdigit() == False):
                 print('Please only enter numbers.')
-                userInput = input('Please enter the id number of the tool you want to book: ')
+                userInput = input('Please enter the id number of the tool you want to rent: ')
 
             userInput = int(userInput)
 
-            # Load the tool to confirm it
-            selected_tool = tool_manager.load_tool_from_id(userInput)
+            # Load the selected to confirm it
+            selectedTool = toolManager.loadToolId(userInput)
 
-        # Display the tool to the user
-        self.__display_tool(selected_tool)
+        # show results
+        self.displayTool(selectedTool)
 
         # Create the booking now
-        new_booking = booking_manager.createBooking(selected_tool, self.__registered_user)
+        newBooking = bookingManager.createBooking(selectedTool, self.registeredUser)
 
-        # We should now have our booking back - let's display it to the user
-        print('\nBooking Confirmed!')
-        self.__display_tool_headers()
-        print(new_booking.gettool())
+        # show to user
+        print('\nYou have successfully rented a tool:\n')
+        self.displayToolHeaders()
+        print(newBooking.getTool())
         
+
+
+    
     # --------------------------------------------------------------------
     # __display_tool_list
     # Display the tools in an organised list
