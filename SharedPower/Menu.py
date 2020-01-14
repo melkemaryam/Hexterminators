@@ -73,7 +73,7 @@ class Menu:
             username = input("Please try again:\n")
 
         password = input("Please enter a safe password,\n password should contain at least one upper case letter one lower case letter one digit and one special character:\n")
-        validatePass = CheckInputs.passwordCheck(password)
+        CheckInputs.passwordCheck(password)
         while password == "" or validatePass == False:
             password = input("Please try again:\n")
 
@@ -90,7 +90,7 @@ class Menu:
             telephone = input("Please try again:\n")
 
         email = input("Last but not least, we need your email address for verification:\n")
-        validationE = CheckInputs.emailCheck(email)
+        CheckInputs.emailCheck(email)
         while email == "" or validationE == False:
             email = input("Please try again:\n")
 
@@ -104,17 +104,17 @@ class Menu:
             address2 = input("Please try again:\n")
 
         postcode = input("Post Code:\n")
-        validationP = CheckInput.postCodeCheck(postcode)
+        CheckInputs.postCodeCheck(postcode)
         while postcode == "" or validationP == False:
             postcode = input("Please try again:\n")
         
         acc_no = input("Account Number:\n")
-        validationA = CheckInput.accNoCheck(acc_no)
+        CheckInputs.accNoCheck(acc_no)
         while acc_no == "" or validationA == False:
             acc_no = input("Please try again:\n")
 
         sort_code = input("Sort Code:\n")
-        validationS = CheckInput.sortCodeCheck(sort_code)
+        CheckInputs.sortCodeCheck(sort_code)
         while sort_code == "" or validationS == False:
             sort_code = input("Please try again:\n")
 
