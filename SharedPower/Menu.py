@@ -72,8 +72,9 @@ class Menu:
         while username == "":
             username = input("Please try again:\n")
 
-        password = input("Please enter a safe password:\n")
-        while password == "":
+        password = input("Please enter a safe password,\n password should contain at least one upper case letter one lower case letter one digit and one special character:\n")
+        validatePass = CheckInputs.passwordCheck(password)
+        while password == "" or validatePass == False:
             password = input("Please try again:\n")
 
         F_name = input("Please enter your first name:\n")

@@ -27,3 +27,6 @@ class CheckInput:
     def emailCheck (self, email):
         re.match('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$', sort_code)
 
+    def passwordCheck(self, password):
+        re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$', password)
+
