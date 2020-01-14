@@ -11,9 +11,6 @@ Created: 3th January 2020
 -------------------------------------------------
 '''
 
-- scenario: booking 4 weeks in advance, but person who got the tool before me, damaged it, so the Owner marks it unavailable, so i can not use it. What happens? 
- - Does it go to next best tool?'''this is not in requirements can be added if we have time'''
- 
 - Class Diagram
 
 - update createUser
@@ -23,5 +20,3 @@ Created: 3th January 2020
 - see which functions we actually need '''check them also against requirements'''
 - init File
 - test File
-- check password
-- check password 7 characters 
