@@ -104,17 +104,17 @@ class Menu:
             address2 = input("Please try again:\n")
 
         postcode = input("Post Code:\n")
-        validationP = CheckInput.postCodeCheck(postcode)
+        validationP = CheckInputs.postCodeCheck(postcode)
         while postcode == "" or validationP == False:
             postcode = input("Please try again:\n")
         
         acc_no = input("Account Number:\n")
-        validationA = CheckInput.accNoCheck(acc_no)
+        validationA = CheckInputs.accNoCheck(acc_no)
         while acc_no == "" or validationA == False:
             acc_no = input("Please try again:\n")
 
         sort_code = input("Sort Code:\n")
-        validationS = CheckInput.sortCodeCheck(sort_code)
+        validationS = CheckInputs.sortCodeCheck(sort_code)
         while sort_code == "" or validationS == False:
             sort_code = input("Please try again:\n")
 
@@ -137,12 +137,12 @@ class Menu:
 
         confirmUser = None
         
-        userManager = UserManager(self.database_filename)
+        userManager = UserManager(self.databaseFilename)
 
-        email = input('Please enter the your email: ')
+        username = input('Please enter the your username: ')
         password = input('Please enter the your password: ')
 
-        confirmUser = userManager.confirmUser(email, password)
+        confirmUser = userManager.confirmUser(username, password)
 
         return confirmUser
 

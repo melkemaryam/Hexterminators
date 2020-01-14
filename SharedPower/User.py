@@ -32,8 +32,8 @@ class User:
     Function name: setFirstName()
     Task: sets the first name of the user
     '''
-    def setFirstName(self, new_firstname):
-        self.firstname = new_firstname
+    def setFirstName(self, newFirstname):
+        self.firstname = newFirstname
 
     '''
     Function name: getFirstName()
@@ -46,8 +46,8 @@ class User:
     Function name: setLastName()
     Task: sets the last name of the user
     '''
-    def setLastName(self, new_lastname):
-        self.lastname = new_lastname
+    def setLastName(self, newLastname):
+        self.lastname = newLastname
 
     '''
     Function name: getLastName()
@@ -60,8 +60,8 @@ class User:
     Function name: setEmail()
     Task: sets the email address of the user
     '''
-    def setEmail(self, new_email):
-        self.email = new_email
+    def setEmail(self, newEmail):
+        self.email = newEmail
 
     '''
     Function name: getEmail()

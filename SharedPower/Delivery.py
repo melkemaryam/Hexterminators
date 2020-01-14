@@ -16,13 +16,14 @@ from DatabaseConnection import DatabaseConnection
 
 class Delivery:
     # Constructor
-    def __init__(self, book_id):
+    def __init__(self, book_id, databaseFilename):
         self.book_id = book_id
+        self.databaseFilename = databaseFilename
 
-'''
-Function name: add_delivery_charge()
-Task: Adds the delivery charges if needed to their account
-'''
+    '''
+    Function name: add_delivery_charge()
+    Task: Adds the delivery charges if needed to their account
+    '''
     def add_delivery_charge(self, booking_id):
         # Connecting to the DB
         DatabaseConnection.CreateDBConnection(databaseFilename)
