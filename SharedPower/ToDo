@@ -20,7 +20,6 @@ Created: 3th January 2020
 - whole Menu.py
 - put Interface and Tool together
 - check limit for input in DB 20 character
-- bank details: check for number
 - see which functions we actually need '''check them also against requirements'''
 - init File
 - test File
