@@ -371,19 +371,19 @@ class Menu:
         while tool_desc == "":
             tool_desc = input("Please try again:\n")
 
-        price = input("Please enter the price in Polish Zloty for a day rent:\n")
+        price = input("Please enter the price in Pounds for a day rent:\n")
 
         while (price.isdigit() == False):
             print('Please only enter whole numbers.\n')
-            price = input('Please enter the price in Polish Zloty for a day rent:\n')
+            price = input('Please enter the price in Pounds for a day rent:\n')
 
         price = int(price)
 
-        halfDayPrice = input("Please enter the price in Polish Zloty for a half day rent:\n")
+        halfDayPrice = input("Please enter the price in Pounds for a half day rent:\n")
 
         while (halfDayPrice.isdigit() == False):
             print('Please only enter whole numbers.\n')
-            halfDayPrice = input('Please enter the price in Polish Zloty for a half day rent:\n')
+            halfDayPrice = input('Please enter the price in Pounds for a half day rent:\n')
 
         halfDayPrice = int(halfDayPrice)
 
