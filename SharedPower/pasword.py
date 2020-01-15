@@ -1,39 +1,35 @@
-# generating password 
-#import 
+import hashlib
+import os
+class PasswordHelp: 
+    
+    @staticmethod 
+    def hash_password (pwd):
 
-s = "abcdefgijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@$%^&*-+"
-passlen = 7 
-p = "" .join(random.sample(s,passlen))
-print p 
+        salt = os.urandom(60)
+        password= pwd
 
-#hash 
-#import hashlib
-#import os
+        Key= hashlib.pbkdf2_hmac(
+        'sha256'
+        password.encode('utf-8')
+        salt,100000
+        dklen=128
+        storage= salt+Key
+        salt_froms_storage = storage(30)
+        key_from_stortage =storage(30)
 
-salt = os.urandom(30)
-password= #generating password p""
+    @staticmethod
+    def Verify_password(password_to_check):
+        salt= user'' 
+        key = user''
+        password_to_check = pwd
 
-Key= hashlib.pbkdf2_hmac(
-    'sha256'
-    password.encode('utf-8')
-    salt,150000
-    dklen=128
-    storage= salt+Key
-    salt_froms_storage = storage(30)
-    key_from_stortage =storage(30)
-
-salt= user'' 
-key = user''
-
-password_to_check =#'generating password p'
-
-new_key= haslib.pbkdf2_hmac(
-    'sha256'
-    password_to_check.encode('utf-8')
-    salt,150000
+        new_key= haslib.pbkdf2_hmac(
+        'sha256'
+        password_to_check.encode('utf-8')
+        salt,100000
 )
-if new_key== #generate password
-print('correct')
-else
-print('wrong')
-endif 
+        if new_key == key
+        print('correct')
+        else 
+        print('incorrect')
+        endif 
