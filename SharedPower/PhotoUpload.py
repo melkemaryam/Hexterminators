@@ -11,6 +11,8 @@ Created: 15th January 2020
 -------------------------------------------------
 '''
 
+import time
+
 class PhotoUpload:
 
     @staticmethod
