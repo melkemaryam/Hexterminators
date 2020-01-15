@@ -15,7 +15,7 @@ import datetime
 
 from sqlite3 import Error
 
-from Menu import *
+from Menu import Menu
 
 databaseFilename = 'SharedPower.db'
 function_name = '__init__'
@@ -28,13 +28,13 @@ try:
     registeredUser = menu.checkAccount()
 
     #Once user is succesfully signed in ask him what is his/her desire
-    if (confirmUser =! None):
+    if (confirmUser != None):
         userInput = None
-        while (userInput =! 'back'):
+        while (userInput != 'back'):
 
-            action_choice = menu.action()
+            action_choice = Menu.action()
         
-        menu.checkAccount()
+        Menu.checkAccount()
 
 
     print('Thank you for Sharing your Power. Good bye.')
