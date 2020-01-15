@@ -24,7 +24,7 @@ try:
     registeredUser = None
 
     #start off by getting the user to sign in or sign up and sign in if necessary
-    menu = Menu(databaseFilename)
+    menu = Menu(databaseFilename, registeredUser)
     confirmUser = menu.checkAccount()
 
     #Once user is succesfully signed in ask him what is his/her desire
@@ -33,9 +33,9 @@ try:
         userInput = None
         while (userInput != 'back'):
 
-            action_choice = Menu.action()
+            action_choice = Menu.action(userInput)
         
-        Menu.checkAccount()
+        Menu.checkAccount(userInput)
 
 
     print('Thank you for Sharing your Power. Good bye.')

@@ -22,6 +22,7 @@ from Tools import Tools
 from Bookings import Bookings
 from CheckInputs import CheckInputs
 from User import User
+from PhotoUpload import PhotoUpload
 
 
 class Menu:
@@ -53,8 +54,9 @@ class Menu:
             
             elif(haveAccount == 2):
                 # Call the method to validate an existing user - this will return us a user object
+                newUser = None
                 registeredUser = self.signUp()
-                if (newUser =! None):
+                if (newUser != None):
                     registeredUser = self.signIn()
             
         return registeredUser
@@ -388,7 +390,7 @@ class Menu:
         halfDayPrice = int(halfDayPrice)
 
         anyPhotos = input('Would you like to upload a photo of the tool? (y/n)\n')
-        while anyPhotos == y:
+        while anyPhotos == 'y':
             PhotoUpload.upload()
             anyPhotos = input('Your photo has been successfully uploaded.\n Would you like to upload another no? (y/z)\n')
             
