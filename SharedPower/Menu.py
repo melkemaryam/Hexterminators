@@ -371,31 +371,27 @@ class Menu:
         while tool_desc == "":
             tool_desc = input("Please try again:\n")
 
-        price = input("Please enter the price in Pounds for a day rent:\n")
+        price = input("Please enter the price in Polish Zloty for a day rent:\n")
 
         while (price.isdigit() == False):
             print('Please only enter whole numbers.\n')
-            price = input('Please enter the price in Pounds for a day rent:\n')
+            price = input('Please enter the price in Polish Zloty for a day rent:\n')
 
         price = int(price)
 
-        halfDayPrice = input("Please enter the price in Pounds for a half day rent:\n")
+        halfDayPrice = input("Please enter the price in Polish Zloty for a half day rent:\n")
 
         while (halfDayPrice.isdigit() == False):
             print('Please only enter whole numbers.\n')
-            halfDayPrice = input('Please enter the price in Pounds for a half day rent:\n')
+            halfDayPrice = input('Please enter the price in Polish Zloty for a half day rent:\n')
 
         halfDayPrice = int(halfDayPrice)
 
-        #photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
-        #if photoUploadTool == 1: 
-            #upload photo from desktop folder
-            #print("Thank you very much. Your new tool with the photo has been added to our Database.")
-        #else:
-            #print("Thank you very much. Your new tool has been added to our Database.")
-
-        #Notes.Rent(tool_id, descriptionToolInput)
-
+        anyPhotos = input('Would you like to upload a photo of the tool? (y/n)\n')
+        while anyPhotos == y:
+            PhotoUpload.upload()
+            anyPhotos = input('Your photo has been successfully uploaded.\n Would you like to upload another no? (y/z)\n')
+            
         # create new tool
         newTool = toolManager.createTool(self.registeredUser, tool_name, tool_cat, tool_desc, price, halfDayPrice)
 
