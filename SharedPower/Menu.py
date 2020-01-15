@@ -58,7 +58,6 @@ class Menu:
                     registeredUser = self.signIn()
             
         return registeredUser
-
     
 
     '''
@@ -200,7 +199,7 @@ class Menu:
                 self.returnATool()
             
             elif (userInput == 7):
-                self.markAvailability()
+                self.reportDamage()
 
             elif(userInput == 8):
                 userInput = 'back'
@@ -388,16 +387,6 @@ class Menu:
 
         halfDayPrice = int(halfDayPrice)
 
-		# Connecting to the DB
-        #DatabaseConnection.CreateDBConnection()
-        #cursor.execute('SELECT count(*) FROM tools')
-        #newToolID = int(cursor.fetchone()) + 1
-        #cursor.execute('INSERT INTO Tools (cust_id, tool_id, tool_name, tool_cat, price, available, half_price) VALUES(owner_id, newToolID, toolNameInput, categoryNameInput, dayPriceToolInput, 1, halfDayPriceToolInput)')
-                
-        #AvailabilityChecker.get_availability(tool_id)
-        #marking availability for 6 weeks ahead 
-        #DatabaseConnection.CloseDBConnection()
-		# Disconnecting from the DB
         #photoUploadTool = input("Do you want to upload a photo of your tool? 1: Yes or 0: No") 
         #if photoUploadTool == 1: 
             #upload photo from desktop folder
@@ -413,7 +402,7 @@ class Menu:
         # The new session should now be created so we can advise the user and then return
         print('\nYou have successfully added a new tool')
 
-    def markAvailability(self):
+    def reportDamage(self):
 
         book_id = input("Please enter the number of booking we should pick up for investigation:\n")
 
@@ -422,10 +411,10 @@ class Menu:
 
         tool_id = ToolManager.loadToolName(self.registeredUser, book_id)[1]
 
-        brokenNoteInput = input("Please describe damage to the item\n")
+        brokenNoteInput = input("Please describe damage to the item:\n")
         
         while brokenNoteInput == "":
-        	brokenNoteInput = input("Please do not leave this field empty\n")
+        	brokenNoteInput = input("Please do not leave this field empty.\n")
 
         BookingManager.markAvailability(self.registeredUser, tool_id)
         BookingManager.bookOutNotes(self.registeredUser, book_id, brokenNoteInput)

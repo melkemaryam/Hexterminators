@@ -325,6 +325,8 @@ class ToolManager:
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
+            AvailabilityChecker.get_availability(cust_id, tool_id, int(0))
+
             return returnedTool
 
         except Error as e:

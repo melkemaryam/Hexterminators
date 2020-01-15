@@ -25,9 +25,10 @@ try:
 
     #start off by getting the user to sign in or sign up and sign in if necessary
     menu = Menu(databaseFilename)
-    registeredUser = menu.checkAccount()
+    confirmUser = menu.checkAccount()
 
     #Once user is succesfully signed in ask him what is his/her desire
+    
     if (confirmUser != None):
         userInput = None
         while (userInput != 'back'):
