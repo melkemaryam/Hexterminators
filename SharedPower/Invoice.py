@@ -12,18 +12,22 @@ Created: 17th November 2019
 '''
 
 from DatabaseConnection import DatabaseConnection
-#for talking to the database
+
 import sqlite3
 import numpy
 import pandas as pd
 #for tables and making them fancy
+
 from datetime import datetime
 import calendar
 #for checking the time
+
 import pause
 #for scheduling invoicing
+
 import smtplib
 #import the smtplib module for setting up mail connection. It should be included in Python by default
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 #more emailing from python stuff
@@ -52,19 +56,21 @@ class Invoice:
     '''
 
     def getData(self, customer_email):
+        
         # Connecting to the DB
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
-        cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email )
+
+        cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email)
+
         customer_row=cursor.fetchone()
+
         if (customer_row != None):
-            #checking if customer with given email exists (if doesn't will return 'None')
 
             customer_id = customer_row[0]
             customer_firstname = customer_row[1]
             customer_lastname = customer_row[2]
             customer_email = customer_row[3]
-            #customer creation based on retrieved data
 
         # Disconnecting from the DB
         DatabaseConnection.CloseDBConnection(self.databaseFilename)
@@ -77,19 +83,22 @@ class Invoice:
     Task: for getting all the tools used by customer for last month
     '''
     def getTool(self, customer_id):
-        #for getting all the tools used by customer for last month
 
         rental_list = ['Tool Name', 'Day Price', 'Rental Duration', 'Total Price']
         grand_total = 0
+
         date = (datetime.date.today().replace(day=1) - datetime.timedelta(days=1)).strftime("%Y-%m")+"-01"
         date_end = datetime.date.today().replace(day=1) - datetime.timedelta(days=1)
+
         delivery_charge = 5
         insurance_charge = 5
         
         # Connecting to the DB
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
-        cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery, late_return FROM booking WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
+
+        cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery, late_return FROM Bookings WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
+        
         tool_row=cursor.fetchall()
         for booking in tool_row:
             #checking if customer with given id borrowed any tools and if it was more than one creating a list

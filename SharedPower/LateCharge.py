@@ -27,9 +27,10 @@ class LateCharge:
         charge_ratio = 2
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
-        cursor.execute('SELECT date FROM booking WHERE book_id = ?', book_id)
+        cursor.execute('SELECT date FROM Bookings WHERE book_id = ?', book_id)
         booking_dates = cursor.fetchall()
-        for i in booking_dates:
+
+        for booking_dates in len(booking_dates):
             actual_booking.append(booking_dates)
         #checks which dates belong to the booking
 

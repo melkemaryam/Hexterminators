@@ -216,7 +216,7 @@ class UserManager:
 
     '''
     Function name: loadUserEmail()
-    Task: load the user from the Db with the use of the email address
+    Task: load the user from the DB with the use of the email address
     '''
 
     def loadUserEmail(self, email):
