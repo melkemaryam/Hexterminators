@@ -19,12 +19,11 @@ from datetime import timedelta
 class Tools:
 
     #Constructor
-    def __init__(self, tool_id, user, tool_name, tool_duration, tool_cat, price, halfDayPrice, tool_desc):
+    def __init__(self, tool_id, user, tool_name, tool_cat, price, halfDayPrice, tool_desc):
 
         self.tool_id = tool_id
         self.tool_user = user
         self.tool_name = tool_name
-        self.tool_duration = tool_duration
         self.tool_cat = tool_cat
         self.price = price
         self.halfDayPrice = halfDayPrice
@@ -57,41 +56,6 @@ class Tools:
     '''
     def getName(self):
         return self.tool_name
-
-    '''
-    Function name: setStartDate()
-    Task: sets the start date of the booking of the tool
-    '''
-    def setStartDate(self, newStart):
-        self.tool_start = newStart
-
-    '''
-    Function name: getStartDate()
-    Task: returns the vaule of the start date of the booking of the tool
-    '''
-    def getStart(self):
-        return self.tool_start
-
-    '''
-    Function name: setDuration()
-    Task: sets the duration of a booking of a tool
-    '''
-    def setDuration(self, newDuration):
-        self.tool_duration = newDuration
-
-    '''
-    Function name: getDuration()
-    Task: returns the value of the duration of the booking of a tool
-    '''
-    def getDuration(self):
-        return self.tool_duration
-
-    '''
-    Function name: getEndDate()
-    Task: returns the value of the end date of the booking of the tool
-    '''
-    def getEndDate(self):        
-        return self.tool_end
 
     '''
     Function name: setPrice()
@@ -145,27 +109,25 @@ class Tools:
     # __str__ function
     def __str__(self):
 
-        returnValue = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {category}'.format(id = self.tool_id, 
+        returnValue = '{id} \t {name} \t {user} \t {category} \t \t {price} \t {halfDayPrice} \t {tool_desc}'.format(id = self.tool_id, 
                                                                                                            name = self.tool_name,
                                                                                                            user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
-                                                                                                           start = self.tool_start,
-                                                                                                           end = self.tool_end,
-                                                                                                           duration = self.tool_duration,
                                                                                                            category = self.tool_cat,
                                                                                                            price = self.price,
-                                                                                                           halfDayPrice = self.halfDayPrice)
+                                                                                                           halfDayPrice = self.halfDayPrice,
+                                                                                                           tool_desc = self.tool_desc)
 
         return returnValue
 
     # __repr__ function
     def __repr__(self):
 
-        returnValue = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {category}'.format(id = self.tool_id, 
+        returnValue = '{id} \t {name} \t {user} \t {category} \t \t {price} \t {halfDayPrice} \t {tool_desc}'.format(id = self.tool_id, 
                                                                                                            name = self.tool_name,
                                                                                                            user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
-                                                                                                           start = self.tool_start,
-                                                                                                           end = self.tool_end,
-                                                                                                           duration = self.tool_duration,
-                                                                                                           category = self.tool_cat)
+                                                                                                           category = self.tool_cat,
+                                                                                                           price = self.price,
+                                                                                                           halfDayPrice = self.halfDayPrice,
+                                                                                                           tool_desc = self.tool_desc)
 
         return returnValue
