@@ -44,8 +44,8 @@ class ToolCategory:
 
             chooseCategory = input("Please choose the category of the tool from the list above:")
 
-            while (chooseCategory.isdigit() == False):
-                chooseCategory = input('Please only enter numbers:')
+            while (chooseCategory.isdigit() =! 1 or 2 or 3 or 4 or 5):
+                chooseCategory = input('Please only enter one of the numbers 1-5:')
 
             chooseCategory = int(chooseCategory)
 
