@@ -36,6 +36,13 @@ class DatabaseConnection:
 
         return databaseConnection
 
+    @staticmethod
+    def cursor(databaseConnection):
+
+        cursor = databaseConnection.cursor()
+
+        return cursor
+
     # -------------------------------------------------
     # Close a sqlite database connection
     # -------------------------------------------------

@@ -52,9 +52,13 @@ class Menu:
             # Call the method to validate an existing user - this will return us a user object
             registeredUser = self.signUp()
 
+        elif(haveAccount == 3):
+            # Call the method to kill app - exit kinda
+            quit()
+
         else:
             # The user has typed a number that is not on the menu so let's just exit the while loop
-            break
+            haveAccount = input("Please try again:\n")
             
         return registeredUser
 
@@ -92,7 +96,7 @@ class Menu:
             tel_no = input("Please try again:\n")
 
         email = input("Last but not least, we need your email address for verification:\n")
-        CheckInputs.emailCheck(newUser, email)
+        validationE = CheckInputs.emailCheck(newUser, email)
         while email == "" or validationE == False:
             email = input("Please try again:\n")
 
@@ -168,13 +172,14 @@ class Menu:
             print('3. List future tool bookings.')
             print('4. Rent a tool.')
             print('5. Add a tool.')
-            #print("Mark Availablity.")
-            print('6. Exit')
+            print('6. Return a tool.')
+            print('7. Report a broken tool.')
+            print('8. Exit')
 
             userInput = input('Please choose an action: ')
 
             while (userInput.isdigit() == False):
-                print('Please enter a number between 1 and 6:')
+                print('Please enter a number between 1 and 7:')
                 userInput = input('Please choose an action: ')
 
             userInput = int(userInput)
@@ -194,8 +199,18 @@ class Menu:
             elif (userInput == 5):
                 self.addATool()
 
+            elif (userInput == 6):
+                self.markAvailability()
+
+            elif (userInput == 7):
+                self.returnATool()
+
+            elif(userInput == 8):
+                quit()
+
             else:
-                break
+                print('Please enter a number between 1 and 7:')
+                userInput = input('Please choose an action: ')
 
     '''
     Function name: searchToolByName()
@@ -398,6 +413,42 @@ class Menu:
 
         # The new session should now be created so we can advise the user and then return
         print('\nYou have successfully added a new tool')
+
+    def markAvailability(self):
+
+        book_id = input("Please enter the number of booking we should pick up for investigation:\n")
+
+        while book_id == "":
+        	book_id = input("Please try again:\n")
+
+        tool_id = ToolManager.loadToolName(self.registeredUser, book_id)[1]
+
+        brokenNoteInput = input("Please describe damage to the item\n")
+        
+        while brokenNoteInput == "":
+        	brokenNoteInput = input("Please do not leave this field empty\n")
+
+        BookingManager.markAvailability(self.registeredUser, tool_id)
+        BookingManager.bookOutNotes(self.registeredUser, book_id, brokenNoteInput)
+        
+        print ("Thank you. Your note has been saved and will be passed onto insurance company to start the claim.\n")
+    
+    '''
+    Function name: returnATool()
+    Task: puts tool back on virtual shelf and adds any extra charges should the tool be returned past the renting date
+    '''
+
+    def returnATool(self):
+
+        book_id = input("Please enter the number of booking you would like to finalise:\n")
+
+        while book_id == "":
+        	book_id = input("Please try again:\n")
+
+        BookingManager.returnItem(self.registeredUser, book_id)
+
+        print ("Thank you. Your booking has been finalised. Please find the details in invoice sent on 1st of next month.\n")
+
 
     '''
     Function name: toolList()

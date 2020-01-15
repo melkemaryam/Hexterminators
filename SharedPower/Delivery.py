@@ -24,14 +24,14 @@ class Delivery:
     Function name: add_delivery_charge()
     Task: Adds the delivery charges if needed to their account
     '''
-    def add_delivery_charge(self, booking_id):
+    def add_delivery_charge(self, book_id):
         # Connecting to the DB
-        DatabaseConnection.CreateDBConnection(databaseFilename)
+        databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         
         #cursor creation for talking to db
-        cursor = databaseConnection.cursor()
+        cursor = databaseConnection.cursor() 
 
         cursor.execute('UPDATE booking SET delivery = delivery + 1 WHERE book_id = ?', book_id)
-        
+        databaseConnection.commit()
         # Disconnecting from the DB
-        DatabaseConnection.CloseDBConnection(databaseFilename)
+        DatabaseConnection.CloseDBConnection(self.databaseFilename)

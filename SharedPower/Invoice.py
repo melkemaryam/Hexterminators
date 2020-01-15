@@ -44,7 +44,7 @@ class Invoice:
         self.rental_list = rental_list
         self.invoice_table = invoice_table
         self.format_invoice = format_invoice
-        self.databaseFilename = databaseFilename
+        self.databaseFilename = 'SharedPower.db'
 
     '''
     Function name: getData()
@@ -53,7 +53,8 @@ class Invoice:
 
     def getData(self, customer_email):
         # Connecting to the DB
-        DatabaseConnection.CreateDBConnection()
+        databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+        cursor = databaseConnection.cursor()
         cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email )
         customer_row=cursor.fetchone()
         if (customer_row != None):
@@ -66,7 +67,7 @@ class Invoice:
             #customer creation based on retrieved data
 
         # Disconnecting from the DB
-        DatabaseConnection.CloseDBConnection()
+        DatabaseConnection.CloseDBConnection(self.databaseFilename)
 
         return customer_id, customer_firstname, customer_lastname, customer_email
         #presenting the Customer back to us
@@ -86,7 +87,8 @@ class Invoice:
         insurance_charge = 5
         
         # Connecting to the DB
-        DatabaseConnection.CreateDBConnection()
+        databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+        cursor = databaseConnection.cursor()
         cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery, late_return FROM booking WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
         tool_row=cursor.fetchall()
         for booking in tool_row:
@@ -103,7 +105,7 @@ class Invoice:
             #rental lines creation based on retrieved data
         
         # Disconnecting from the DB
-        DatabaseConnection.CloseDBConnection()
+        DatabaseConnection.CloseDBConnection(self.databaseFilename)
 
         grand_total = grand_total + total_price + deliveries_charge + insurance_charge
 
@@ -180,12 +182,13 @@ class Invoice:
     def getList(self):
 
         # Connecting to the DB
-        DatabaseConnection.CreateDBConnection()
+        databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+        cursor = databaseConnection.cursor()
         cursor.execute('SELECT customer_email FROM customer;' )
         mailing_list=cursor.fetchall()
 
         # Disconnecting from the DB
-        DatabaseConnection.CloseDBConnection()
+        DatabaseConnection.CloseDBConnection(self.databaseFilename)
 
         return mailing_list
         #presenting the Customer list back to us
@@ -195,7 +198,7 @@ class Invoice:
     Function name: run_month()
     Task: Assuming the code runs non-stop, it sends an invoice to every customer at the start of every month
     '''
-    def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total):
+    def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total, databaseFilename):
         
         self.getList()
         #constructing library of email invoices should be sent to
@@ -212,7 +215,7 @@ class Invoice:
             self.send_invoice(customer_email, format_invoice)
         
     '''
-    Function name: timr_stuff()
+    Function name: time_stuff()
     Task: Setting the time to zero in case the code is not started at the start of the month 
     '''
     def time_stuff(self):

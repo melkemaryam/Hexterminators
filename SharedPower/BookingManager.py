@@ -20,6 +20,7 @@ from Tools import Tools
 from ToolManager import ToolManager
 
 from DatabaseConnection import DatabaseConnection
+from LateCharge import LateCharge
 
 class BookingManager:
 
@@ -116,5 +117,88 @@ class BookingManager:
         except Error as e:
 
             # Catch and display any errors that occur
+            print(__name__, ':', functionName, ':', e)
+            raise
+
+    '''
+    Function name: disableTool()
+    Task: taskes a tool of availability in the database
+    '''
+
+    def markAvailability(self, tool_id):
+
+        functionName = 'markAvailability'
+
+        try:
+            
+            # Connecting to the DB
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            cursor = databaseConnection.cursor()
+
+            cursor.execute('UPDATE Bookings SET availability = 0 WHERE tool_id = ?', (tool_id))
+
+            databaseConnection.commit()
+
+            # Disconnecting from the DB
+            DatabaseConnection.CloseDBConnection(databaseConnection)
+
+        except Error as e:
+
+            print(__name__, ':', functionName, ':', e)
+            raise
+
+    '''
+    Function name: bookOutNotes()
+    Task: taskes a tool of availability in the database
+    '''
+
+    def bookOutNotes(self, book_id, brokenNoteInput):
+
+        functionName = 'bookOutNotes'
+
+        try:
+            
+            # Connecting to the DB
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            cursor = databaseConnection.cursor()
+
+            cursor.execute('UPDATE Bookings SET note_out = ? WHERE book_id = ?', (brokenNoteInput, book_id))
+
+            databaseConnection.commit()
+
+            # Disconnecting from the DB
+            DatabaseConnection.CloseDBConnection(databaseConnection)
+
+        except Error as e:
+
+            print(__name__, ':', functionName, ':', e)
+            raise
+
+    '''
+    Function name: returnItem()
+    Task: taskes a tool of availability in the database
+    '''
+
+    def returnItem(self, book_id):
+
+        functionName = 'confirms the return and adds late charges if needed'
+
+        late_charge = LateCharge.checkIfLate(self, book_id)
+
+        try:
+            
+            # Connecting to the DB
+            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            cursor = databaseConnection.cursor()
+
+            cursor.execute('UPDATE Bookings SET late_charge = ? WHERE book_id = ?', (late_charge, book_id))
+
+            databaseConnection.commit()
+
+            # Disconnecting from the DB
+            DatabaseConnection.CloseDBConnection(databaseConnection)
+
+        except Error as e:
+
             print(__name__, ':', functionName, ':', e)
             raise

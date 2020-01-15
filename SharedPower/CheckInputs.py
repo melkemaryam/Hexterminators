@@ -31,3 +31,7 @@ class CheckInputs:
     def passwordCheck(self, password):
         validatePass = bool(re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$', password))
         return validatePass
+
+    def dateCheck(self, dateOfBooking):
+        validateD = bool(re.match('^(?=.*\d)(?=.*[-])[\d-]{8,}$', dateOfBooking))
+        return validateD

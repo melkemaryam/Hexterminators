@@ -17,19 +17,19 @@ from DatabaseConnection import DatabaseConnection
 
 class LateCharge:
 
-    def __init__(self, return_date, charge_ratio,):
-        self.return_date = return_date
-        self.charge_ratio = 2
+    def __init__(self, databaseFilename):
+        self.databaseFilename = 'SharedPower.db'
         #basic late charge is double the rate
 
-    def checkIfLate(self, return_date, bookingIdReturnInput):
+    def checkIfLate(self, book_id):
         return_date = datetime.datetime.today()
         actual_booking = []
-        DatabaseConnection.CreateDBConnection()
-        
-        cursor.execute('SELECT date FROM booking WHERE book_id = ?', bookingIdReturnInput)
+        charge_ratio = 2
+        databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+        cursor = databaseConnection.cursor()
+        cursor.execute('SELECT date FROM booking WHERE book_id = ?', book_id)
         booking_dates = cursor.fetchall()
-        for date in booking_dates:
+        for i in booking_dates:
             actual_booking.append(booking_dates)
         #checks which dates belong to the booking
 
@@ -38,6 +38,6 @@ class LateCharge:
         late_charge = charge_ratio * late_days
         #adds the ratio for later calculation
 
-        cursor.execute('UPDATE booking SET late_return = ? WHERE book_id = ?', late_charge, bookingIdReturnInput)
-
-        DatabaseConnection.CloseDBConnection()
+        DatabaseConnection.CloseDBConnection(self.databaseFilename)
+        
+        return late_charge
