@@ -16,17 +16,7 @@ from Password import Password
 from User import User
 from sqlite3 import Error
 
-class UserAddress(object):
 
-    #this class only exits, so the argument does not have too many objects
-
-    def __init__(self, address1, address2, postcode, acc_no, sort_code, branch_name):
-        self.address1 = address1
-        self.address2 = address2
-        self.postcode = postcode
-        self.acc_no = acc_no
-        self.sort_code = sort_code
-        self.branch_name = branch_name
 
 class UserManager:
 

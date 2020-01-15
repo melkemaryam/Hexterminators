@@ -11,20 +11,17 @@ Created: 10th January 2020
 -------------------------------------------------
 '''
 
+
 class User:
 
     #Constructor
-    def __init__(self, cust_id, F_name, L_name, email, username, address1, address2, postcode, tel_no, acc_no, sort_code, branch_name):
+    def __init__(self, cust_id, F_name, L_name, email, username):
         
         self.cust_id = cust_id
         self.F_name = F_name
         self.L_name = L_name
         self.email = email
         self.username = username
-        self.address1 = address1
-        self.address2 = address2
-        self.postcode = postcode
-        self.tel_no = tel_no
         
     '''
     Function name: getId()
@@ -89,6 +86,34 @@ class User:
     def getUsername(self):
         return self.username
     
+    
+    # __str__ function
+    def __str__(self):
+
+        returnValue = ('%i \t %s \t \t %s \t \t %s \t \t %s' % (self.cust_id, self.F_name, self.L_name, self.email, self.username))
+
+        return returnValue
+
+    # __repr__ function
+    def __repr__(self):
+
+        returnValue = ('%i \t %s \t \t %s \t \t %s \t \t %s' % (self.cust_id, self.F_name, self.L_name, self.email, self.username))
+
+        return returnValue
+
+class UserAddress():
+    
+    #this class only exits, so the argument does not have too many objects
+
+    def __init__(self, tel_no, address1, address2, postcode, acc_no, sort_code, branch_name):
+        self.tel_no = tel_no
+        self.address1 = address1
+        self.address2 = address2
+        self.postcode = postcode
+        self.acc_no = acc_no
+        self.sort_code = sort_code
+        self.branch_name = branch_name
+
     '''
     Function name: setAddress1()
     Task: sets the address line 1 of the user
@@ -145,18 +170,60 @@ class User:
     def getTelNo(self):
         return self.tel_no
 
+    '''
+    Function name: setAccNo()
+    Task: sets the account number of the user
+    '''
+    def setAccNo(self, newAccNo):
+        self.acc_no = newAccNo
+    
+    '''
+    Function name: getAccNo()
+    Task: returns the value of the account number of the user
+    '''
+    def getAccNo(self):
+        return self.acc_no
+
+    '''
+    Function name: setSortCode()
+    Task: sets the sort code of the user
+    '''
+    def setSortCode(self, newSortCode):
+        self.sort_code = newSortCode
+    
+    '''
+    Function name: getSortCode()
+    Task: returns the value of the sort code of the user
+    '''
+    def getSortCode(self):
+        return self.sort_code
+
+    '''
+    Function name: setBranchName()
+    Task: sets the branch name of the user
+    '''
+    def setBranchName(self, newBranchName):
+        self.branch_name = newBranchName
+    
+    '''
+    Function name: getBranchName()
+    Task: returns the value of the branch name of the user
+    '''
+    def getBranchName(self):
+        return self.branch_name
+
     
 
     # __str__ function
     def __str__(self):
 
-        returnValue = ('%i \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s' % (self.cust_id, self.F_name, self.L_name, self.email, self.username, self.address1, self.address2, self.postcode, self.tel_no))
+        returnValue = ('%s \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s' % (self.tel_no, self.address1, self.address2, self.postcode, self.acc_no, self.sort_code, self.branch_name))
 
         return returnValue
 
     # __repr__ function
     def __repr__(self):
 
-        returnValue = ('%i \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s' % (self.cust_id, self.F_name, self.L_name, self.email, self.username, self.address1, self.address2, self.postcode, self.tel_no))
+        returnValue = ('%s \t %s \t \t %s \t \t %s \t \t %s \t \t %s \t \t %s' % (self.tel_no, self.address1, self.address2, self.postcode, self.acc_no, self.sort_code, self.branch_name))
 
         return returnValue
