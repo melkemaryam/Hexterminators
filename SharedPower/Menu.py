@@ -54,13 +54,8 @@ class Menu:
             elif(haveAccount == 2):
                 # Call the method to validate an existing user - this will return us a user object
                 registeredUser = self.signUp()
-
-            elif(haveAccount == 3):
-                # Call the method to kill app - exit kinda
-                quit()
-
-            else:
-                break
+                if (newUser =! None):
+                    registeredUser = self.signIn()
             
         return registeredUser
 
@@ -164,7 +159,7 @@ class Menu:
 
         userInput = 0
 
-        while (userInput < 8):
+        while (userInput < 9):
 
             # Display the login and register menu
             print('\nSharedPower')
@@ -176,12 +171,12 @@ class Menu:
             print('5. Add a tool.')
             print('6. Return a tool.')
             print('7. Report a broken tool.')
-            print('8. Exit')
+            print('8. Sign out')
 
             userInput = input('Please choose an action: ')
 
             while (userInput.isdigit() == False):
-                print('Please enter a number between 1 and 7:')
+                print('Please enter a number between 1 and 8:')
                 userInput = input('Please choose an action: ')
 
             userInput = int(userInput)
@@ -202,17 +197,19 @@ class Menu:
                 self.addATool()
 
             elif (userInput == 6):
+                self.returnATool()
+            
+            elif (userInput == 7):
                 self.markAvailability()
 
-            elif (userInput == 7):
-                self.returnATool()
-
             elif(userInput == 8):
-                quit()
+                userInput = 'back'
 
             else:
-                print('Please enter a number between 1 and 7:')
+                print('Please enter a number between 1 and 8:')
                 userInput = input('Please choose an action: ')
+
+        return userInput
 
     '''
     Function name: searchToolByName()
