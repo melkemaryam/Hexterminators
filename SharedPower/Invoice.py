@@ -15,7 +15,7 @@ from DatabaseConnection import DatabaseConnection
 #for talking to the database
 import sqlite3
 import numpy
-import pandas
+import pandas as pd
 #for tables and making them fancy
 from datetime import datetime
 import calendar
@@ -50,7 +50,7 @@ class Invoice:
     Function name: getData()
     Task: for finsing customer in the base using email address
     '''
-    
+
     def getData(self, customer_email):
         # Connecting to the DB
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)

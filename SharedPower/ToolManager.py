@@ -205,7 +205,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_start, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_cat = ?", (start_date, search_criteria.value))
+            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_cat = ?", (start_date, search_criteria.value))
 
             tool_rows = cursor.fetchall()
 
@@ -223,7 +223,7 @@ class ToolManager:
                 user = userManager.LoadUserId(cust_id)
 
                 # create tool
-                single_tool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+                single_tool = Tools(tool_id, user, tool_name, tool_cat, price)
 
                 returnedToolList.append(single_tool)
             
@@ -260,7 +260,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_start, tool_duration, tool_cat, price FROM Tools WHERE tool_start BETWEEN ? AND ?", (range_start, range_end))
+            cursor.execute("SELECT tool_id, duration FROM Bookings WHERE tool_start BETWEEN ? AND ?", (range_start, range_end))
 
             tool_rows = cursor.fetchall()
 
@@ -270,16 +270,17 @@ class ToolManager:
                 tool_id = tool[0]
                 cust_id = tool[1]
                 tool_name = tool[2]
-                tool_start = datetime.strptime(tool[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration = tool[4]
-                tool_cat = tool[5]
+                tool_duration = tool[3]
+                tool_cat = tool[4]
+                tool_desc = tool[5]
                 price = tool[6]
+                halfDayPrice = tool(7)
 
                 # get ID
                 user = userManager.LoadUserId(cust_id)
 
                 # create tool
-                singleTool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+                singleTool = Tools(tool_id, user, tool_name, tool_duration, tool_cat, tool_desc, price, halfDayPrice)
 
                 returnedToolList.append(singleTool)
             
@@ -319,7 +320,7 @@ class ToolManager:
             tool_id = cursor.lastrowid
 
             # create tool object
-            returnedTool = Tools(tool_id, user, tool_name, tool_cat, tool_desc, self.price, self.halfDayPrice)
+            returnedTool = Tools(tool_id, user, tool_name, tool_cat, tool_desc, price, halfDayPrice)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)

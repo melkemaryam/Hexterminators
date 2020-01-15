@@ -14,7 +14,7 @@ Created: 10th January 2020
 class User:
 
     #Constructor
-    def __init__(self, cust_id, F_name, L_name, email, username, address1, address2, postcode, tel_no):
+    def __init__(self, cust_id, F_name, L_name, email, username, address1, address2, postcode, tel_no, acc_no, sort_code, branch_name):
         
         self.cust_id = cust_id
         self.F_name = F_name

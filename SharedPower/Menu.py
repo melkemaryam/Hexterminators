@@ -164,7 +164,7 @@ class Menu:
 
         userInput = 0
 
-        while (userInput < 6):
+        while (userInput < 8):
 
             # Display the login and register menu
             print('\nSharedPower')

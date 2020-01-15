@@ -19,14 +19,12 @@ from datetime import timedelta
 class Tools:
 
     #Constructor
-    def __init__(self, tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price, halfDayPrice, tool_desc):
+    def __init__(self, tool_id, user, tool_name, tool_duration, tool_cat, price, halfDayPrice, tool_desc):
 
         self.tool_id = tool_id
         self.tool_user = user
         self.tool_name = tool_name
-        self.tool_start = tool_start
         self.tool_duration = tool_duration
-        self.tool_end = self.tool_start + timedelta(days = self.tool_duration)
         self.tool_cat = tool_cat
         self.price = price
         self.halfDayPrice = halfDayPrice
@@ -153,7 +151,9 @@ class Tools:
                                                                                                            start = self.tool_start,
                                                                                                            end = self.tool_end,
                                                                                                            duration = self.tool_duration,
-                                                                                                           category = self.tool_cat)
+                                                                                                           category = self.tool_cat,
+                                                                                                           price = self.price,
+                                                                                                           halfDayPrice = self.halfDayPrice)
 
         return returnValue
 

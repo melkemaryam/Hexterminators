@@ -103,7 +103,7 @@ class UserManager:
                 password = user_row[4]
 
                 # check password
-                password_valid = PasswordHelpers.VerifyPassword(password, supplied_password)
+                #password_valid = PasswordHelpers.VerifyPassword(password, supplied_password)
 
                 # create object
                 if (password_valid == True):
