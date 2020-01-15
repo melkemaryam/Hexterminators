@@ -12,9 +12,21 @@ Created: 10th January 2020
 '''
 
 from DatabaseConnection import DatabaseConnection
-from Classes.Helpers.PasswordHelpers import PasswordHelpers
+from Password import Password
 from User import User
 from sqlite3 import Error
+
+class UserAddress(object):
+
+    #this class only exits, so the argument does not have too many objects
+
+    def __init__(self, address1, address2, postcode, acc_no, sort_code, branch_name):
+        self.address1 = address1
+        self.address2 = address2
+        self.postcode = postcode
+        self.acc_no = acc_no
+        self.sort_code = sort_code
+        self.branch_name = branch_name
 
 class UserManager:
 
@@ -29,7 +41,7 @@ class UserManager:
     Task: create a new user in the DB
     '''
 
-    def createUser(self, username, password, F_name, L_name, telephone, email, address1, address2, postcode, acc_no, sort_code, branch_name):
+    def createUser(self, username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name):
 
         functionName = 'createUser'
 
@@ -42,7 +54,7 @@ class UserManager:
             # Hash the users password
             password = PasswordHelpers.HashPassword(password)
             
-            cursor.execute('INSERT INTO Customer (username, password, F_name, L_name, telephone, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (username, password, F_name, L_name, telephone, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name))
+            cursor.execute('INSERT INTO Customer (username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name))
 
             databaseConnection.commit()
 
@@ -50,7 +62,7 @@ class UserManager:
             cust_id = cursor.lastrowid
 
             # create user
-            returnedUser = User(cust_id, F_name, L_name, email)
+            returnedUser = User(cust_id, F_name, L_name, tel_no, email, UserAddress)
 
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)

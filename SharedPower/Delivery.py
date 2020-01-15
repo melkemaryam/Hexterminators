@@ -15,6 +15,7 @@ import sqlite3
 from DatabaseConnection import DatabaseConnection
 
 class Delivery:
+   
     # Constructor
     def __init__(self, book_id, databaseFilename):
         self.book_id = book_id

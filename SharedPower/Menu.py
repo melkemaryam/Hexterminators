@@ -34,31 +34,33 @@ class Menu:
 
     def checkAccount(self):
     
+        haveAccount = 0
         registeredUser = None
 
-        while (registeredUser == None):
-            haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 2: No. Press 3 for Exit.\n")
-            
-        while (haveAccount.isdigit() == False):
-            haveAccount = input("Please try again:\n")
+        while (haveAccount < 3):
 
-        haveAccount = int(haveAccount)
-    
-        if(haveAccount == 1):
-            # Call the method to register the new user - this will return us a user object
-            registeredUser = self.signIn()
+            while (registeredUser == None):
+                haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 2: No. Press 3 for Exit.\n")
+                
+            while (haveAccount.isdigit() == False):
+                haveAccount = input("Please try again:\n")
+
+            haveAccount = int(haveAccount)
         
-        elif(haveAccount == 2):
-            # Call the method to validate an existing user - this will return us a user object
-            registeredUser = self.signUp()
+            if(haveAccount == 1):
+                # Call the method to register the new user - this will return us a user object
+                registeredUser = self.signIn()
+            
+            elif(haveAccount == 2):
+                # Call the method to validate an existing user - this will return us a user object
+                registeredUser = self.signUp()
 
-        elif(haveAccount == 3):
-            # Call the method to kill app - exit kinda
-            quit()
+            elif(haveAccount == 3):
+                # Call the method to kill app - exit kinda
+                quit()
 
-        else:
-            # The user has typed a number that is not on the menu so let's just exit the while loop
-            haveAccount = input("Please try again:\n")
+            else:
+                break
             
         return registeredUser
 
@@ -333,7 +335,7 @@ class Menu:
 
             userInput = int(userInput)
 
-            # Load the selected to confirm it
+            # Load the selected tool to confirm it
             selectedTool = toolManager.loadToolId(userInput)
 
         # show results
@@ -440,14 +442,14 @@ class Menu:
 
     def returnATool(self):
 
-        book_id = input("Please enter the number of booking you would like to finalise:\n")
+        book_id = input("Please enter the number of bookings you would like to finalise:\n")
 
         while book_id == "":
         	book_id = input("Please try again:\n")
 
         BookingManager.returnItem(self.registeredUser, book_id)
 
-        print ("Thank you. Your booking has been finalised. Please find the details in invoice sent on 1st of next month.\n")
+        print ("Thank you. Your booking has been finalised. Please find the details in the invoice send to you on 1st of the next month.\n")
 
 
     '''

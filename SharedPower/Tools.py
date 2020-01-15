@@ -148,7 +148,7 @@ class Tools:
     def __str__(self):
 
         returnValue = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {category}'.format(id = self.tool_id, 
-                                                                                                           name = StringHelpers.PadString(self.tool_name, 30),
+                                                                                                           name = self.tool_name,
                                                                                                            user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
                                                                                                            start = self.tool_start,
                                                                                                            end = self.tool_end,
@@ -161,7 +161,7 @@ class Tools:
     def __repr__(self):
 
         returnValue = '{id} \t {name} \t {user} \t \t {start} \t {end} \t {duration} \t \t {category}'.format(id = self.tool_id, 
-                                                                                                           name = StringHelpers.PadString(self.tool_name, 30),
+                                                                                                           name = self.tool_name,
                                                                                                            user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
                                                                                                            start = self.tool_start,
                                                                                                            end = self.tool_end,

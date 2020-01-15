@@ -50,7 +50,7 @@ class Invoice:
     Function name: getData()
     Task: for finsing customer in the base using email address
     '''
-
+    
     def getData(self, customer_email):
         # Connecting to the DB
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)

@@ -107,5 +107,3 @@ class AvailabilityChecker:
         DatabaseConnection.CloseDBConnection(self.databasefilename)
 
     
-
-    

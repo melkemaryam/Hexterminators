@@ -26,7 +26,9 @@ class Notes:
         
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
+
         cursor.execute('SELECT book_id FROM booking WHERE tool_id = ?', tool_id)
+        
         numberOfBookings = cursor.fetchone()
         previousBooking = int(numberOfBookings) - 1
         if previousBooking >= 0:

@@ -27,7 +27,6 @@ class BookingManager:
     #Constructor
     def __init__(self, databaseFilename):
 
-        
         self.databaseFilename = databaseFilename
 
     '''
@@ -81,7 +80,7 @@ class BookingManager:
         
         try:
 
-            tool_manager = ToolManager(self.databaseFilename)
+            toolManager = ToolManager(self.databaseFilename)
             start_date = datetime.now()
 
             # get ID
@@ -95,19 +94,19 @@ class BookingManager:
 
             booking_rows = cursor.fetchall()
 
-            # creating tool objects in the DB and adding it to RetBookingList[]
+            # crete bookings in the DB
             for Booking in booking_rows:
                 
                 book_id = booking_rows[0]
                 tool_id = booking_rows[1]
 
                 # load the correct tool
-                tool = tool_manager.loadToolId(tool_id)
+                tool = toolManager.loadToolId(tool_id)
 
                 # create booking
-                single_booking = Booking(book_id, tool, user)
+                singleBooking = Booking(book_id, tool, user)
 
-                RetBookingList.append(single_booking)
+                RetBookingList.append(singleBooking)
             
             # Disconnect from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
@@ -121,8 +120,8 @@ class BookingManager:
             raise
 
     '''
-    Function name: disableTool()
-    Task: taskes a tool of availability in the database
+    Function name: markAvailability()
+    Task: takes a tool of availability in the database
     '''
 
     def markAvailability(self, tool_id):

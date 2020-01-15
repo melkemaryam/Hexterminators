@@ -17,7 +17,7 @@ from sqlite3 import Error
 class DatabaseConnection:
     
     '''
-    Function name: createDBConnection
+    Function name: CreateDBConnection
     Task: create a connection with the database (DB) SharedPower.db
     '''
 
@@ -43,9 +43,10 @@ class DatabaseConnection:
 
         return cursor
 
-    # -------------------------------------------------
-    # Close a sqlite database connection
-    # -------------------------------------------------
+    '''
+    Function name: CloseDBConnection()
+    Task: close the connection with the database (DB) SharedPower.db
+    '''
     @staticmethod
     def CloseDBConnection(databaseConnection):
 
