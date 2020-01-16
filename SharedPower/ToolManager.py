@@ -49,7 +49,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_id = ?", (tool_id,))
+            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_id = ?", (tool_id))
 
             tool_row = cursor.fetchone()
 
@@ -58,16 +58,16 @@ class ToolManager:
                 tool_id = tool_row[0]
                 cust_id = tool_row[1]
                 tool_name = tool_row[2]
-                tool_start = datetime.strptime(tool_row[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration = tool_row[4]
-                tool_cat = tool_row[5]
-                price = tool_row[6]
+                tool_desc = tool_row[3]
+                tool_cat = tool_row[4]
+                price = tool_row[5]
+                halfDayPrice = tool_row[6]
 
                 # get user ID
                 user = userManager.LoadUserId(cust_id)
 
                 # create tool
-                returnedTool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+                returnedTool = Tools(tool_id, user, tool_name, tool_desc, tool_cat, price, halfDayPrice)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
@@ -98,7 +98,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_name = ?", (tool_name,))
+            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_name = ?", (tool_name))
 
             tool_row = cursor.fetchone()
 
@@ -107,16 +107,16 @@ class ToolManager:
                 tool_id = tool_row[0]
                 cust_id = tool_row[1]
                 tool_name = tool_row[2]
-                tool_start = datetime.strptime(tool_row[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration = tool_row[4]
-                tool_cat = tool_row[5]
-                price = tool_row[6]
+                tool_desc = tool_row[3]
+                tool_cat = tool_row[4]
+                price = tool_row[5]
+                halfDayPrice = tool_row[6]
 
                 # get user ID
                 user = userManager.LoadUserId(cust_id)
 
                 # create tool
-                returnedTool = Tools(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+                returnedTool = Tools(tool_id, user, tool_name, tool_desc, tool_cat, price, halfDayPrice)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
