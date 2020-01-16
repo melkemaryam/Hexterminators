@@ -13,7 +13,7 @@ Created: 13th January 2020
 
 from datetime import datetime
 import sqlite3
-from DatabaseConnection import DatabaseConnection
+from Helpers.DatabaseConnection import DatabaseConnection
 
 class Notes:
 
@@ -51,7 +51,7 @@ class Notes:
         databaseConnection.commit()  
         DatabaseConnection.CloseDBConnection(self.databaseFilename)
 
-    def Broken (self, maToolInput, brokenNoteInput):
+    def Broken(self, maToolInput, brokenNoteInput):
 
         today = datetime.date.today()
 

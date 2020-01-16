@@ -11,11 +11,14 @@ Created: 3rd January 2020
 -------------------------------------------------
 '''
 
-from DatabaseConnection import DatabaseConnection
-from NewPassword import NewPassword
-from User import User
+from Helpers.DatabaseConnection import DatabaseConnection
+from Helpers.NewPassword import NewPassword
+from Helpers.LoadUser import LoadUser
+
+from GetterSetter.User import User
+
 from sqlite3 import Error
-from LoadUser import LoadUser
+
 
 
 
@@ -166,8 +169,6 @@ class UserManager:
             print(__name__, ':', functionName, ':', e)
             raise
 
-
-
     '''
     Function name: LoadUserId()
     Task: load the user from the DB with the use of the user ID
@@ -175,40 +176,9 @@ class UserManager:
 
     def LoadUserId(self, cust_id):
 
-        #functionName = 'LoadUserId'
-
         returnedUser = LoadUser.LoadUser(self.databaseFilename, 'cust_id', cust_id)
 
         return returnedUser
-        
-        #try:
-            
-            # Connecting to the DB
-            #databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
-            #cursor = databaseConnection.cursor()
-
-            #cursor.execute('SELECT cust_id, F_name, L_name, email FROM Customers WHERE cust_id = ?', (cust_id))
-
-            #user_row = cursor.fetchone()
-
-            #if (user_row != None):
-                #cust_id = user_row[0]
-                #F_name = user_row[1]
-               # L_name = user_row[2]
-                #email = user_row[3]
-
-                # create user
-                #returnedUser = User(cust_id, F_name, L_name, email)
-            
-            # Disconnecting from the DB
-            #DatabaseConnection.CloseDBConnection(databaseConnection)
-
-            #return returnedUser
-
-        #except Error as e:
-
-            #print(__name__, ':', functionName, ':', e)
-            #raise
 
     '''
     Function name: loadUserEmail()
@@ -216,44 +186,10 @@ class UserManager:
     '''
 
     def loadUserEmail(self, email):
-
-        #functionName = 'LoadUserEmail'
-        #returnedUser = None
         
         returnedUser = LoadUser.LoadUser(self.databaseFilename, 'email', email)
 
         return returnedUser
-        
-        
-        #try:
-            
-            # Connecting to the DB
-            #databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
-            #cursor = databaseConnection.cursor()
-
-            #cursor.execute('SELECT cust_id, F_name, L_name, email FROM Customers WHERE email = ?', (email))
-
-            #user_row = cursor.fetchone()
-
-            #if (user_row != None):
-                #cust_id = user_row[0]
-                #F_name = user_row[1]
-                #L_name = user_row[2]
-                #email = user_row[3]
-
-                # create user
-                #returnedUser = User(cust_id, F_name, L_name, email)
-            
-            # Disconnecting from the DB
-            #DatabaseConnection.CloseDBConnection(databaseConnection)
-
-            #return returnedUser
-
-        #except Error as e:
-
-            #print(__name__, ':', functionName, ':', e)
-            #raise
-
     
     '''
     Function name: loadAllUsers()

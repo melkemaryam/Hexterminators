@@ -10,8 +10,8 @@ Created: 14th January 2020
 import re
 from sqlite3 import Error
 from User import User 
-from DatabaseConnection import DatabaseConnection
-from LoadUser import LoadUser
+from Helpers.DatabaseConnection import DatabaseConnection
+from Helpers.LoadUser import LoadUser
 
 class CheckInputs:
 

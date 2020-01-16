@@ -12,8 +12,8 @@ Created: 17th January 2020
 '''
 
 from sqlite3 import Error
-from DatabaseConnection import DatabaseConnection
-from User import User
+from HelpersDatabaseConnection import DatabaseConnection
+from GetterSetter.User import User
 
 class LoadUser:
     

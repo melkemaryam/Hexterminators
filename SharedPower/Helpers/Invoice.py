@@ -11,7 +11,7 @@ Created: 17th November 2019
 -------------------------------------------------
 '''
 
-from DatabaseConnection import DatabaseConnection
+from Helpers.DatabaseConnection import DatabaseConnection
 
 import numpy
 import pandas

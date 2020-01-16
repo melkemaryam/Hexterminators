@@ -12,7 +12,7 @@ Created: 17th November 2020
 '''
 
 import sqlite3
-from DatabaseConnection import DatabaseConnection
+from Helpers.DatabaseConnection import DatabaseConnection
 
 class Delivery:
    

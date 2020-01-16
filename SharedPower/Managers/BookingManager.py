@@ -14,14 +14,14 @@ Created: 3rd January 2020
 from datetime import datetime
 from sqlite3 import Error
 
-from Bookings import Bookings
-from Tools import Tools
-from User import User     
+from GetterSetter.Bookings import Bookings
+from GetterSetter.Tools import Tools
+from GetterSetter.User import User     
 
-from ToolManager import ToolManager
+from Managers.ToolManager import ToolManager
 
-from DatabaseConnection import DatabaseConnection
-from LateCharge import LateCharge
+from Helpers.DatabaseConnection import DatabaseConnection
+from Helpers.LateCharge import LateCharge
 
 class BookingManager:
 

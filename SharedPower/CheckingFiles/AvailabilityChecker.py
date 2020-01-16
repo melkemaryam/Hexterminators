@@ -14,7 +14,7 @@ Created: 6th January 2020
 from datetime import datetime
 import sqlite3
 import pandas
-from DatabaseConnection import DatabaseConnection
+from Helpers.DatabaseConnection import DatabaseConnection
 
 class AvailabilityChecker:
 

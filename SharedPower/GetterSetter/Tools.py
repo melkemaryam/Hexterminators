@@ -14,8 +14,6 @@ Created: 3rd January 2020
 from datetime import datetime
 from datetime import timedelta
 
-#from Classes.Helpers.StringHelpers import StringHelpers
-
 class Tools:
 
     #Constructor

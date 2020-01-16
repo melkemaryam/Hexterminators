@@ -12,7 +12,7 @@ Created: 17th November 2019
 '''
 
 import sqlite3
-import pandas as pd
+import pandas
 
 # AIM: write a program that works out who damaged the product
 

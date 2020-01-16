@@ -15,14 +15,15 @@ from datetime import datetime
 from datetime import timedelta
 from sqlite3 import Error
 
-from UserManager import UserManager
-from User import User
+from Managers.UserManager import UserManager
 
-from Tools import Tools
-from ToolCategory import ToolCategory
+from GetterSetter.User import User
+from GetterSetter.Tools import Tools
 
-from DatabaseConnection import DatabaseConnection
-from AvailabilityChecker import AvailabilityChecker
+from Helpers.ToolCategory import ToolCategory
+from Helpers.DatabaseConnection import DatabaseConnection
+
+from CheckingFiles.AvailabilityChecker import AvailabilityChecker
 
 
 class ToolManager:

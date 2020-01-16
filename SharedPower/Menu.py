@@ -14,16 +14,20 @@ Created: 27th December 2019
 from datetime import datetime
 import time
 
-from ToolManager import ToolManager
-from BookingManager import BookingManager
-from UserManager import UserManager
-from ToolCategory import ToolCategory
+from Managers.ToolManager import ToolManager
+from Managers.BookingManager import BookingManager
+from Managers.UserManager import UserManager
 
-from Tools import Tools
-from Bookings import Bookings
-from CheckInputs import CheckInputs
-from User import User
-from PhotoUpload import PhotoUpload
+from Helpers.ToolCategory import ToolCategory
+from Helpers.PhotoUpload import PhotoUpload
+
+from GetterSetter.Tools import Tools
+from GetterSetter.Bookings import Bookings
+from GetterSetter.User import User
+
+from CheckingFiles.CheckInputs import CheckInputs
+
+
 
 
 class Menu:
