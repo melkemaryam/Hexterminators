@@ -49,7 +49,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_id = ?", (tool_id))
+            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_id = ?", (tool_id,))
 
             tool_row = cursor.fetchone()
 
@@ -98,7 +98,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_name = ?", (tool_name))
+            cursor.execute("SELECT cust_id, tool_id, tool_start, tool_name, tool_duration, tool_cat, price  FROM Tools WHERE tool_name = ?", (tool_name,))
 
             tool_row = cursor.fetchone()
 
@@ -151,7 +151,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_start, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_name LIKE ?", (start_date, search_criteria))
+            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_start, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_name LIKE ?", (start_date, search_criteria,))
 
             tool_rows = cursor.fetchall()
 
@@ -206,7 +206,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_cat = ?", (start_date, search_criteria.value))
+            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_duration, tool_cat, price, tool_desc, half_price FROM Tools WHERE tool_start > ? AND tool_cat = ?", (start_date, search_criteria.value,))
 
             tool_rows = cursor.fetchall()
 
@@ -219,12 +219,14 @@ class ToolManager:
                 tool_duration = tool[4]
                 tool_cat = tool[5]
                 price = tool[6]
+                tool_desc = tool[7]
+                half_price = tool[8]
 
                 # get user
                 user = userManager.LoadUserId(cust_id)
 
                 # create tool
-                single_tool = Tools(tool_id, user, tool_name, tool_cat, price)
+                single_tool = Tools(tool_id, user, tool_name, tool_cat, price, tool_desc, half_price)
 
                 returnedToolList.append(single_tool)
             
@@ -261,7 +263,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, duration FROM Bookings WHERE tool_start BETWEEN ? AND ?", (range_start, range_end))
+            cursor.execute("SELECT tool_id, duration FROM Bookings WHERE tool_start BETWEEN ? AND ?", (range_start, range_end,))
 
             tool_rows = cursor.fetchall()
 
@@ -281,7 +283,7 @@ class ToolManager:
                 user = userManager.LoadUserId(cust_id)
 
                 # create tool
-                singleTool = Tools(tool_id, user, tool_name, tool_duration, tool_cat, tool_desc, price, halfDayPrice)
+                singleTool = Tools(tool_id, user, tool_name, tool_cat, tool_desc, price, halfDayPrice)
 
                 returnedToolList.append(singleTool)
             
@@ -313,7 +315,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_cat, tool_desc, price, half_price) VALUES (?, ?, ?, ?, ?, ?)', (cust_id, tool_name, tool_cat.value, tool_desc, price, halfDayPrice))
+            cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_cat, tool_desc, price, half_price) VALUES (?, ?, ?, ?, ?, ?)', (cust_id, tool_name, tool_cat.value, tool_desc, price, halfDayPrice,))
 
             databaseConnection.commit()
 

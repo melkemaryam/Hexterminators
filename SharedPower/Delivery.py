@@ -32,7 +32,7 @@ class Delivery:
         #cursor creation for talking to db
         cursor = databaseConnection.cursor() 
 
-        cursor.execute('UPDATE bookings SET delivery = delivery + 1 WHERE book_id = ?', book_id)
+        cursor.execute('UPDATE bookings SET delivery = delivery + 1 WHERE book_id = ?', book_id,)
         databaseConnection.commit()
         # Disconnecting from the DB
         DatabaseConnection.CloseDBConnection(self.databaseFilename)

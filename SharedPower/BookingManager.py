@@ -48,7 +48,7 @@ class BookingManager:
             tool_id = tool.getId()
             cust_id = user.getId()
 
-            cursor.execute('INSERT INTO Bookings (tool_id, cust_id) VALUES (?, ?)', (tool_id, cust_id)) 
+            cursor.execute('INSERT INTO Bookings (tool_id, cust_id) VALUES (?, ?)', (tool_id, cust_id,)) 
 
             databaseConnection.commit()
 
@@ -90,7 +90,7 @@ class BookingManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT Bookings.book_id, Bookings.tool_id FROM Bookings INNER JOIN Tools ON Bookings.tool_id = Tools.tool_id WHERE Tools.tool_start > ? AND Bookings.cust_id = ?", (start_date, cust_id))
+            cursor.execute("SELECT Bookings.book_id, Bookings.tool_id FROM Bookings INNER JOIN Tools ON Bookings.tool_id = Tools.tool_id WHERE Tools.tool_start > ? AND Bookings.cust_id = ?", (start_date, cust_id,))
 
             booking_rows = cursor.fetchall()
 
@@ -134,7 +134,7 @@ class BookingManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Bookings SET availability = 0 WHERE tool_id = ?', (tool_id))
+            cursor.execute('UPDATE Bookings SET availability = 0 WHERE tool_id = ?', (tool_id,))
 
             databaseConnection.commit()
 
@@ -161,7 +161,7 @@ class BookingManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Bookings SET note_out = ? WHERE book_id = ?', (brokenNoteInput, book_id))
+            cursor.execute('UPDATE Bookings SET note_out = ? WHERE book_id = ?', (brokenNoteInput, book_id,))
 
             databaseConnection.commit()
 
@@ -190,7 +190,7 @@ class BookingManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Bookings SET late_charge = ? WHERE book_id = ?', (late_charge, book_id))
+            cursor.execute('UPDATE Bookings SET late_charge = ? WHERE book_id = ?', (late_charge, book_id,))
 
             databaseConnection.commit()
 

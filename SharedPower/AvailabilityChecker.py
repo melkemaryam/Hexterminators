@@ -63,7 +63,7 @@ class AvailabilityChecker:
         missing_availability = today + datetime.timedelta(days = missing_days)
         
         #brings back all arguments for a tool from a day when it is not rented - cust_id is empty
-        cursor.execute('SELECT tool_id, price, date FROM booking WHERE tool_id = ? AND available = 1', tool_id)
+        cursor.execute('SELECT tool_id, price, date FROM bookings WHERE tool_id = ? AND available = 1', tool_id)
 
         availability_row=cursor.fetchone()
 
@@ -81,7 +81,7 @@ class AvailabilityChecker:
 
         #sets up availability for up to 6 weeks ahead for days that weren't set
         for missing_availability in new_dates:
-            cursor.execute('INSERT INTO Booking (tool_id, price, date, cust_id, delivery, available) VALUES(?, ?, ?, ?, ?, ?)', tool_id, price, missing_availability, 0, 0, 1)
+            cursor.execute('INSERT INTO Bookings (tool_id, price, date, cust_id, delivery, available) VALUES(?, ?, ?, ?, ?, ?)', tool_id, price, missing_availability, 0, 0, 1)
 
         databaseConnection.commit()
 
@@ -123,12 +123,12 @@ class AvailabilityChecker:
      
         #sets availability to 0 (rented) for the number of days
         for dateOfBooking in booking_dates:
-            cursor.execute('UPDATE Booking SET available = 0 WHERE tool_id = ? AND date = ?', tool_id, dateOfBooking)
+            cursor.execute('UPDATE Bookings SET available = 0 WHERE tool_id = ? AND date = ?', tool_id, dateOfBooking,)
 
         #sets delivery status
         if Delivery == 1:
             for dateOfBooking in booking_dates:
-                cursor.execute('UPDATE Booking SET Delivery = 1 WHERE tool_id = ? AND date = ?', tool_id, dateOfBooking)
+                cursor.execute('UPDATE Bookings SET Delivery = 1 WHERE tool_id = ? AND date = ?', tool_id, dateOfBooking,)
                 
         databaseConnection.commit()
 

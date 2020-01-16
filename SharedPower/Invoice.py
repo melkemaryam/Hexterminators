@@ -60,7 +60,7 @@ class Invoice:
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
 
-        cursor.execute('SELECT cust_id, F_name, L_name, email FROM customers WHERE email = ?', customer_email)
+        cursor.execute('SELECT cust_id, F_name, L_name, email FROM customers WHERE email = ?', customer_email,)
 
         customer_row=cursor.fetchone()
 
@@ -96,7 +96,7 @@ class Invoice:
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
 
-        cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery, late_return FROM Bookings WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end)
+        cursor.execute('''SELECT tool_id, price, duration, cust_id, delivery, late_return FROM Bookings WHERE cust_id= ? AND strftime('%s', date) BETWEEN strftime('%s', start_date) AND strftime('%s', end_date)'''), (customer_id, date, date_end,)
         
         tool_row=cursor.fetchall()
         for booking in tool_row:

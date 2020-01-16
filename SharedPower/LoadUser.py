@@ -28,7 +28,7 @@ class LoadUser:
             databaseConnection = DatabaseConnection.CreateDBConnection(databasefilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, email, username FROM Customer WHERE ? = ?', (criteria, value))
+            cursor.execute('SELECT cust_id, F_name, L_name, email, username FROM Customers WHERE ? = ?', (criteria, value,))
 
             user_row = cursor.fetchone()
 
