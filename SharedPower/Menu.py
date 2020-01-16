@@ -114,12 +114,12 @@ class Menu:
         
         acc_no = input("Account Number:\n")
         validationA = CheckInputs.accNoCheck(newUser, acc_no)
-        while acc_no == "" or validationA == False:
+        while acc_no == "" or validationA == None:
             acc_no = input("Please try again:\n")
 
         sort_code = input("Sort Code:\n")
         validationS = CheckInputs.sortCodeCheck(newUser, sort_code)
-        while sort_code == "" or validationS == False:
+        while sort_code == "" or validationS == None:
             sort_code = input("Please try again:\n")
 
         branch_name = input("Branch Name:\n")
