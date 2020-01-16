@@ -21,7 +21,8 @@ from GetterSetter.User import User
 from Managers.ToolManager import ToolManager
 
 from Helpers.DatabaseConnection import DatabaseConnection
-from Helpers.LateCharge import LateCharge
+
+from CheckingFiles.LateCharge import LateCharge
 
 class BookingManager:
 
