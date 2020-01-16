@@ -33,10 +33,8 @@ try:
         userInput = None
         while (userInput != 'back'):
 
-            action_choice = Menu.action(userInput)
+            action_choice = menu.action()
         
-        Menu.checkAccount(userInput)
-
 
     print('Thank you for Sharing your Power. Good bye.')
 

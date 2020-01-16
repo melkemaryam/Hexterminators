@@ -4,7 +4,7 @@
 Project: SharedPower
 Group: Hexterminators
 
-File name: Menu.py
+File name: BookingManager.py
 
 Created: 27th December 2019
 
@@ -49,7 +49,7 @@ class Menu:
             if(haveAccount == 1):
                 # Call the method to register the new user - this will return us a user object
                 registeredUser = self.signIn()
-                haveAccount = 4
+                haveAccount = 3
             
             elif(haveAccount == 2):
                 # Call the method to validate an existing user - this will return us a user object
@@ -166,7 +166,8 @@ class Menu:
     def action(self):
 
         userInput = 0
-
+        
+        
         while (userInput < 9):
 
             # Display the login and register menu
@@ -190,25 +191,25 @@ class Menu:
             userInput = int(userInput)
     
             if (userInput == 1):
-                Menu.searchToolByName(self)
+                registeredUser = self.searchToolByName()
 
             elif (userInput == 2):
-                Menu.searchToolByCategory(self)
+                registeredUser = self.searchToolByCategory()
 
             elif (userInput == 3):
-                Menu.showFutureTools(self)
+                registeredUser = self.showFutureTools()
 
             elif (userInput == 4):
-                Menu.rentATool(self)
+                registeredUser = self.rentATool()
 
             elif (userInput == 5):
-                Menu.addATool(self)
+                registeredUser = self.addATool()
 
             elif (userInput == 6):
-                Menu.returnATool(self)
+                registeredUser = self.returnATool()
             
             elif (userInput == 7):
-                Menu.reportDamage(self)
+                registeredUser = self.reportDamage()
 
             elif(userInput == 8):
                 userInput = 'back'
@@ -235,6 +236,8 @@ class Menu:
         # show results
         self.toolList(tools)
 
+        return tools
+
     '''
     Function name: searchToolByCat()
     Task: lets a user search for a tool by category
@@ -250,6 +253,8 @@ class Menu:
 
         # show results
         self.toolList(tools)
+
+        return tools
 
     '''
     Function name: showFutureTools()
@@ -277,11 +282,13 @@ class Menu:
         # show results
         self.toolList(futureTools)
 
+        return futureTools
+
     '''
     Function name: showFutureRentedTools()
     Task: shows the user future tools that have already been rented
     '''
-    def shwoFutureRentedTools(self):
+    def showFutureRentedTools(self):
 
         bookingManager = BookingManager(self.databaseFilename)
 
@@ -294,6 +301,8 @@ class Menu:
         for Bookings in futureTools:
             tool = Bookings.getTool()
             print(tool)
+
+        return futureTools
 
     '''
     Function name: rentATool()
@@ -353,6 +362,8 @@ class Menu:
         print('\nYou have successfully rented a tool:\n')
         self.toolHeaders()
         print(newBooking.getTool())
+
+        return newBooking
     
     '''
     Function name: addATool()
@@ -407,6 +418,10 @@ class Menu:
         # The new session should now be created so we can advise the user and then return
         print('\nYou have successfully added a new tool')
 
+        create_Tool = None
+
+        return create_Tool
+
     def reportDamage(self):
 
         tool_id = input("Please enter the ID of the tool we should pick up for investigation:\n")
@@ -425,6 +440,10 @@ class Menu:
         BookingManager.bookOutNotes(self.registeredUser, tool_id, brokenNoteInput)
         
         print ("Thank you. Your note has been saved and will be passed onto insurance company to start the claim.\n")
+
+        userInput = 'X'
+
+        return userInput
     
     '''
     Function name: returnATool()
@@ -441,6 +460,10 @@ class Menu:
         BookingManager.returnItem(self.registeredUser, book_id)
 
         print ("Thank you. Your booking has been finalised. Please find the details in the invoice send to you on 1st of the next month.\n")
+
+        return_tool = 'X'
+
+        return return_tool
 
 
     '''

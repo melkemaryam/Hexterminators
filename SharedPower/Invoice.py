@@ -47,7 +47,7 @@ class Invoice:
         self.rental_list = rental_list
         self.invoice_table = invoice_table
         self.format_invoice = format_invoice
-        self.databaseFilename = 'SharedPower.db'
+        self.databaseFilename = databaseFilename
 
     '''
     Function name: getData()
@@ -208,19 +208,19 @@ class Invoice:
     '''
     def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total, databaseFilename):
         
-        self.getList()
+        Invoice.getList(self)
         #constructing library of email invoices should be sent to
         length = len(mailing_list)
         
         for mailing_list in range(length):
             #for each email in the database
-            self.getData(customer_email)
+            Invoice.getData(self, customer_email)
             #get customer data
-            self.getTool(customer_id)
+            Invoice.getTool(self, customer_id)
             #get their bookings data
-            self.cut_list(rental_list)
-            self.generate_invoice(rental_list, grand_total, invoice_table, customer_firstname, customer_lastname)
-            self.send_invoice(customer_email, format_invoice)
+            Invoice.cut_list(self,rental_list)
+            Invoice.generate_invoice(self, rental_list, grand_total, invoice_table, customer_firstname, customer_lastname)
+            Invoice.send_invoice(self, customer_email, format_invoice)
         
     '''
     Function name: time_stuff()

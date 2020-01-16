@@ -83,7 +83,7 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, username, email, password FROM Customers WHERE username = ?', (username))
+            cursor.execute('SELECT cust_id, F_name, L_name, username, email, password FROM Customers WHERE username = ?', (username,))
 
             user_row = cursor.fetchone()
 
