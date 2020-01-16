@@ -11,6 +11,7 @@ import re
 from sqlite3 import Error
 from User import User 
 from DatabaseConnection import DatabaseConnection
+from LoadUser import LoadUser
 
 class CheckInputs:
 
@@ -39,25 +40,17 @@ class CheckInputs:
         return validateD
 
     def usernameUnique(self, username):
-
+        
         functionName = 'usernameUnique'
-        databasefilename = 'SharedPower.db'
-        list_of_usernames = []
 
         try:
             
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(databasefilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT username FROM Customers')
-
-            user_row = cursor.fetchall()
-
-            for username in user_row:
-                username = user_row[0]
-                list_of_usernames.append(username)
-            
+            validateUN = cursor.execute('SELECT username FROM Customers WHERE username=?', (username))
+           
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
@@ -66,8 +59,4 @@ class CheckInputs:
             print(__name__, ':', functionName, ':', e)
             raise
 
-        string_list =" "
-        string_list.join(map(str, list_of_usernames))
-
-        validateUN = re.match(str(username), string_list)
         return validateUN
