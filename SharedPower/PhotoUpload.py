@@ -18,4 +18,5 @@ class PhotoUpload:
     @staticmethod
     def upload():
         file_path = input('Please specify the path:')
+        print('Uploading file ', file_path)
         time.sleep(2)

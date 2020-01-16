@@ -12,9 +12,10 @@ Created: 10th January 2020
 '''
 
 from DatabaseConnection import DatabaseConnection
-from Password import Password
+from NewPassword import PasswordHelpers
 from User import User
 from sqlite3 import Error
+from LoadUser import LoadUser
 
 
 
@@ -42,7 +43,7 @@ class UserManager:
             cursor = databaseConnection.cursor()
 
             # Hash the users password
-            password = PasswordHelpers.HashPassword(password)
+            password = PasswordHelpers.Hash(password)
             
             cursor.execute('INSERT INTO Customer (username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name))
 
@@ -52,7 +53,7 @@ class UserManager:
             cust_id = cursor.lastrowid
 
             # create user
-            returnedUser = User(cust_id, F_name, L_name, tel_no, email, UserAddress)
+            returnedUser = User(cust_id, F_name, L_name, tel_no, email)
 
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
@@ -81,7 +82,7 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, username, password FROM Customer WHERE username = ?', (username))
+            cursor.execute('SELECT cust_id, F_name, L_name, username, email, password FROM Customer WHERE username = ?', (username))
 
             user_row = cursor.fetchone()
 
@@ -90,14 +91,15 @@ class UserManager:
                 F_name = user_row[1]
                 L_name = user_row[2]
                 username = user_row[3]
-                password = user_row[4]
+                email = user_row[4]
+                password = user_row[5]
 
                 # check password
-                #password_valid = PasswordHelpers.VerifyPassword(password, supplied_password)
+                password_valid = PasswordHelpers.Verify(password, supplied_password)
 
                 # create object
                 if (password_valid == True):
-                    returnedUser = User(cust_id, F_name, L_name, username)
+                    returnedUser = User(cust_id, F_name, L_name, email, username)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
@@ -172,37 +174,40 @@ class UserManager:
 
     def LoadUserId(self, cust_id):
 
-        functionName = 'LoadUserId'
-        returnedUser = None
+        #functionName = 'LoadUserId'
+
+        returnedUser = LoadUser.LoadUser(self.databaseFilename, 'cust_id', cust_id)
+
+        return returnedUser
         
-        try:
+        #try:
             
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
-            cursor = databaseConnection.cursor()
+            #databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            #cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, email FROM Customer WHERE cust_id = ?', (cust_id))
+            #cursor.execute('SELECT cust_id, F_name, L_name, email FROM Customer WHERE cust_id = ?', (cust_id))
 
-            user_row = cursor.fetchone()
+            #user_row = cursor.fetchone()
 
-            if (user_row != None):
-                cust_id = user_row[0]
-                F_name = user_row[1]
-                L_name = user_row[2]
-                email = user_row[3]
+            #if (user_row != None):
+                #cust_id = user_row[0]
+                #F_name = user_row[1]
+               # L_name = user_row[2]
+                #email = user_row[3]
 
                 # create user
-                returnedUser = User(cust_id, F_name, L_name, email)
+                #returnedUser = User(cust_id, F_name, L_name, email)
             
             # Disconnecting from the DB
-            DatabaseConnection.CloseDBConnection(databaseConnection)
+            #DatabaseConnection.CloseDBConnection(databaseConnection)
 
-            return returnedUser
+            #return returnedUser
 
-        except Error as e:
+        #except Error as e:
 
-            print(__name__, ':', functionName, ':', e)
-            raise
+            #print(__name__, ':', functionName, ':', e)
+            #raise
 
     '''
     Function name: loadUserEmail()
@@ -211,37 +216,42 @@ class UserManager:
 
     def loadUserEmail(self, email):
 
-        functionName = 'LoadUserEmail'
-        returnedUser = None
+        #functionName = 'LoadUserEmail'
+        #returnedUser = None
         
-        try:
+        returnedUser = LoadUser.LoadUser(self.databaseFilename, 'email', email)
+
+        return returnedUser
+        
+        
+        #try:
             
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
-            cursor = databaseConnection.cursor()
+            #databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            #cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, email FROM Customer WHERE email = ?', (email))
+            #cursor.execute('SELECT cust_id, F_name, L_name, email FROM Customer WHERE email = ?', (email))
 
-            user_row = cursor.fetchone()
+            #user_row = cursor.fetchone()
 
-            if (user_row != None):
-                cust_id = user_row[0]
-                F_name = user_row[1]
-                L_name = user_row[2]
-                email = user_row[3]
+            #if (user_row != None):
+                #cust_id = user_row[0]
+                #F_name = user_row[1]
+                #L_name = user_row[2]
+                #email = user_row[3]
 
                 # create user
-                returnedUser = User(cust_id, F_name, L_name, email)
+                #returnedUser = User(cust_id, F_name, L_name, email)
             
             # Disconnecting from the DB
-            DatabaseConnection.CloseDBConnection(databaseConnection)
+            #DatabaseConnection.CloseDBConnection(databaseConnection)
 
-            return returnedUser
+            #return returnedUser
 
-        except Error as e:
+        #except Error as e:
 
-            print(__name__, ':', functionName, ':', e)
-            raise
+            #print(__name__, ':', functionName, ':', e)
+            #raise
 
     
     '''
@@ -262,7 +272,7 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, email FROM Customer')
+            cursor.execute('SELECT cust_id, F_name, L_name, email, username FROM Customer')
 
             user_rows = cursor.fetchall()
 
@@ -272,9 +282,10 @@ class UserManager:
                 F_name = user[1]
                 L_name = user[2]
                 email = user[3]
+                username = user[4]
 
                 # create user
-                singleUser = User(cust_id, F_name, L_name, email)
+                singleUser = User(cust_id, F_name, L_name, email, username)
 
                 returnedUserList.append(singleUser)
             

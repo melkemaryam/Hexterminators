@@ -354,7 +354,7 @@ class Menu:
 
     def addATool(self):
     
-        newTool = None
+        #newTool = None
     
         toolManager = ToolManager(self.databaseFilename)
 
@@ -395,7 +395,7 @@ class Menu:
             anyPhotos = input('Your photo has been successfully uploaded.\n Would you like to upload another no? (y/z)\n')
             
         # create new tool
-        newTool = toolManager.createTool(self.registeredUser, tool_name, tool_cat, tool_desc, price, halfDayPrice)
+        toolManager.createTool(self.registeredUser, tool_name, tool_cat, tool_desc, price, halfDayPrice)
 
         # The new session should now be created so we can advise the user and then return
         print('\nYou have successfully added a new tool')
