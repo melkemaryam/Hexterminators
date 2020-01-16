@@ -23,6 +23,12 @@ libraries to install:
 - sqlite3
 - datetime
 - calendar
+- hashlib
+- os 
+- time 
+- enum
+- binascii
+- re
 
 
 Links:

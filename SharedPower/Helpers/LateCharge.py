@@ -13,6 +13,7 @@ Created: 13th January 2020
 
 import datetime
 import sqlite3
+
 from Helpers.DatabaseConnection import DatabaseConnection
 
 class LateCharge:
