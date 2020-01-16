@@ -4,7 +4,7 @@
 Project: SharedPower
 Group: Hexterminators
 
-File name: BookingManager.py
+File name: Menu.py
 
 Created: 27th December 2019
 

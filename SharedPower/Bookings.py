@@ -6,7 +6,7 @@ Group: Hexterminators
 
 File name: Bookings.py
 
-Created: 10th January 2020
+Created: 3rd January 2020
 
 -------------------------------------------------
 '''
