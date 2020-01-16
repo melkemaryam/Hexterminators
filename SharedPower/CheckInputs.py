@@ -42,6 +42,7 @@ class CheckInputs:
     def usernameUnique(self, username):
         
         functionName = 'usernameUnique'
+        validateUN =[]
 
         try:
             
@@ -49,8 +50,10 @@ class CheckInputs:
             databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
-            validateUN = cursor.execute('SELECT username FROM Customers WHERE username=?', (username))
+            validateUN = cursor.execute('SELECT cust_id FROM Customers WHERE username = ?', (username,))
            
+            if validateUN != 0:
+                validateUN = 'unique'
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
 
@@ -58,5 +61,5 @@ class CheckInputs:
 
             print(__name__, ':', functionName, ':', e)
             raise
-
+        
         return validateUN

@@ -12,6 +12,7 @@ Created: 27th December 2019
 '''
 
 from datetime import datetime
+import time
 
 from ToolManager import ToolManager
 from BookingManager import BookingManager
@@ -43,21 +44,17 @@ class Menu:
             if (registeredUser == None):
                 haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 2: No. Press 3 for Exit.\n")
                 
-            if (haveAccount.isdigit() == False):
-                haveAccount = input("Please try again:\n")
-
             haveAccount = int(haveAccount)
         
             if(haveAccount == 1):
                 # Call the method to register the new user - this will return us a user object
                 registeredUser = self.signIn()
+                haveAccount = 4
             
             elif(haveAccount == 2):
                 # Call the method to validate an existing user - this will return us a user object
-                newUser = None
                 registeredUser = self.signUp()
-                if (newUser != None):
-                    registeredUser = self.signIn()
+                haveAccount = 1
             
         return registeredUser
     
@@ -73,10 +70,10 @@ class Menu:
         userManager = UserManager(self.databaseFilename)
 
         username = input("Please sign up here.\nPlease come up with an unique username:\n")
-        validateUN = CheckInputs.usernameUnique(newUser, username)
-        while username == "" or validateUN != None:
+        #validateUN = CheckInputs.usernameUnique(newUser, username)
+        while username == "": #or validateUN != 'unique':
             username = input("Please try again:\n")
-            validatePass = CheckInputs.usernameUnique(newUser, username)
+            #validateUN = CheckInputs.usernameUnique(newUser, username)
 
         password = input("Please enter a safe password,\n password should contain at least one upper case letter, one lower case letter, one digit and one special character:\n")
         validatePass = CheckInputs.passwordCheck(newUser, password)
@@ -132,6 +129,9 @@ class Menu:
         branch_name = input("Branch Name:\n")
         while postcode == "":
             postcode = input("Please try again:\n")
+
+        print ('Thank you for registering account with SharedPower.\n You will be shortly taken to the sign in section.\n')
+        time.sleep(3)
 
 
         # create new user in the DB
@@ -190,25 +190,25 @@ class Menu:
             userInput = int(userInput)
     
             if (userInput == 1):
-                self.searchToolByName()
+                Menu.searchToolByName(self)
 
             elif (userInput == 2):
-                self.searchToolByCategory()
+                Menu.searchToolByCategory(self)
 
             elif (userInput == 3):
-                self.showFutureTools()
+                Menu.showFutureTools(self)
 
             elif (userInput == 4):
-                self.rentATool()
+                Menu.rentATool(self)
 
             elif (userInput == 5):
-                self.addATool()
+                Menu.addATool(self)
 
             elif (userInput == 6):
-                self.returnATool()
+                Menu.returnATool(self)
             
             elif (userInput == 7):
-                self.reportDamage()
+                Menu.reportDamage(self)
 
             elif(userInput == 8):
                 userInput = 'back'
