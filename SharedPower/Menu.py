@@ -40,10 +40,10 @@ class Menu:
 
         while (haveAccount < 3):
 
-            while (registeredUser == None):
+            if (registeredUser == None):
                 haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 2: No. Press 3 for Exit.\n")
                 
-            while (haveAccount.isdigit() == False):
+            if (haveAccount.isdigit() == False):
                 haveAccount = input("Please try again:\n")
 
             haveAccount = int(haveAccount)
@@ -78,7 +78,7 @@ class Menu:
 
         password = input("Please enter a safe password,\n password should contain at least one upper case letter, one lower case letter, one digit and one special character:\n")
         validatePass = CheckInputs.passwordCheck(newUser, password)
-        while password == "" or validatePass == False:
+        if password == "" or validatePass == False:
             password = input("Please try again:\n")
 
         F_name = input("Please enter your first name:\n")
@@ -89,7 +89,7 @@ class Menu:
         while L_name == "" or L_name.isdigit() == True:
             L_name = input("Please try again:\n")
 
-        tel_no = input("Last but not least, we need your email address for verification:\n")
+        tel_no = input("Please provide you phone number:\n")
         while tel_no == "" or tel_no.isdigit() == False:
             tel_no = input("Please try again:\n")
 
@@ -114,15 +114,15 @@ class Menu:
         
         acc_no = input("Account Number:\n")
         validationA = CheckInputs.accNoCheck(newUser, acc_no)
-        while acc_no == "" or validationA == False:
+        if acc_no == "" or validationA == False:
             acc_no = input("Please try again:\n")
 
         sort_code = input("Sort Code:\n")
         validationS = CheckInputs.sortCodeCheck(newUser, sort_code)
-        while sort_code == "" or validationS == False:
+        if sort_code == "" or validationS == False:
             sort_code = input("Please try again:\n")
 
-        branch_name = input("Post Code:\n")
+        branch_name = input("Branch Name:\n")
         while postcode == "":
             postcode = input("Please try again:\n")
 
