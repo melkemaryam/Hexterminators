@@ -80,6 +80,7 @@ class Menu:
         validatePass = CheckInputs.passwordCheck(newUser, password)
         while password == "" or validatePass == False:
             password = input("Please try again:\n")
+            validatePass = CheckInputs.passwordCheck(newUser, password)
 
         F_name = input("Please enter your first name:\n")
         while F_name == "" or F_name.isdigit() == True:
@@ -97,6 +98,7 @@ class Menu:
         validationE = CheckInputs.emailCheck(newUser, email)
         while email == "" or validationE == False:
             email = input("Please try again:\n")
+            validationE = CheckInputs.emailCheck(newUser, email)
 
         print("Please enter your bank details:\n")
         address1 = input("Address Line 1:\n")
@@ -111,16 +113,19 @@ class Menu:
         validationP = CheckInputs.postCodeCheck(newUser, postcode)
         while postcode == "" or validationP == False:
             postcode = input("Please try again:\n")
+            validationP = CheckInputs.postCodeCheck(newUser, postcode)
         
         acc_no = input("Account Number:\n")
         validationA = CheckInputs.accNoCheck(newUser, acc_no)
         while acc_no == "" or validationA == None:
             acc_no = input("Please try again:\n")
+            validationA = CheckInputs.accNoCheck(newUser, acc_no)
 
         sort_code = input("Sort Code:\n")
         validationS = CheckInputs.sortCodeCheck(newUser, sort_code)
         while sort_code == "" or validationS == None:
             sort_code = input("Please try again:\n")
+            validationS = CheckInputs.sortCodeCheck(newUser, sort_code)
 
         branch_name = input("Branch Name:\n")
         while postcode == "":
