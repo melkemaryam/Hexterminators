@@ -13,9 +13,8 @@ Created: 17th November 2019
 
 from DatabaseConnection import DatabaseConnection
 
-import sqlite3
 import numpy
-import pandas as pd
+import pandas
 #for tables and making them fancy
 
 from datetime import datetime
@@ -61,7 +60,7 @@ class Invoice:
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
 
-        cursor.execute('SELECT cust_id, F_name, L_name, email FROM customer WHERE email = ?', customer_email)
+        cursor.execute('SELECT cust_id, F_name, L_name, email FROM customers WHERE email = ?', customer_email)
 
         customer_row=cursor.fetchone()
 
@@ -193,7 +192,7 @@ class Invoice:
         # Connecting to the DB
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
         cursor = databaseConnection.cursor()
-        cursor.execute('SELECT customer_email FROM customer;' )
+        cursor.execute('SELECT customer_email FROM customers;' )
         mailing_list=cursor.fetchall()
 
         # Disconnecting from the DB

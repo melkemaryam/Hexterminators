@@ -21,6 +21,7 @@ from Tools import Tools
 from ToolCategory import ToolCategory
 
 from DatabaseConnection import DatabaseConnection
+from AvailabilityChecker import AvailabilityChecker
 
 
 class ToolManager:
