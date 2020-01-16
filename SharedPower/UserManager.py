@@ -12,7 +12,7 @@ Created: 10th January 2020
 '''
 
 from DatabaseConnection import DatabaseConnection
-from NewPassword import PasswordHelpers
+from NewPassword import NewPassword
 from User import User
 from sqlite3 import Error
 from LoadUser import LoadUser
@@ -47,7 +47,7 @@ class UserManager:
             cust_id = (int(cursor.fetchone()[0])+1)
 
             # Hash the users password
-            password = PasswordHelpers.Hash(password)
+            password = NewPassword.Hash(password)
             
             cursor.execute('INSERT INTO Customers (cust_id, username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (cust_id, username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name,))
 
@@ -72,7 +72,7 @@ class UserManager:
     Task: validate the password of the user
     '''
 
-    def confirmUser(self, username, supplied_password):
+    def confirmUser(self, username, suppliedPassword):
 
         functionName = 'confirmUser'
         returnedUser = None
@@ -83,7 +83,7 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, username, email, password FROM Customers WHERE username = ?', (username,))
+            cursor.execute('SELECT cust_id, F_name, L_name, username, email, password FROM Customers WHERE username = ?', (username))
 
             user_row = cursor.fetchone()
 
@@ -96,7 +96,7 @@ class UserManager:
                 password = user_row[5]
 
                 # check password
-                password_valid = PasswordHelpers.Verify(password, supplied_password)
+                password_valid = NewPassword.Verify(password, suppliedPassword)
 
                 # create object
                 if (password_valid == True):

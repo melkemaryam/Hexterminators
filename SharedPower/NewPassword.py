@@ -15,7 +15,7 @@ import hashlib
 import binascii
 import os
 
-class PasswordHelpers:
+class NewPassword:
 
     '''
     Function name: Hash()
