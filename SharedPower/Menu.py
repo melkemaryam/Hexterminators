@@ -409,12 +409,12 @@ class Menu:
 
     def reportDamage(self):
 
-        book_id = input("Please enter the number of booking we should pick up for investigation:\n")
+        tool_id = input("Please enter the ID of the tool we should pick up for investigation:\n")
 
-        while book_id == "":
-        	book_id = input("Please try again:\n")
+        while tool_id == "" or tool_id.isdigit() == False:
+        	tool_id = input("Please try again:\n")
 
-        tool_id = ToolManager.loadToolName(self.registeredUser, book_id)[1]
+        tool_id = ToolManager.loadToolId(self.registeredUser, tool_id)[1]
 
         brokenNoteInput = input("Please describe damage to the item:\n")
         
@@ -422,7 +422,7 @@ class Menu:
         	brokenNoteInput = input("Please do not leave this field empty.\n")
 
         BookingManager.markAvailability(self.registeredUser, tool_id)
-        BookingManager.bookOutNotes(self.registeredUser, book_id, brokenNoteInput)
+        BookingManager.bookOutNotes(self.registeredUser, tool_id, brokenNoteInput)
         
         print ("Thank you. Your note has been saved and will be passed onto insurance company to start the claim.\n")
     
