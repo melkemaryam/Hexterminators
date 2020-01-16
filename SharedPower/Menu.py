@@ -78,7 +78,7 @@ class Menu:
 
         password = input("Please enter a safe password,\n password should contain at least one upper case letter, one lower case letter, one digit and one special character:\n")
         validatePass = CheckInputs.passwordCheck(newUser, password)
-        if password == "" or validatePass == False:
+        while password == "" or validatePass == False:
             password = input("Please try again:\n")
 
         F_name = input("Please enter your first name:\n")
@@ -109,17 +109,17 @@ class Menu:
 
         postcode = input("Post Code:\n")
         validationP = CheckInputs.postCodeCheck(newUser, postcode)
-        if postcode == "" or validationP == False:
+        while postcode == "" or validationP == False:
             postcode = input("Please try again:\n")
         
         acc_no = input("Account Number:\n")
         validationA = CheckInputs.accNoCheck(newUser, acc_no)
-        if acc_no == "" or validationA == False:
+        while acc_no == "" or validationA == False:
             acc_no = input("Please try again:\n")
 
         sort_code = input("Sort Code:\n")
         validationS = CheckInputs.sortCodeCheck(newUser, sort_code)
-        if sort_code == "" or validationS == False:
+        while sort_code == "" or validationS == False:
             sort_code = input("Please try again:\n")
 
         branch_name = input("Branch Name:\n")

@@ -41,16 +41,16 @@ class UserManager:
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
-
+            
+            # get ID
+            cust_id = cursor.lastrowid
+            
             # Hash the users password
             password = PasswordHelpers.Hash(password)
             
-            cursor.execute('INSERT INTO Customers (username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name,))
+            cursor.execute('INSERT INTO Customers (cust_id, username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (cust_id, username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name,))
 
-            databaseConnection.commit()
-
-            # get ID
-            cust_id = cursor.lastrowid
+            databaseConnection.commit()          
 
             # create user
             returnedUser = User(cust_id, F_name, L_name, tel_no, email)
