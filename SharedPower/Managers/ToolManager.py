@@ -263,7 +263,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, duration FROM Bookings WHERE tool_start BETWEEN ? AND ?", (range_start, range_end,))
+            cursor.execute("SELECT tool_id, duration FROM Bookings WHERE start_date BETWEEN ? AND ?", (range_start, range_end))
 
             tool_rows = cursor.fetchall()
 
@@ -273,11 +273,10 @@ class ToolManager:
                 tool_id = tool[0]
                 cust_id = tool[1]
                 tool_name = tool[2]
-                tool_duration = tool[3]
-                tool_cat = tool[4]
-                tool_desc = tool[5]
-                price = tool[6]
-                halfDayPrice = tool(7)
+                tool_cat = tool[3]
+                tool_desc = tool[4]
+                price = tool[5]
+                halfDayPrice = tool[6]
 
                 # get ID
                 user = userManager.LoadUserId(cust_id)
