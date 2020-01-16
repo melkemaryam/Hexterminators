@@ -45,7 +45,7 @@ class UserManager:
             # Hash the users password
             password = PasswordHelpers.Hash(password)
             
-            cursor.execute('INSERT INTO Customers (username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name,))
+            cursor.execute('INSERT INTO Customers (username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name,))
 
             databaseConnection.commit()
 

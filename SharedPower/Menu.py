@@ -109,7 +109,7 @@ class Menu:
 
         postcode = input("Post Code:\n")
         validationP = CheckInputs.postCodeCheck(newUser, postcode)
-        while postcode == "" or validationP == False:
+        if postcode == "" or validationP == False:
             postcode = input("Please try again:\n")
         
         acc_no = input("Account Number:\n")

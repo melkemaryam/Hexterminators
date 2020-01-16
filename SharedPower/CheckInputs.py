@@ -17,7 +17,7 @@ class CheckInputs:
         return validateS
 
     def accNoCheck (self, acc_no):
-        validateA = bool(re.match('^[0-9]{7}$', acc_no))
+        validateA = bool(re.match('^([0-9]{7})$', acc_no))
         return validateA
 
     def postCodeCheck (self, postcode):
