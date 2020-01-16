@@ -43,8 +43,9 @@ class UserManager:
             cursor = databaseConnection.cursor()
             
             # get ID
-            cust_id = cursor.lastrowid
-            
+            cursor.execute('SELECT count(*) FROM customers')
+            cust_id = str(int(cursor.fetchone()) + 1)
+
             # Hash the users password
             password = PasswordHelpers.Hash(password)
             
