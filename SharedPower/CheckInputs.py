@@ -66,5 +66,8 @@ class CheckInputs:
             print(__name__, ':', functionName, ':', e)
             raise
 
-        validateUN = re.match(username, list_of_usernames)
+        string_list =" "
+        string_list.join(map(str, list_of_usernames))
+
+        validateUN = re.match(str(username), string_list)
         return validateUN
