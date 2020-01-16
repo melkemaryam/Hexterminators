@@ -42,9 +42,9 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
             
-            # get ID
+            # get ID which will be increased last ID by 1 and remade from tuple to integer
             cursor.execute('SELECT count(*) FROM customers')
-            cust_id = str(int(cursor.fetchone()) + 1)
+            cust_id = (int(cursor.fetchone()[0])+1)
 
             # Hash the users password
             password = PasswordHelpers.Hash(password)

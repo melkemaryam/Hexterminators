@@ -73,8 +73,10 @@ class Menu:
         userManager = UserManager(self.databaseFilename)
 
         username = input("Please sign up here.\nPlease come up with an unique username:\n")
-        while username == "":
+        validateUN = CheckInputs.usernameUnique(newUser, username)
+        while username == "" or validateUN != None:
             username = input("Please try again:\n")
+            validatePass = CheckInputs.usernameUnique(newUser, username)
 
         password = input("Please enter a safe password,\n password should contain at least one upper case letter, one lower case letter, one digit and one special character:\n")
         validatePass = CheckInputs.passwordCheck(newUser, password)

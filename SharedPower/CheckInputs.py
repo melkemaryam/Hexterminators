@@ -8,7 +8,9 @@ Created: 14th January 2020
 '''
 
 import re
+from sqlite3 import Error
 from User import User 
+from DatabaseConnection import DatabaseConnection
 
 class CheckInputs:
 
@@ -35,3 +37,34 @@ class CheckInputs:
     def dateCheck(self, dateOfBooking):
         validateD = bool(re.match('[0-9]{2}-[0-9]{2}-[0-9]{2}$', dateOfBooking))
         return validateD
+
+    def usernameUnique(self, username):
+
+        functionName = 'usernameUnique'
+        databasefilename = 'SharedPower.db'
+        list_of_usernames = []
+
+        try:
+            
+            # Connecting to the DB
+            databaseConnection = DatabaseConnection.CreateDBConnection(databasefilename)
+            cursor = databaseConnection.cursor()
+
+            cursor.execute('SELECT username FROM Customers')
+
+            user_row = cursor.fetchall()
+
+            for username in user_row:
+                username = user_row[0]
+                list_of_usernames.append(username)
+            
+            # Disconnecting from the DB
+            DatabaseConnection.CloseDBConnection(databaseConnection)
+
+        except Error as e:
+
+            print(__name__, ':', functionName, ':', e)
+            raise
+
+        validateUN = re.match(username, list_of_usernames)
+        return validateUN
