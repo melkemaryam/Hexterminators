@@ -51,7 +51,7 @@ class Invoice:
 
     '''
     Function name: getData()
-    Task: for finsing customer in the base using email address
+    Task: for finding customer in the DB using email address
     '''
 
     def getData(self, customer_email):
