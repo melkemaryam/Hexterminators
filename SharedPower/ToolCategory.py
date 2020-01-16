@@ -44,11 +44,9 @@ class ToolCategory:
 
             chooseCategory = input("Please choose the category of the tool from the list above:")
 
-            while chooseCategory != 1 or 2 or 3 or 4 or 5:
+            while chooseCategory.isdigit() == False or (int(chooseCategory)) > 5:
                 chooseCategory = input('Please only enter one of the numbers 1-5:')
 
             chooseCategory = int(chooseCategory)
 
-            toolCategory = ToolCategorySpecify(chooseCategory)
-
-            return toolCategory
+            return chooseCategory

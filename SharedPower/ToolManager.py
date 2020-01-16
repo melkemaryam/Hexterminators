@@ -16,6 +16,7 @@ from datetime import timedelta
 from sqlite3 import Error
 
 from UserManager import UserManager
+from User import User
 
 from Tools import Tools
 from ToolCategory import ToolCategory
@@ -49,7 +50,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_id = ?", (tool_id))
+            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_id = ?", (tool_id,))
 
             tool_row = cursor.fetchone()
 
@@ -98,7 +99,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_name = ?", (tool_name))
+            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_name = ?", (tool_name,))
 
             tool_row = cursor.fetchone()
 
@@ -206,7 +207,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_duration, tool_cat, price, tool_desc, half_price FROM Tools WHERE tool_start > ? AND tool_cat = ?", (start_date, search_criteria.value,))
+            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_cat, price, tool_desc, half_price FROM Tools WHERE tool_cat = ?", (search_criteria,))
 
             tool_rows = cursor.fetchall()
 
@@ -215,12 +216,10 @@ class ToolManager:
                 tool_id = tool[0]
                 cust_id = tool[1]
                 tool_name = tool[2]
-                tool_start = datetime.strptime(tool[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration = tool[4]
-                tool_cat = tool[5]
-                price = tool[6]
-                tool_desc = tool[7]
-                half_price = tool[8]
+                tool_cat = tool[3]
+                price = tool[4]
+                tool_desc = tool[5]
+                half_price = tool[6]
 
                 # get user
                 user = userManager.LoadUserId(cust_id)
@@ -309,7 +308,7 @@ class ToolManager:
         try:
             
             # get ID
-            cust_id = user.getId()
+            cust_id = User.getId(self.databaseFilename)
 
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)

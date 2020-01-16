@@ -15,7 +15,8 @@ from datetime import datetime
 from sqlite3 import Error
 
 from Bookings import Bookings
-from Tools import Tools       
+from Tools import Tools
+from User import User     
 
 from ToolManager import ToolManager
 
@@ -45,8 +46,8 @@ class BookingManager:
             cursor = databaseConnection.cursor()
 
             # get IDs
-            tool_id = tool.getId()
-            cust_id = user.getId()
+            tool_id = Tools.getId(self.databaseFilename)
+            cust_id = User.getId(self.databaseFilename)
 
             cursor.execute('INSERT INTO Bookings (tool_id, cust_id) VALUES (?, ?)', (tool_id, cust_id,)) 
 

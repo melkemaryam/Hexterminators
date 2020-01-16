@@ -43,6 +43,10 @@ class Menu:
 
             if (registeredUser == None):
                 haveAccount = input("Welcome to SharedPower. \nDo you already have an account? 1: Yes or 2: No. Press 3 for Exit.\n")
+                validationM = CheckInputs.mainmenu(registeredUser, haveAccount)
+                while validationM == None:
+                    haveAccount = input("This was not a valid option. \nDo you already have an account? 1: Yes or 2: No. Press 3 for Exit.\n")
+                    validationM = CheckInputs.mainmenu(registeredUser, haveAccount)
                 
             haveAccount = int(haveAccount)
         
@@ -55,7 +59,7 @@ class Menu:
                 # Call the method to validate an existing user - this will return us a user object
                 registeredUser = self.signUp()
                 haveAccount = 1
-            
+             
         return registeredUser
     
 
@@ -382,9 +386,9 @@ class Menu:
         while tool_name == "":
         	tool_name = input("Please try again:\n")
 
-        tool_cat = ToolCategory.getToolCatFromUser()
+        tool_cat = ""
         while tool_cat == "":
-    	    tool_cat= input("Please try again:\n")
+            tool_cat = ToolCategory.getToolCatFromUser()
 
         tool_desc = input("Please enter a short description that also displays the condition and size of your tool:\n")
 
@@ -413,6 +417,7 @@ class Menu:
             anyPhotos = input('Your photo has been successfully uploaded.\n Would you like to upload another no? (y/z)\n')
             
         # create new tool
+        
         toolManager.createTool(self.registeredUser, tool_name, tool_cat, tool_desc, price, halfDayPrice)
 
         # The new session should now be created so we can advise the user and then return

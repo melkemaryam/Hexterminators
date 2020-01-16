@@ -111,7 +111,7 @@ class Tools:
 
         returnValue = '{id} \t {name} \t {user} \t {category} \t \t {price} \t {halfDayPrice} \t {tool_desc}'.format(id = self.tool_id, 
                                                                                                            name = self.tool_name,
-                                                                                                           user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
+                                                                                                           user = self.tool_user, #.getFirstName() + ' ' + self.tool_user.getLastName(),
                                                                                                            category = self.tool_cat,
                                                                                                            price = self.price,
                                                                                                            halfDayPrice = self.halfDayPrice,
@@ -124,7 +124,7 @@ class Tools:
 
         returnValue = '{id} \t {name} \t {user} \t {category} \t \t {price} \t {halfDayPrice} \t {tool_desc}'.format(id = self.tool_id, 
                                                                                                            name = self.tool_name,
-                                                                                                           user = self.tool_user.getFirstName() + ' ' + self.tool_user.getLastName(),
+                                                                                                           user = self.tool_user, #.getFirstName() + ' ' + self.tool_user.getLastName(),
                                                                                                            category = self.tool_cat,
                                                                                                            price = self.price,
                                                                                                            halfDayPrice = self.halfDayPrice,

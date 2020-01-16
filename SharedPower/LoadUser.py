@@ -20,7 +20,8 @@ class LoadUser:
     @staticmethod
     def LoadUser (databasefilename, criteria, value):
 
-        functionName = LoadUser
+        functionName = 'LoadUser'
+        returnedUser = None
 
         try:
             

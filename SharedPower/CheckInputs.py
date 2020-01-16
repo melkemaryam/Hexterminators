@@ -15,6 +15,10 @@ from LoadUser import LoadUser
 
 class CheckInputs:
 
+    def mainmenu (self, haveAccount):
+        validateM = re.match('([1-3]{1})', haveAccount)
+        return validateM
+
     def sortCodeCheck (self, sort_code):
         validateS = re.match('[0-9]{2}-[0-9]{2}-[0-9]{2}$', sort_code)
         return validateS
