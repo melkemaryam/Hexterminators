@@ -31,48 +31,175 @@ libraries to install:
 - re
 
 
-Availability Checker:
-- date_generator()
-- get_availability()
-- book_out()
+AvailabilityChecker:
++ date_generator()
++ get_availability()
++ book_out()
 
+CheckInputs:
++ mainmenu()
++ sortCodeCheck()
++ accNoCheck()
++ postCodeCheck()
++ emailCheck()
++ passwordCheck()
++ dateCheck()
++ usernameUnique()
+
+UserManager:
++ __init__()
++ createUser()
++ confirmUser()
++ updateUser()
++ deleteUser()
++ LoadUserId()
++ loadUserEmail()
++ loadAllUsers()
+
+LoadUser:
++ LoadUser()
+
+ToolCategory:
++ getToolCatFromUser()
+
+Delivery:
++ __init__()
++ add_delivery_charge()
+
+Notes:
++ __init__()
++ Rent()
++ Return()
++ Broken()
+
+NewPassword:
++ Hash()
++ Verify()
+
+UserAddress:
++ setAddress1()
++ getAddress1()
++ setAddress2()
++ getAddress2()
++ setPostcode()
++ getPostcode()
++ setTelNo()
++ getTelNo()
++ setAccNo()
++ getAccNo()
++ setSortCode()
++ getSortCode()
++ setBranchName()
++ getBranchName()
+
+BookingInfo:
++ setStartDate()
++ getStartDate()
++ setEndDate()
++ getEndDate()
++ setDuration()
++ getDuration()
++ setDelivery()
++ getDelivery()
++ setNoteIn()
++ getNoteIn()
++ setNoteOut()
++ getNoteOut()
++ setLateReturn()
++ getLateReturn()
 
 Insurance:
-- insurance_tool()
++ insurance_tool()
+
+DatabaseConnection:
++ CreateDBConnection()
++ cursor()
++ CloseDBConnection()
+
+Menu:
++  __init__()
++ checkAccount()
++ signUp()
++ signIn()
++ action()
++ searchToolByName()
++ searchToolByCategory()
++ showFutureTools()
++ showFutureRentedTools()
++ rentATool()
++ addATool()
++ reportDamage()
++ returnATool()
++ toolList()
++ showTool()
++ toolHeaders(
+
 
 
 Invoice:
-- getData()
-- getTool()
-- cut_list()
-- generate_invoice()
-- send_invoice()
-- getList()
-- run_month()
-- time_stuff()
++ getData()
++ getTool()
++ cut_list()
++ generate_invoice()
++ send_invoice()
++ getList()
++ run_month()
++ time_stuff()
 
 
-Interface:
-- checkAccount()
-    - signIn()
-    - signUp()
-
-
-Tool:
-- searchTool()
-- load_data()
-- choose_filters()
-- filter_data()
-- action()
-    - addAnItem()
-    - rentAnItem()
+Tools:
++ getId()
++ getUser()
++ setName()
++ getName()
++ setPrice()
++ getPrice()
++ setHDPrice()
++ getHDPrice()
++ setDescription()
++ getDescription()
++ getCategory()
 
 User:
-- getID()
-- setFirstName()
-- getFirstName()
-- setEmail()
-- getEmail()
++ getId()
++ setFirstName()
++ getFirstName()
++ setLastName()
++ getLastName()
++ setEmail()
++ getEmail()
++ setUsername()
++ getUsername()
+
+Bookings:
++ getBookingId()
++ getTool()
++ getUser()
+
+PhotoUpload:
++ upload()
+
+LateCharge:
++ __init__()
++ checkIfLate()
+
+BookingManager:
++ createBooking()
++ searchFutureBookings()
++ markAvailability()
++ bookOutNotes()
++ returnItem()
+
+ToolManager:
++ __init__()
++ loadToolId()
++ loadToolName()
++ searchToolByName()
++ searchToolByCategory()
++ loadFutureTools()
++ createTool()
+
+
 
 
 

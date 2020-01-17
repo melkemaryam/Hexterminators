@@ -11,15 +11,4 @@ Created: 3th January 2020
 -------------------------------------------------
 '''
 
-- Class Diagram
-
-- add halfDayPrice everywhere
-- check limit for input in DB 20 character
-- see which functions we actually need '''check them also against requirements'''
-- init File
-- test File
-- fix all bugs
-- add class uploadPhoto
-- check all inputs
-- comment on EVERYTHING
-- add end_date in DB
+- fix bugs
