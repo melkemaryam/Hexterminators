@@ -51,7 +51,7 @@ class BookingManager:
             cust_id = UserManager.LoadUserId(self, returnedUser)
             tool_id = Tools.getId(tool)
 
-            cursor.execute('INSERT INTO Bookings (tool_id, cust_id) VALUES (?, ?)', (tool_id, cust_id,)) 
+            cursor.execute('INSERT INTO Bookings (tool_id, cust_id) VALUES (?, ?)', (tool_id, cust_id)) 
 
             databaseConnection.commit()
 
@@ -92,7 +92,7 @@ class BookingManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT Bookings.book_id, Bookings.tool_id FROM Bookings INNER JOIN Tools ON Bookings.tool_id = Tools.tool_id WHERE Tools.tool_start > ? AND Bookings.cust_id = ?", (start_date, cust_id,))
+            cursor.execute("SELECT Bookings.book_id, Bookings.tool_id FROM Bookings INNER JOIN Tools ON Bookings.tool_id = Tools.tool_id WHERE Tools.tool_start > ? AND Bookings.cust_id = ?", (start_date, cust_id))
 
             booking_rows = cursor.fetchall()
 
@@ -123,7 +123,7 @@ class BookingManager:
 
     '''
     Function name: markAvailability()
-    Task: takes a tool of availability in the database
+    Task: marks the availability of a special tool
     '''
 
     def markAvailability(self, tool_id):
@@ -136,7 +136,7 @@ class BookingManager:
             databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Tools SET available = 0 WHERE tool_id = ?', (tool_id,))
+            cursor.execute('UPDATE Tools SET available = 0 WHERE tool_id = ?', (tool_id))
 
             databaseConnection.commit()
 
@@ -150,7 +150,7 @@ class BookingManager:
 
     '''
     Function name: bookOutNotes()
-    Task: taskes a tool of availability in the database
+    Task: updates the note about the condition of the tool
     '''
 
     def bookOutNotes(self, book_id, brokenNoteInput):
@@ -163,7 +163,7 @@ class BookingManager:
             databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Bookings SET note_out = ? WHERE book_id = ?', (brokenNoteInput, book_id,))
+            cursor.execute('UPDATE Bookings SET note_out = ? WHERE book_id = ?', (brokenNoteInput, book_id))
 
             databaseConnection.commit()
 
@@ -177,7 +177,7 @@ class BookingManager:
 
     '''
     Function name: returnItem()
-    Task: taskes a tool of availability in the database
+    Task: returns an item
     '''
 
     def returnItem(self, book_id):

@@ -53,7 +53,7 @@ class UserManager:
             # Hash the users password
             password = NewPassword.Hash(password)
             
-            cursor.execute('INSERT INTO Customers (cust_id, username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (cust_id, username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name,))
+            cursor.execute('INSERT INTO Customers (cust_id, username, password, F_name, L_name, tel_no, email, address1, address2, postcode, acc_no, sort_code, branch_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (cust_id, username, password, F_name, L_name, tel_no, email.lower(), address1, address2, postcode, acc_no, sort_code, branch_name))
 
             databaseConnection.commit()          
 
@@ -87,7 +87,7 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, username, email, password FROM Customers WHERE username = ?', (username,))
+            cursor.execute('SELECT cust_id, F_name, L_name, username, email, password FROM Customers WHERE username = ?', (username))
 
             user_row = cursor.fetchone()
 
@@ -131,7 +131,7 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Customers SET F_name = ?, L_name = ?, email = ? WHERE cust_id = ?', (user.getFirstName(), user.getLastName(), user.getEmail(), user.getId(),))
+            cursor.execute('UPDATE Customers SET F_name = ?, L_name = ?, email = ? WHERE cust_id = ?', (user.getFirstName(), user.getLastName(), user.getEmail(), user.getId()))
 
             databaseConnection.commit()
            
@@ -158,7 +158,7 @@ class UserManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('DELETE FROM Customers WHERE cust_id = ?', (cust_id,))
+            cursor.execute('DELETE FROM Customers WHERE cust_id = ?', (cust_id))
 
             databaseConnection.commit()
            

@@ -6,7 +6,7 @@ Group: Hexterminators
 
 File name: LoadUser.py
 
-Created: 17th January 2020
+Created: 15th January 2020
 
 -------------------------------------------------
 '''
@@ -18,6 +18,11 @@ from User import User
 
 class LoadUser:
     
+    '''
+    Function name: LoadUser()
+    Task: loads the details of a user from the DB using specific criteria
+    '''
+
     @staticmethod
     def LoadUser (databasefilename, criteria, value):
 
@@ -29,7 +34,7 @@ class LoadUser:
             databaseConnection = DatabaseConnection.CreateDBConnection(databasefilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, email, username FROM Customers WHERE ? = ?', (criteria, value,))
+            cursor.execute('SELECT cust_id, F_name, L_name, email, username FROM Customers WHERE ? = ?', (criteria, value))
 
             user_row = cursor.fetchone()
 

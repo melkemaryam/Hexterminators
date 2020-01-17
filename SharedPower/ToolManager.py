@@ -37,6 +37,7 @@ class ToolManager:
     Function name: loadToolId()
     Task: load a tool from the DB with the use of the tool ID
     '''
+
     def loadToolId(self, tool_id):
 
         functionName = 'loadToolId'
@@ -50,7 +51,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_id = ?", (tool_id,))
+            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_id = ?", (tool_id))
 
             tool_row = cursor.fetchone()
 
@@ -81,6 +82,7 @@ class ToolManager:
     Function name: loadToolName()
     Task: load a tool from the DB with the use of the tool name
     '''
+
     def loadToolName(self, tool_name):
 
         functionName = 'loadToolName'
@@ -94,7 +96,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_name = ?", (tool_name,))
+            cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_name = ?", (tool_name))
 
             tool_row = cursor.fetchone()
 
@@ -139,7 +141,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_cat, price FROM Tools WHERE tool_name LIKE ?", ( tool_name,))
+            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_cat, price FROM Tools WHERE tool_name LIKE ?", ( tool_name))
 
             tool_rows = cursor.fetchall()
 
@@ -186,7 +188,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_cat, price, tool_desc, half_price FROM Tools WHERE tool_cat = ?", (search_criteria,))
+            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_cat, price, tool_desc, half_price FROM Tools WHERE tool_cat = ?", (search_criteria))
 
             tool_rows = cursor.fetchall()
 
@@ -293,7 +295,7 @@ class ToolManager:
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('INSERT INTO Tools (tool_id, cust_id, tool_name, tool_cat, tool_desc, price, half_price) VALUES (?, ?, ?, ?, ?, ?, ?)', (tool_id, cust_id, tool_name, tool_cat, tool_desc, price, halfDayPrice,))
+            cursor.execute('INSERT INTO Tools (tool_id, cust_id, tool_name, tool_cat, tool_desc, price, half_price) VALUES (?, ?, ?, ?, ?, ?, ?)', (tool_id, cust_id, tool_name, tool_cat, tool_desc, price, halfDayPrice))
 
             databaseConnection.commit()
 

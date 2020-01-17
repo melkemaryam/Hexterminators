@@ -22,6 +22,11 @@ class Notes:
         self.note_out = note_out
         self.databaseFilename = databaseFilename
 
+    '''
+    Function name: Rent()
+    Task: gets the note that describes the state of the tool
+    '''
+
     def Rent(self, tool_id, descriptionToolInput):
         
         databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
@@ -32,7 +37,7 @@ class Notes:
         numberOfBookings = cursor.fetchone()
         previousBooking = int(numberOfBookings) - 1
         if previousBooking >= 0:
-            printNoteStateOfItem = ('This tool was recently added please see item description:\n' + descriptionToolInput)
+            printNoteStateOfItem = ('This tool was recently added, please see item description:\n' + descriptionToolInput)
 
         else:
             cursor.execute('SELECT note_in FROM bookings WHERE tool_id = ? AND book_id = ?', tool_id, previousBooking,)
@@ -41,6 +46,10 @@ class Notes:
         DatabaseConnection.CloseDBConnection(self.databaseFilename)
         return printNoteStateOfItem
        
+    '''
+    Function name: Return()
+    Task: updates the note about the state of the tool
+    '''
 
     def Return(self, noteOnReturn, bookingIdReturnInput):
         
@@ -50,6 +59,11 @@ class Notes:
         cursor.execute('UPDATE bookings SET note_in = ? WHERE booking_id = ?', noteOnReturn, bookingIdReturnInput,)
         databaseConnection.commit()  
         DatabaseConnection.CloseDBConnection(self.databaseFilename)
+
+    '''
+    Function name: Broken()
+    Task: updates the note if tool is damaged and marks it unavailable
+    '''
 
     def Broken(self, maToolInput, brokenNoteInput):
 

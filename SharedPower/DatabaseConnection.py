@@ -36,6 +36,11 @@ class DatabaseConnection:
 
         return databaseConnection
 
+    '''
+    Function name: cursor()
+    Task: creates a cursor for the DB
+    '''
+
     @staticmethod
     def cursor(databaseConnection):
 

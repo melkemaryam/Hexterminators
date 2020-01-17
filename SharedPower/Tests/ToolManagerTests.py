@@ -12,9 +12,9 @@ Created: 16th January 2020
 
 from sqlite3 import Error
 
-from Managers.ToolManager import ToolManager
-from Managers.BookingManager import BookingManager
-from GetterSetter.Tools import Tools
+from ToolManager import ToolManager
+from BookingManager import BookingManager
+from Tools import Tools
 
 class ToolManagerTests:
 
@@ -32,7 +32,7 @@ class ToolManagerTests:
 
             bookingManager = BookingManager(database_path)
 
-            future_bookings = toolManager.loadFutureTool(range_start, range_end_days = 42)
+            future_bookings = toolManager.loadFutureTools(range_start, range_end_days = 42)
 
             for booking in future_bookings:
                 print(booking)

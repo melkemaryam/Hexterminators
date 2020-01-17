@@ -24,7 +24,7 @@ class AvailabilityChecker:
 
     '''
     Function name: date_generator()
-    Task: generate list of dates for required 6 weeks bookings
+    Task: generate list of dates for the required 6 weeks bookings
     '''
 
     def date_generator(self):
@@ -100,7 +100,7 @@ class AvailabilityChecker:
         for date in quick_dates:
             quick_dates = date[0]
             days_available.append(quick_dates)
-            #reforges the list into list - is it really needed?
+            #reforges the list into list
         
         return days_available
     

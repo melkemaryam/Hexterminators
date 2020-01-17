@@ -12,11 +12,11 @@ Created: 16th January 2020
 
 from sqlite3 import Error
 
-from Managers.ToolManager import ToolManager
-from Managers.BookingManager import BookingManager
+from ToolManager import ToolManager
+from BookingManager import BookingManager
 
-from GetterSetter.Tools import Tools
-from GetterSetter.Bookings import Bookings
+from Tools import Tools
+from Bookings import Bookings
 
 class BookingManagerTests:
 

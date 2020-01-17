@@ -18,16 +18,24 @@ from DatabaseConnection import DatabaseConnection
 
 class LateCharge:
 
+    #Constructor
     def __init__(self, databaseFilename):
         self.databaseFilename = 'SharedPower.db'
-        #basic late charge is double the rate
+        
+    '''
+    Function name: checkIfLate()
+    Task: checks wether a tool is returned late and add the additional fee of a double day rate
+    '''
 
     def checkIfLate(self, book_id):
+        
         return_date = datetime.datetime.today()
         charge_ratio = 2
+        
         databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
         cursor = databaseConnection.cursor()
         cursor.execute('SELECT end_date FROM Bookings WHERE book_id = ?', book_id,)
+        
         booking_dates = cursor.fetchone()
         #late_days = 1
         late_days = (return_date - booking_dates).days
