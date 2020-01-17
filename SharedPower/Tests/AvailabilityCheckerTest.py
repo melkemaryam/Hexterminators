@@ -32,7 +32,7 @@ class AvailabilityCheckerTest:
             future_availability = availabilityManager.loadFutureAvailability(range_start, range_end_days = 31)
 
             for availability in future_availability:
-                print (available)
+                print (availability)
 
         except Error as e:
             print (__name__, ':', function_name, "-", e)

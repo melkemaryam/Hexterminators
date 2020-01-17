@@ -82,6 +82,7 @@ class Invoice:
     Function name: getTool()
     Task: for getting all the tools used by customer for last month
     '''
+
     def getTool(self, customer_id):
 
         rental_list = ['Tool Name', 'Day Price', 'Rental Duration', 'Total Price']
@@ -121,8 +122,12 @@ class Invoice:
         return rental_list, grand_total
         #presenting the Rental lines back to us
     
+    '''
+    Function name: cut_list()
+    Task: rearranging a single list from the getTool() function into a table for the invoice to be generated
+    '''
+
     def cut_list(self, rental_list):
-        #rearranging single list from getTool function into a table for the invoice to be generated
     
         tool_droppings = numpy.asarray(rental_list)
         invoice_table = numpy.reshape(tool_droppings, (-1,5))
@@ -132,14 +137,16 @@ class Invoice:
     Function name: generate_invoice
     Task: Building the actual invoice - message and numbers together
     '''
+
     def generate_invoice(self, rental_list, grand_total, invoice_table, customer_firstname, customer_lastname):
-        #building the actual invoice - message and numbers together
 
         invoice_main_body = pandas.DataFrame(invoice_table, columns=['Tool Name', 'Day Price', 'Rental Duration', 'Total Price'])
-        #adding headers to numpy array to make it more table-like (should be neat)
+        
+        #adding headers to the numpy array to make it more table-like (should be neat)
         name = customer_firstname + ' ' + customer_lastname
         period = str(datetime.now().month) + ' ' + str(datetime.now().year)
         customer_info = (name, period, invoice_main_body, grand_total)
+        
         format_invoice = ("""Hello %s,
         Please find your invoice for %s below: 
         %s
@@ -147,47 +154,49 @@ class Invoice:
 
         Thank you for using SharedPower.""" % customer_info)
         return format_invoice
-        #e voila!
         
     '''
     Function name: send_invoice()
-    Task: Now for sending the bitch away >.<
+    Task: sends the invoice away
     '''
+
     def send_invoice(self, customer_email, format_invoice):
 
+        # give it access to a basic SharedPower customer services email address
         MY_ADDRESS = 'breo.Piotr.Hexterminators@study.beds.ac.uk'
         PASSWORD = 'need.to.hash.this.away'
-        #give it access to basic SharedPower customer services email address
-
+        
+        # set up the SMTP server as we use outlook 365
         s = smtplib.SMTP(host='smtp-mail.outlook.com', port=587)
         s.starttls()
         s.login(MY_ADDRESS, PASSWORD)
-        #set up the SMTP server as we use outlook 365
-
-        msg = MIMEMultipart()       #create a message
+        
+        #create a message
+        msg = MIMEMultipart()       
 
         message = format_invoice
 
+        #setup the parameters of the message
         msg['From']=MY_ADDRESS
         msg['To']= customer_email
         msg['Subject']="This is your monthly SharedPower invoice"
-        #setup the parameters of the message
-
-        msg.attach(MIMEText(message, 'plain'))
+        
         #add in the message body
-
-        s.send_message(msg)
+        msg.attach(MIMEText(message, 'plain'))
+        
         #send the message via the server set up earlier.
-    
+        s.send_message(msg)
+        
         del msg
 
         s.quit()
-        #clean up done
+        
 
     '''
     Function name: getList()
-    Task: For finding customer in the base using email address
+    Task: for finding the customer in the DB using teh email address
     '''
+
     def getList(self):
 
         # Connecting to the DB
@@ -199,14 +208,15 @@ class Invoice:
         # Disconnecting from the DB
         DatabaseConnection.CloseDBConnection(self.databaseFilename)
 
-        return mailing_list
         #presenting the Customer list back to us
-        
-        
+        return mailing_list
+
+
     '''
     Function name: run_month()
     Task: Assuming the code runs non-stop, it sends an invoice to every customer at the start of every month
     '''
+
     def run_month(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, mailing_list, grand_total, databaseFilename):
         
         Invoice.getList(self)
@@ -214,10 +224,13 @@ class Invoice:
         length = len(mailing_list)
         
         for mailing_list in range(length):
+            
             #for each email in the database
             Invoice.getData(self, customer_email)
+            
             #get customer data
             Invoice.getTool(self, customer_id)
+            
             #get their bookings data
             Invoice.cut_list(self,rental_list)
             Invoice.generate_invoice(self, rental_list, grand_total, invoice_table, customer_firstname, customer_lastname)
@@ -227,6 +240,7 @@ class Invoice:
     Function name: time_stuff()
     Task: Setting the time to zero in case the code is not started at the start of the month 
     '''
+    
     def time_stuff(self):
         start = 0
         start_date = (datetime.now().year, (datetime.now().month + 1), 1)
