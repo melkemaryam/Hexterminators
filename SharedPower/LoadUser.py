@@ -13,8 +13,8 @@ Created: 17th January 2020
 
 from sqlite3 import Error
 
-from Helpers.DatabaseConnection import DatabaseConnection
-from GetterSetter.User import User
+from DatabaseConnection import DatabaseConnection
+from User import User
 
 class LoadUser:
     
@@ -22,7 +22,6 @@ class LoadUser:
     def LoadUser (databasefilename, criteria, value):
 
         functionName = 'LoadUser'
-        returnedUser = None
 
         try:
             
@@ -30,7 +29,7 @@ class LoadUser:
             databaseConnection = DatabaseConnection.CreateDBConnection(databasefilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('SELECT cust_id, F_name, L_name, email, username FROM Customers WHERE ? = ?', (criteria, value))
+            cursor.execute('SELECT cust_id, F_name, L_name, email, username FROM Customers WHERE ? = ?', (criteria, value,))
 
             user_row = cursor.fetchone()
 

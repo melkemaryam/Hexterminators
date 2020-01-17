@@ -11,11 +11,11 @@ Created: 3rd January 2020
 -------------------------------------------------
 '''
 
-from Helpers.DatabaseConnection import DatabaseConnection
-from Helpers.NewPassword import NewPassword
-from Helpers.LoadUser import LoadUser
+from DatabaseConnection import DatabaseConnection
+from NewPassword import NewPassword
+from LoadUser import LoadUser
 
-from GetterSetter.User import User
+from User import User
 
 from sqlite3 import Error
 
@@ -25,9 +25,10 @@ from sqlite3 import Error
 class UserManager:
 
     #Constructor
-    def __init__(self, databaseFilename):
+    def __init__(self, databaseFilename, registeredUser):
 
         self.databaseFilename = databaseFilename
+        self.registeredUser = registeredUser
 
 
     '''

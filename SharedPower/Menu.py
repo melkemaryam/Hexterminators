@@ -14,18 +14,18 @@ Created: 27th December 2019
 from datetime import datetime
 import time
 
-from Managers.ToolManager import ToolManager
-from Managers.BookingManager import BookingManager
-from Managers.UserManager import UserManager
+from ToolManager import ToolManager
+from BookingManager import BookingManager
+from UserManager import UserManager
 
-from Helpers.ToolCategory import ToolCategory
-from Helpers.PhotoUpload import PhotoUpload
+from ToolCategory import ToolCategory
+from PhotoUpload import PhotoUpload
 
-from GetterSetter.Tools import Tools
-from GetterSetter.Bookings import Bookings
-from GetterSetter.User import User
+from Tools import Tools
+from Bookings import Bookings
+from User import User
 
-from CheckingFiles.CheckInputs import CheckInputs
+from CheckInputs import CheckInputs
 
 
 
@@ -75,7 +75,7 @@ class Menu:
 
         newUser = None
         
-        userManager = UserManager(self.databaseFilename)
+        userManager = UserManager(self.registeredUser, self.databaseFilename)
 
         username = input("Please sign up here.\nPlease come up with an unique username:\n")
         #validateUN = CheckInputs.usernameUnique(newUser, username)
@@ -156,7 +156,7 @@ class Menu:
 
         confirmUser = None
         
-        userManager = UserManager(self.databaseFilename)
+        userManager = UserManager(self.registeredUser, self.databaseFilename)
 
         username = input('Please enter the your username: ')
         password = input('Please enter the your password: ')
@@ -171,7 +171,7 @@ class Menu:
     Task: interaction with the user
     '''
 
-    def action(self, confirmUser):
+    def action(self, registeredUser):
 
         userInput = 0
         
@@ -199,25 +199,25 @@ class Menu:
             userInput = int(userInput)
     
             if (userInput == 1):
-                registeredUser = self.searchToolByName()
+                self.searchToolByName()
 
             elif (userInput == 2):
-                registeredUser = self.searchToolByCategory()
+                self.searchToolByCategory()
 
             elif (userInput == 3):
-                registeredUser = self.showFutureTools()
+                self.showFutureTools()
 
             elif (userInput == 4):
-                registeredUser = self.rentATool()
+                self.rentATool()
 
             elif (userInput == 5):
-                registeredUser = self.addATool()
+                self.addATool()
 
             elif (userInput == 6):
-                registeredUser = self.returnATool()
+                self.returnATool()
             
             elif (userInput == 7):
-                registeredUser = self.reportDamage()
+                self.reportDamage()
 
             elif(userInput == 8):
                 userInput = 'back'
@@ -234,7 +234,7 @@ class Menu:
     '''
     def searchToolByName(self):
 
-        toolManager = ToolManager(self.databaseFilename)
+        toolManager = ToolManager(self.registeredUser, self.databaseFilename)
 
         userInput = input('Please enter the name (or part of it) for the tool you are searching for: ')
 
@@ -252,7 +252,7 @@ class Menu:
     '''
     def searchToolByCategory(self):
 
-        toolManager = ToolManager(self.databaseFilename)
+        toolManager = ToolManager(self.registeredUser, self.databaseFilename)
 
         search_criteria = ToolCategory.getToolCatFromUser()
 
@@ -270,7 +270,7 @@ class Menu:
     '''
     def showFutureTools(self):
 
-        toolManager = ToolManager(self.databaseFilename)
+        toolManager = ToolManager(self.registeredUser, self.databaseFilename)
 
         # specify future
         range_start = datetime.now()
@@ -318,7 +318,7 @@ class Menu:
     '''
     def rentATool(self):
 
-        toolManager = ToolManager(self.databaseFilename)
+        toolManager = ToolManager(self.registeredUser, self.databaseFilename)
 
         bookingManager = BookingManager(self.databaseFilename)
 
@@ -382,7 +382,7 @@ class Menu:
     
         #newTool = None
     
-        toolManager = ToolManager(self.databaseFilename)
+        toolManager = ToolManager(self.registeredUser, self.databaseFilename)
 
         # Get new information
         tool_name = input("Please enter the full name of your tool:\n")
@@ -418,7 +418,7 @@ class Menu:
         anyPhotos = input('Would you like to upload a photo of the tool? (y/n)\n')
         while anyPhotos == 'y':
             PhotoUpload.upload()
-            anyPhotos = input('Your photo has been successfully uploaded.\n Would you like to upload another no? (y/z)\n')
+            anyPhotos = input('Your photo has been successfully uploaded.\n Would you like to upload another no? (y/n)\n')
             
         # create new tool
         
@@ -438,7 +438,7 @@ class Menu:
         while tool_id == "" or tool_id.isdigit() == False:
         	tool_id = input("Please try again:\n")
 
-        tool_id = ToolManager.loadToolId(self.registeredUser, tool_id)[1]
+        tool_id = ToolManager.loadToolId(self.registeredUser, tool_id)
 
         brokenNoteInput = input("Please describe damage to the item:\n")
         

@@ -13,7 +13,7 @@ Created: 13th January 2020
 
 from datetime import datetime
 import sqlite3
-from Helpers.DatabaseConnection import DatabaseConnection
+from DatabaseConnection import DatabaseConnection
 
 class Notes:
 

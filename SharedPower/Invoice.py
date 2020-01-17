@@ -11,7 +11,7 @@ Created: 17th November 2019
 -------------------------------------------------
 '''
 
-from Helpers.DatabaseConnection import DatabaseConnection
+from DatabaseConnection import DatabaseConnection
 
 import numpy
 import pandas
@@ -34,7 +34,7 @@ from email.mime.text import MIMEText
 class Invoice:
     
     #constructor
-    def __init__(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, databaseFilename):
+    def __init__(self, invoice_id, customer_id, customer_firstname, customer_lastname, customer_email, tool_ID, tool_name, price, duration, rental_list, format_invoice, invoice_table, databaseFilename, registeredUser):
         self.invoice_id = invoice_id
         self.customer_id = customer_id
         self.customer_firstname = customer_firstname
@@ -48,6 +48,7 @@ class Invoice:
         self.invoice_table = invoice_table
         self.format_invoice = format_invoice
         self.databaseFilename = databaseFilename
+        self.registeredUser = registeredUser
 
     '''
     Function name: getData()

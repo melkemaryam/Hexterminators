@@ -28,7 +28,7 @@ class DatabaseConnection:
         functionName = 'CreateDBConnection'
         
         try:
-            databaseConnection = sqlite3.connect(databaseFilename)
+            databaseConnection = sqlite3.connect('SharedPower.db')
                 
         except Error as e:
             print(__name__, ':', functionName, ":", e)

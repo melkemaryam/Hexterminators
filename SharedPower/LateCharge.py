@@ -14,7 +14,7 @@ Created: 13th January 2020
 import datetime
 import sqlite3
 
-from Helpers.DatabaseConnection import DatabaseConnection
+from DatabaseConnection import DatabaseConnection
 
 class LateCharge:
 
@@ -24,22 +24,17 @@ class LateCharge:
 
     def checkIfLate(self, book_id):
         return_date = datetime.datetime.today()
-        actual_booking = []
         charge_ratio = 2
-        databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+        databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
         cursor = databaseConnection.cursor()
-        cursor.execute('SELECT date FROM Bookings WHERE book_id = ?', book_id,)
-        booking_dates = cursor.fetchall()
-
-        for booking_dates in len(booking_dates):
-            actual_booking.append(booking_dates)
-        #checks which dates belong to the booking
-
-        late_days = (return_date - max(actual_booking)).days
+        cursor.execute('SELECT end_date FROM Bookings WHERE book_id = ?', book_id,)
+        booking_dates = cursor.fetchone()
+        #late_days = 1
+        late_days = (return_date - booking_dates).days
         #counts how many days overdue
         late_charge = charge_ratio * late_days
         #adds the ratio for later calculation
 
-        DatabaseConnection.CloseDBConnection(self.databaseFilename)
+        DatabaseConnection.CloseDBConnection(databaseConnection)
         
         return late_charge

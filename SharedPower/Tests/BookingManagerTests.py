@@ -21,17 +21,17 @@ from GetterSetter.Bookings import Bookings
 class BookingManagerTests:
 
     # Test the Search Future Bookings 
-    def TestSearchFutureBookings(self, database_path):
+    def TestSearchFutureBookings(self, databasefilename):
 
         function_name   = 'TestSearchFutureBookings'
 
         try:
 
             # Get a tool from the tool manager
-            toolManager = ToolManager(database_path)
+            toolManager = ToolManager(databasefilename)
             test_tool = toolManager.loadToolId(1)
 
-            bookingManager = BookingManager(database_path)
+            bookingManager = BookingManager(databasefilename)
 
             futureBookings = bookingManager.searchFutureBookings(test_tool)
 

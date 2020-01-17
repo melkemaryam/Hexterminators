@@ -14,15 +14,16 @@ Created: 3rd January 2020
 from datetime import datetime
 from sqlite3 import Error
 
-from GetterSetter.Bookings import Bookings
-from GetterSetter.Tools import Tools
-from GetterSetter.User import User     
+from Bookings import Bookings
+from Tools import Tools
+from User import User     
 
-from Managers.ToolManager import ToolManager
+from ToolManager import ToolManager
+from UserManager import UserManager
 
-from Helpers.DatabaseConnection import DatabaseConnection
+from DatabaseConnection import DatabaseConnection
 
-from CheckingFiles.LateCharge import LateCharge
+from LateCharge import LateCharge
 
 class BookingManager:
 
@@ -36,7 +37,7 @@ class BookingManager:
     Task: create a booking for a tool in the DB
     '''
 
-    def createBooking(self, tool, user):
+    def createBooking(self, tool, returnedUser):
 
         functionName = 'createBooking'
 
@@ -47,8 +48,8 @@ class BookingManager:
             cursor = databaseConnection.cursor()
 
             # get IDs
-            tool_id = Tools.getId(self.databaseFilename)
-            cust_id = User.getId(self.databaseFilename)
+            cust_id = UserManager.LoadUserId(self, returnedUser)
+            tool_id = Tools.getId(tool)
 
             cursor.execute('INSERT INTO Bookings (tool_id, cust_id) VALUES (?, ?)', (tool_id, cust_id,)) 
 
@@ -56,7 +57,7 @@ class BookingManager:
 
             book_id = cursor.lastrowid
 
-            returnedBooking = Bookings(book_id, tool, user)
+            returnedBooking = Bookings(book_id, tool, returnedUser)
             
             # Diconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
@@ -73,7 +74,7 @@ class BookingManager:
     Task: search for future bookings for the user
     '''
 
-    def searchFutureBookings(self, user):
+    def searchFutureBookings(self, registeredUser):
 
         functionName = 'SearchFutureBookings'
 
@@ -82,11 +83,10 @@ class BookingManager:
         
         try:
 
-            toolManager = ToolManager(self.databaseFilename)
+            toolManager = ToolManager(self.databaseFilename, registeredUser)
             start_date = datetime.now()
-
-            # get ID
-            cust_id = user.getId()
+            cust_id = #'1'
+            
 
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
@@ -106,7 +106,7 @@ class BookingManager:
                 tool = toolManager.loadToolId(tool_id)
 
                 # create booking
-                singleBooking = Booking(book_id, tool, user)
+                singleBooking = Booking(book_id, tool, registeredUser)
 
                 RetBookingList.append(singleBooking)
             
@@ -133,10 +133,10 @@ class BookingManager:
         try:
             
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Bookings SET availability = 0 WHERE tool_id = ?', (tool_id,))
+            cursor.execute('UPDATE Tools SET available = 0 WHERE tool_id = ?', (tool_id,))
 
             databaseConnection.commit()
 
@@ -160,7 +160,7 @@ class BookingManager:
         try:
             
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
             cursor.execute('UPDATE Bookings SET note_out = ? WHERE book_id = ?', (brokenNoteInput, book_id,))
@@ -189,10 +189,10 @@ class BookingManager:
         try:
             
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
-            cursor.execute('UPDATE Bookings SET late_charge = ? WHERE book_id = ?', (late_charge, book_id,))
+            cursor.execute('UPDATE Bookings SET late_return = ? WHERE book_id = ?', (late_charge, book_id,))
 
             databaseConnection.commit()
 

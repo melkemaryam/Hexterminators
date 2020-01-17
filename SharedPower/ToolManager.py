@@ -15,22 +15,23 @@ from datetime import datetime
 from datetime import timedelta
 from sqlite3 import Error
 
-from Managers.UserManager import UserManager
+from UserManager import UserManager
 
-from GetterSetter.User import User
-from GetterSetter.Tools import Tools
+from User import User
+from Tools import Tools
 
-from Helpers.ToolCategory import ToolCategory
-from Helpers.DatabaseConnection import DatabaseConnection
+from ToolCategory import ToolCategory
+from DatabaseConnection import DatabaseConnection
 
-from CheckingFiles.AvailabilityChecker import AvailabilityChecker
+from AvailabilityChecker import AvailabilityChecker
 
 
 class ToolManager:
 
     # Constructor
-    def __init__(self, databaseFilename):
+    def __init__(self, registeredUser, databaseFilename):
         self.databaseFilename = databaseFilename
+        self.registeredUser = registeredUser
 
     '''
     Function name: loadToolId()
@@ -45,10 +46,8 @@ class ToolManager:
         
         try:
             
-            userManager = UserManager(self.databaseFilename)
-
             # Connecting to the DB
-            databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
+            databaseConnection = DatabaseConnection.CreateDBConnection('SharedPower.db')
             cursor = databaseConnection.cursor()
 
             cursor.execute("SELECT cust_id, tool_id, tool_name, tool_desc, tool_cat, price, half_price  FROM Tools WHERE tool_id = ?", (tool_id,))
@@ -57,19 +56,16 @@ class ToolManager:
 
             if (tool_row != None):
            
-                tool_id = tool_row[0]
-                cust_id = tool_row[1]
+                tool_id = tool_row[1]
+                cust_id = tool_row[0]
                 tool_name = tool_row[2]
                 tool_desc = tool_row[3]
                 tool_cat = tool_row[4]
                 price = tool_row[5]
                 halfDayPrice = tool_row[6]
 
-                # get user ID
-                user = userManager.LoadUserId(cust_id)
-
                 # create tool
-                returnedTool = Tools(tool_id, user, tool_name, tool_desc, tool_cat, price, halfDayPrice)
+                returnedTool = Tools(tool_id, cust_id, tool_name, tool_desc, tool_cat, price, halfDayPrice)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
@@ -93,9 +89,7 @@ class ToolManager:
         returnedTool = None
         
         try:
-            
-            userManager = UserManager(self.databaseFilename)
-
+           
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
@@ -106,19 +100,16 @@ class ToolManager:
 
             if (tool_row != None):
            
-                tool_id = tool_row[0]
-                cust_id = tool_row[1]
+                tool_id = tool_row[1]
+                cust_id = tool_row[0]
                 tool_name = tool_row[2]
                 tool_desc = tool_row[3]
                 tool_cat = tool_row[4]
                 price = tool_row[5]
                 halfDayPrice = tool_row[6]
 
-                # get user ID
-                user = userManager.LoadUserId(cust_id)
-
                 # create tool
-                returnedTool = Tools(tool_id, user, tool_name, tool_desc, tool_cat, price, halfDayPrice)
+                returnedTool = Tools(tool_id, cust_id, tool_name, tool_desc, tool_cat, price, halfDayPrice)
             
             # Disconnecting from the DB
             DatabaseConnection.CloseDBConnection(databaseConnection)
@@ -135,7 +126,7 @@ class ToolManager:
     Function name: searchToolByName()
     Task: search a tool in a DB by name
     '''
-    def searchToolByName(self, search_criteria):
+    def searchToolByName(self, tool_name):
 
         functionName = 'searchToolByName'
 
@@ -143,17 +134,12 @@ class ToolManager:
         returnedToolList = []
         
         try:
-            
-            start_date = datetime.now()
-            search_criteria = '%' + search_criteria + '%'
-
-            userManager = UserManager(self.databaseFilename)
-
+           
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_start, tool_duration, tool_cat, price FROM Tools WHERE tool_start > ? AND tool_name LIKE ?", (start_date, search_criteria,))
+            cursor.execute("SELECT tool_id, cust_id, tool_name, tool_cat, price FROM Tools WHERE tool_name LIKE ?", ( tool_name,))
 
             tool_rows = cursor.fetchall()
 
@@ -162,16 +148,11 @@ class ToolManager:
                 tool_id = tool[0]
                 cust_id = tool[1]
                 tool_name = tool[2]
-                tool_start = datetime.strptime(tool[3], '%Y-%m-%d %H:%M:%S')
-                tool_duration = tool[4]
-                tool_cat = tool[5]
-                price = tool[6]
-
-                # get user ID
-                user = userManager.LoadUserId(cust_id)
+                tool_cat = tool[3]
+                price = tool[4]
 
                 # create tool
-                single_tool = tool(tool_id, user, tool_name, tool_start, tool_duration, tool_cat, price)
+                single_tool = tool(tool_id, cust_id, tool_name, tool_cat, price)
 
                 returnedToolList.append(single_tool)
             
@@ -199,10 +180,7 @@ class ToolManager:
         
         try:
 
-            # specify start date
-            start_date = datetime.now()
-
-            userManager = UserManager(self.databaseFilename)
+            userManager = UserManager(self.registeredUser, self.databaseFilename)
 
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
@@ -257,7 +235,7 @@ class ToolManager:
             # calculationg range_end
             range_end = range_start + timedelta(days = range_end_days)  
 
-            userManager = UserManager(self.databaseFilename)
+            userManager = UserManager(self.registeredUser, self.databaseFilename)
 
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
@@ -308,18 +286,16 @@ class ToolManager:
         try:
             
             # get ID
-            cust_id = User.getId(self.databaseFilename)
+            cust_id = #'1'
+            tool_id = #'33'
 
             # Connecting to the DB
             databaseConnection = DatabaseConnection.CreateDBConnection(self.databaseFilename)
             cursor = databaseConnection.cursor()
 
-            cursor.execute('INSERT INTO Tools (cust_id, tool_name, tool_cat, tool_desc, price, half_price) VALUES (?, ?, ?, ?, ?, ?)', (cust_id, tool_name, tool_cat.value, tool_desc, price, halfDayPrice,))
+            cursor.execute('INSERT INTO Tools (tool_id, cust_id, tool_name, tool_cat, tool_desc, price, half_price) VALUES (?, ?, ?, ?, ?, ?, ?)', (tool_id, cust_id, tool_name, tool_cat, tool_desc, price, halfDayPrice,))
 
             databaseConnection.commit()
-
-            # get ID
-            tool_id = cursor.lastrowid
 
             # create tool object
             returnedTool = Tools(tool_id, user, tool_name, tool_cat, tool_desc, price, halfDayPrice)
