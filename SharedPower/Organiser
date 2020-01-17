@@ -31,13 +31,6 @@ libraries to install:
 - re
 
 
-Links:
-- https://www.pythonforbeginners.com/code-snippets-source-code/script-password-generator/
-
-
-# please write down all the methods within these classes so we know what we have
-
-
 Availability Checker:
 - date_generator()
 - get_availability()
@@ -60,7 +53,7 @@ Invoice:
 
 
 Interface:
-- checkAccount(): checks whether a user/owner has an account, also sign in and sign up
+- checkAccount()
     - signIn()
     - signUp()
 
