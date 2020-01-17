@@ -33,7 +33,7 @@ try:
         userInput = None
         while (userInput != 'back'):
 
-            action_choice = menu.action()
+            action_choice = menu.action(confirmUser)
         
 
     print('Thank you for Sharing your Power. Good bye.')

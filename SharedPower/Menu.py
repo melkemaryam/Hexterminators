@@ -171,7 +171,7 @@ class Menu:
     Task: interaction with the user
     '''
 
-    def action(self):
+    def action(self, confirmUser):
 
         userInput = 0
         
